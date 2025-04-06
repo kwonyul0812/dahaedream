@@ -16,7 +16,17 @@
 
 <c:import url="/WEB-INF/fragment/navbar.jsp"/>
 
-홈페이지
+
+<div class="d-flex">
+    <c:import url="/WEB-INF/fragment/mypagebar.jsp"/>
+
+    <div style="flex-grow: 1; height: 500px">
+        <c:import url="/WEB-INF/fragment/pointbar.jsp"/>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <h4 class="text-center mt-5 mb-5">포인트 내역</h4>
+        </div>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
