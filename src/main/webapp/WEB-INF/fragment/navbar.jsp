@@ -1,6 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+            crossorigin="anonymous"></script>
+    <title></title>
 
-
+</head>
+<body>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -29,9 +43,9 @@
                         의뢰자
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">의뢰글 쓰기</a></li>
-                        <li><a class="dropdown-item" href="#">의뢰수락 요청</a></li>
-                        <li><a class="dropdown-item" href="#">의뢰 내역</a></li>
+                        <li><a class="dropdown-item" href="/client/add">의뢰글 쓰기</a></li>
+                        <li><a class="dropdown-item" href="/client/request">의뢰수락 요청</a></li>
+                        <li><a class="dropdown-item" href="/client/list">의뢰 내역</a></li>
                     </ul>
                 </li>
             </ul>
@@ -54,3 +68,7 @@
         </div>
     </div>
 </nav>
+
+
+</body>
+</html>
