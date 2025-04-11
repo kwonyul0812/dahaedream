@@ -24,6 +24,30 @@
         <c:import url="/WEB-INF/fragment/pointbar.jsp"/>
         <div class="d-flex flex-column justify-content-center align-items-center">
             <h4 class="text-center mt-5 mb-5">내가 받은 리뷰</h4>
+
+            <div class="w-75">
+                <table class="table text-center">
+                    <thead>
+                    <tr>
+                        <th class="w-20">작성자</th>
+                        <th class="w-50">내용</th>
+                        <th class="w-25">별점</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>홍길동</td>
+                        <td>친절하게 알려주셨어요</td>
+                        <td>★★★★★</td>
+                    </tr>
+                    <tr>
+                        <td>김길동</td>
+                        <td>너무 친절해요</td>
+                        <td>★★★★★</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

@@ -11,6 +11,8 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -20,7 +22,7 @@
 <div class="d-flex">
     <c:import url="/WEB-INF/fragment/mypagebar.jsp"/>
 
-    <div style="flex-grow: 1; height: 500px">
+    <div style="flex-grow: 1;">
         <c:import url="/WEB-INF/fragment/pointbar.jsp"/>
         <div class="d-flex flex-column justify-content-center align-items-center">
             <h4 class="text-center mt-5 mb-5">회원정보</h4>
@@ -34,7 +36,7 @@
                 <input type="text" class="form-control" id="nickName" value="홍길동">
                 <label for="nickName">닉네임</label>
             </div>
-            <button class="btn btn-primary mt-4">회원정보 수정</button>
+            <a href="/mypage/memberModify" class="btn btn-primary mt-4" role="button">회원정보 수정</a>
         </div>
     </div>
 </div>

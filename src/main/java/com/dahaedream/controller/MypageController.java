@@ -11,6 +11,11 @@ public class MypageController {
         return "mypage/member";
     }
 
+    @GetMapping("/mypage/memberModify")
+    public String memberModify() {
+        return "mypage/memberModify";
+    }
+
     @GetMapping("/mypage/receivedReview")
     public String receivedReview() {
         return "mypage/receivedReview";
