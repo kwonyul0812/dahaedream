@@ -17,7 +17,7 @@
 
 <c:import url="/WEB-INF/fragment/navbar.jsp"/>
 
-<div class="bg-light rounded mx-auto" style="width: 700px; margin-top: 30px">
+<div class="mx-auto" style="width: 700px; margin-top: 30px">
     <form action="/login" method="post" class="p-4">
         <h4 class="text-center mb-4">회원가입</h4>
 
@@ -25,7 +25,7 @@
             <input type="text" class="form-control" placeholder="이메일">
             <span class="input-group-text">@</span>
             <input type="text" class="form-control">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon1">이메일 인증</button>
+            <button class="btn btn-outline-secondary" type="button" id="emailConfirm">이메일 인증</button>
         </div>
         <div class="input-group mb-3">
             <input type="password" class="form-control" placeholder="비밀번호">
@@ -35,10 +35,11 @@
         </div>
         <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="닉네임">
+            <button class="btn btn-outline-secondary" type="button" id="checkDuplication">중복 확인</button>
         </div>
         <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="주소">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2">주소 찾기</button>
+            <button class="btn btn-outline-secondary" type="button" id="searchAddress">주소 찾기</button>
         </div>
         <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="핸드폰">

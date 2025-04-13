@@ -49,7 +49,7 @@
             <input type="text" class="form-control" value="2063">
         </div>
         <div class="text-end">
-            <button type="submit" class="btn btn-primary">가입</button>
+            <button type="submit" class="btn btn-primary">수정</button>
         </div>
     </form>
 </div>

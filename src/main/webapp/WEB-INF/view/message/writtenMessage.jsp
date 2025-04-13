@@ -18,38 +18,41 @@
 
 
 <div class="d-flex">
-    <c:import url="/WEB-INF/fragment/mypagebar.jsp"/>
+    <c:import url="/WEB-INF/fragment/messagebar.jsp"/>
 
     <div style="flex-grow: 1; height: 500px">
-        <c:import url="/WEB-INF/fragment/pointbar.jsp"/>
         <div class="d-flex flex-column justify-content-center align-items-center">
-            <h4 class="text-center mt-5 mb-5">포인트 내역</h4>
+            <h4 class="text-center mt-5 mb-5">보낸 쪽지</h4>
 
             <div class="w-75">
                 <table class="table text-center">
                     <thead>
                     <tr>
-                        <th class="w-20">대상</th>
-                        <th class="w-20">거래 포인트</th>
-                        <th class="w-20">날짜</th>
-                        <th class="w-20">유형</th>
-                        <th class="w-20">잔액</th>
+                        <th class="w-20">받는 사람</th>
+                        <th class="w-50">제목</th>
+                        <th class="w-25">날짜</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
                         <td>홍길동</td>
-                        <td>30000</td>
-                        <td>25-03-31</td>
-                        <td>출금</td>
-                        <td>60000</td>
+                        <td>테스트 제목 1</td>
+                        <td>25-04-14</td>
                     </tr>
                     <tr>
-                        <td>길동무</td>
-                        <td>20000</td>
-                        <td>25-03-30</td>
-                        <td>입금</td>
-                        <td>90000</td>
+                        <td>김아무개</td>
+                        <td>테스트 제목 2</td>
+                        <td>25-04-11</td>
+                    </tr>
+                    <tr>
+                        <td>김땡떙</td>
+                        <td>테스트 제목 3</td>
+                        <td>25-04-10</td>
+                    </tr>
+                    <tr>
+                        <td>김길동</td>
+                        <td>테스트 제목 4</td>
+                        <td>25-04-09</td>
                     </tr>
                     </tbody>
                 </table>

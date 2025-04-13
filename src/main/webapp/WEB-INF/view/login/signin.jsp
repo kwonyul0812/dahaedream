@@ -31,7 +31,7 @@
 
 <c:import url="/WEB-INF/fragment/navbar.jsp"/>
 
-<div class="bg-light rounded mx-auto" style="width: 500px; height: 380px; margin-top: 100px">
+<div class="mx-auto" style="width: 500px; height: 380px; margin-top: 100px">
     <form action="/login" method="post" class="p-4">
         <h4 class="text-center mb-4">로그인</h4>
 
