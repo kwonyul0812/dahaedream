@@ -37,15 +37,15 @@
             </ul>
 
 
-            <a class="navbar-brand mx-auto" href="#">로고</a>
+            <a class="navbar-brand mx-auto" href="/">로고</a>
 
 
             <ul class="navbar-nav d-flex flex-row">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">마이페이지</a>
+                    <a class="nav-link active" aria-current="page" href="/mypage/member">마이페이지</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">쪽지</a>
+                    <a class="nav-link active" aria-current="page" href="/message/received">쪽지</a>
                 </li>
                 <li>
                     <a href="/login" class="btn btn-sm btn-outline-secondary" role="button">로그인</a>
