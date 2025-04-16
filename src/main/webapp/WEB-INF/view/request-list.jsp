@@ -22,7 +22,7 @@
 
 <div class="container py-5">
     <h1 class="mb-4 text-center">의뢰목록</h1>
-    <button class="btn btn-outline-primary">의뢰하러가기</button>
+    <button class="btn btn-outline-primary" onclick="location.href='/client/add'">의뢰하러가기</button>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
         <div class="col">
@@ -35,7 +35,7 @@
                     <p class="card-text"><strong>의뢰자:</strong>홍길동</p>
                 </div>
                 <div class="card-footer p-0">
-                    <button class="btn btn-outline-primary">자세히 보기</button>
+                    <button class="btn btn-outline-primary" onclick="location.href='/client/info'">자세히 보기</button>
                 </div>
             </div>
         </div>
