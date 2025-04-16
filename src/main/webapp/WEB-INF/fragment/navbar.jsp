@@ -6,11 +6,6 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
-            crossorigin="anonymous"></script>
     <title></title>
 
 </head>
@@ -25,7 +20,7 @@
 
             <ul class="navbar-nav d-flex flex-row">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">의뢰목록</a>
+                    <a class="nav-link active" aria-current="page" href="/request/list">의뢰목록</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -33,8 +28,8 @@
                         해결사
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">수락 대기중인 목록</a></li>
-                        <li><a class="dropdown-item" href="#">수락한 의뢰</a></li>
+                        <li><a class="dropdown-item" href="/solver/send">수락 대기중인 목록</a></li>
+                        <li><a class="dropdown-item" href="/solver/list">수락한 의뢰</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -50,9 +45,7 @@
                 </li>
             </ul>
 
-
             <a class="navbar-brand mx-auto" href="/">로고</a>
-
 
             <ul class="navbar-nav d-flex flex-row">
                 <li class="nav-item">

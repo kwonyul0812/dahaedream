@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
-    <title>수락한 의뢰</title>
+    <title>의뢰목록</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -18,11 +18,11 @@
 </head>
 <body class="bg-light">
 
-<jsp:include page="../../fragment/navbar.jsp"/>
+<jsp:include page="../fragment/navbar.jsp"/>
 
 <div class="container py-5">
-    <h1 class="mb-4 text-center">수락한 의뢰</h1>
-
+    <h1 class="mb-4 text-center">의뢰목록</h1>
+    <button class="btn btn-outline-primary">의뢰하러가기</button>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
         <div class="col">
@@ -30,7 +30,6 @@
                 <img src="" class="card-img-top" alt="썸네일 이미지">
                 <div class="card-body">
                     <h5 class="card-title">수영 알려주실 분</h5>
-                    <p class="card-text"><strong>상태:</strong>완료</p>
                     <p class="card-text"><strong>30000P</strong></p>
                     <p class="card-text"><strong>기간:</strong>주1회</p>
                     <p class="card-text"><strong>의뢰자:</strong>홍길동</p>
@@ -44,7 +43,6 @@
                 <img src="" class="card-img-top" alt="썸네일 이미지">
                 <div class="card-body">
                     <h5 class="card-title">요리 알려주실 분</h5>
-                    <p class="card-text"><strong>상태:</strong> 진행중</p>
                     <p class="card-text"><strong>50000P</strong></p>
                     <p class="card-text"><strong>기간:</strong>3일</p>
                     <p class="card-text"><strong>의뢰자:</strong>홍길동</p>
