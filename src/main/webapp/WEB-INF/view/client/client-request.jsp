@@ -42,7 +42,7 @@
                                 onclick="prepareModal('홍길동', 30000)">
                             수락
                         </button>
-                        <button class="btn btn-outline-primary">쪽지 보내기</button>
+                        <button class="btn btn-outline-primary" onclick="location.href='/message/write'">쪽지 보내기</button>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                                 onclick="prepareModal('홍길동', 30000)">
                             수락
                         </button>
-                        <button class="btn btn-outline-primary">쪽지 보내기</button>
+                        <button class="btn btn-outline-primary" onclick="location.href='/message/write'">쪽지 보내기</button>
                     </div>
                 </div>
             </div>
@@ -108,7 +108,7 @@
         const target = document.getElementById('modalTarget').textContent;
         const point = document.getElementById('modalPoint').textContent;
 
-        alert(`${target}님에게 ${point}P 결제 처리되었습니다!`);
+        alert(target+'님에게'+ point+'P 결제 처리되었습니다!');
 
         // 실제 서버 처리로직이 들어갈 수 있음
 

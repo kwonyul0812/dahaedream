@@ -37,8 +37,8 @@
                 </div>
                 <div class="card-footer p-0">
                     <div class="btn-group w-100" role="group">
-                        <button class="btn btn-outline-primary">수락</button>
-                        <button class="btn btn-outline-danger">취소</button>
+                        <button class="btn btn-outline-primary" onclick="location.href='/message/write'">쪽지보내기</button>
+                        <button class="btn btn-outline-danger" onclick="fnCancel()">취소</button>
                     </div>
                 </div>
             </div>
@@ -55,8 +55,8 @@
                 </div>
                 <div class="card-footer p-0">
                     <div class="btn-group w-100" role="group">
-                        <button class="btn btn-outline-primary">수락</button>
-                        <button class="btn btn-outline-danger">취소</button>
+                        <button class="btn btn-outline-primary" onclick="location.href='/message/write'">쪽지보내기</button>
+                        <button class="btn btn-outline-danger" onclick="fnCancel()">취소</button>
                     </div>
                 </div>
             </div>
@@ -68,3 +68,11 @@
 
 </body>
 </html>
+<script>
+    function fnCancel() {
+        if(confirm('취소하시겠습니까?')) {
+            alert('취소하였습니다.');
+        }
+
+    }
+</script>

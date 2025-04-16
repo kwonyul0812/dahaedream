@@ -27,14 +27,14 @@
                     <h3 class="mb-0">의뢰하기</h3>
                 </div>
                 <div class="card-body">
-                    <form>
+
                         <div class="mb-3">
                             <label class="form-label">제목</label>
                             <input type="text" class="form-control" placeholder="제목을 입력하세요">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">하는 일</label>
-                            <input type="text" class="form-control" placeholder="예: 디자인, 개발 등">
+                            <input type="text" class="form-control" placeholder="예: 강습 등">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">진행 방법</label>
@@ -69,9 +69,9 @@
                             <input type="text" class="form-control" placeholder="장소 주소를 입력하세요">
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-success px-4">제출하기</button>
+                            <button class="btn btn-success px-4" onclick="fnSubmit()">의뢰 하기</button>
                         </div>
-                    </form>
+
                 </div>
             </div>
         </div>
@@ -80,3 +80,13 @@
 
 </body>
 </html>
+
+<script>
+    function fnSubmit(){
+        if(confirm('의뢰 하시겠습니까?')) {
+            alert('등록되었습니다.');
+            location.href='/request/list';
+        }
+    }
+
+</script>

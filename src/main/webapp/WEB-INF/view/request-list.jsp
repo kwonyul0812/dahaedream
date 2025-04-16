@@ -35,6 +35,7 @@
                     <p class="card-text"><strong>의뢰자:</strong>홍길동</p>
                 </div>
                 <div class="card-footer p-0">
+                    <button class="btn btn-outline-primary">자세히 보기</button>
                 </div>
             </div>
         </div>
@@ -48,6 +49,7 @@
                     <p class="card-text"><strong>의뢰자:</strong>홍길동</p>
                 </div>
                 <div class="card-footer p-0">
+                    <button class="btn btn-outline-primary" onclick="location.href='/client/info'">자세히 보기</button>
                 </div>
             </div>
         </div>
