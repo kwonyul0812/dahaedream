@@ -35,7 +35,7 @@
                 </div>
                 <div class="card-footer p-0">
                     <div class="btn-group w-100" role="group">
-                        <button class="btn btn-outline-secondary">취소</button>
+                        <button class="btn btn-outline-secondary" onclick="fnCancel()">취소</button>
                         <button class="btn btn-outline-success"
                                 data-bs-toggle="modal"
                                 data-bs-target="#acceptModal"
@@ -58,7 +58,7 @@
                 </div>
                 <div class="card-footer p-0">
                     <div class="btn-group w-100" role="group">
-                        <button class="btn btn-outline-secondary">취소</button>
+                        <button class="btn btn-outline-secondary" onclick="fnCancel()">취소</button>
                         <button class="btn btn-outline-success"
                                 data-bs-toggle="modal"
                                 data-bs-target="#acceptModal"
@@ -115,6 +115,12 @@
         // 모달 닫기
         const modal = bootstrap.Modal.getInstance(document.getElementById('acceptModal'));
         modal.hide();
+    }
+
+    function fnCancel() {
+        if(confirm('취소하시겠습니까?')) {
+            alert('취소되었습니다.');
+        }
     }
 </script>
 
