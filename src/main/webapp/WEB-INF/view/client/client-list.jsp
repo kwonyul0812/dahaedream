@@ -34,8 +34,8 @@
                 </div>
                 <div class="card-footer p-0">
                     <div class="btn-group w-100" role="group">
-                        <button class="btn btn-outline-primary">수정</button>
-                        <button class="btn btn-outline-danger">삭제</button>
+                        <button class="btn btn-outline-primary" onclick="location.href='/client/info'">수정</button>
+                        <button class="btn btn-outline-danger" onclick="fnDelete()">삭제</button>
                     </div>
                 </div>
             </div>
@@ -49,8 +49,8 @@
                 </div>
                 <div class="card-footer p-0">
                     <div class="btn-group w-100" role="group">
-                        <button class="btn btn-outline-primary">수정</button>
-                        <button class="btn btn-outline-danger">삭제</button>
+                        <button class="btn btn-outline-primary" onclick="location.href='/client/info'">수정</button>
+                        <button class="btn btn-outline-danger" onclick="fnDelete()">삭제</button>
                     </div>
                 </div>
             </div>
@@ -62,3 +62,13 @@
 
 </body>
 </html>
+<script>
+    function fnDelete() {
+
+        if(confirm('삭제할까요?')) {
+            alert('삭제되었습니다.');
+        }
+
+    }
+
+</script>

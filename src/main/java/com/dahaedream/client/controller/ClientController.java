@@ -17,8 +17,12 @@ public class ClientController {
     }
 
     @GetMapping("/client/list")
-    public String client() {
+    public String clientInfo() {
         return "/client/client-list";
+    }
+    @GetMapping("/client/info")
+    public String client() {
+        return "/client/client-info";
     }
 }
 
