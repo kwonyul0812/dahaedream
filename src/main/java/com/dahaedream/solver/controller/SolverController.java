@@ -9,4 +9,8 @@ public class SolverController {
     public String list() {
         return "/solver/solver-list";
     }
+    @GetMapping("/solver/send")
+    public String send() {
+        return "/solver/solver-send";
+    }
 }

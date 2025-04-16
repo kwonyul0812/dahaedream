@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
-    <title>수락한 의뢰</title>
+    <title>수락대기중 의뢰</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -21,7 +21,7 @@
 <jsp:include page="../../fragment/navbar.jsp"/>
 
 <div class="container py-5">
-    <h1 class="mb-4 text-center">수락한 의뢰</h1>
+    <h1 class="mb-4 text-center">수락대기중 의뢰</h1>
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
@@ -36,6 +36,10 @@
                     <p class="card-text"><strong>의뢰자:</strong>홍길동</p>
                 </div>
                 <div class="card-footer p-0">
+                    <div class="btn-group w-100" role="group">
+                        <button class="btn btn-outline-primary">수락</button>
+                        <button class="btn btn-outline-danger">취소</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -50,6 +54,10 @@
                     <p class="card-text"><strong>의뢰자:</strong>홍길동</p>
                 </div>
                 <div class="card-footer p-0">
+                    <div class="btn-group w-100" role="group">
+                        <button class="btn btn-outline-primary">수락</button>
+                        <button class="btn btn-outline-danger">취소</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -11,4 +11,8 @@ public class HomeController {
     public String home() {
         return "home";
     }
+    @GetMapping("/request/list")
+    public String requestList() {
+        return "request-list";
+    }
 }
