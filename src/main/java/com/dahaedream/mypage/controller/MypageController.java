@@ -1,4 +1,4 @@
-package com.dahaedream.mypage;
+package com.dahaedream.mypage.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
