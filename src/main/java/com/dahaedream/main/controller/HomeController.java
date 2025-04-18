@@ -1,4 +1,4 @@
-package com.dahaedream.main;
+package com.dahaedream.main.controller;
 
 
 import org.springframework.stereotype.Controller;
