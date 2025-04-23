@@ -1,4 +1,4 @@
-package com.dahaedream.message.controller;
+package com.dahaedream.message;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
