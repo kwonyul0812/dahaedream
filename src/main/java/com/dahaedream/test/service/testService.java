@@ -17,4 +17,8 @@ public class testService {
     public List<testDto> getData() {
         return mapper.findAll();
     }
+
+    public List<testDto> findAjaxData() {
+        return mapper.findAjax();
+    }
 }
