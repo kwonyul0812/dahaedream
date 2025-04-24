@@ -1,10 +1,24 @@
 package com.dahaedream.client.controller;
 
+import com.dahaedream.client.service.ClientService;
+import com.google.gson.Gson;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
 
 @Controller
+@RequiredArgsConstructor
 public class ClientController {
+
+
+    private final ClientService clientService;
 
     @GetMapping("/client/add")
     public String clientAdd() {
@@ -22,7 +36,15 @@ public class ClientController {
     }
     @GetMapping("/client/info")
     public String client() {
-        return "/client/client-info";
+        return "/client/client-info"; 
+    }
+
+    @PostMapping("/client/test.dox")
+    @ResponseBody
+    public String test(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        resultMap = clientService.selectClient(map);
+        return new Gson().toJson(resultMap);
     }
 }
 
