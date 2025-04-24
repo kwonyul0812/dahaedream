@@ -9,4 +9,5 @@ import java.util.List;
 public interface testMapper {
     // test.xml에 작성된 쿼리 실행후 데이터 받음
     List<testDto> findAll();
+    List<testDto> findAjax();
 }

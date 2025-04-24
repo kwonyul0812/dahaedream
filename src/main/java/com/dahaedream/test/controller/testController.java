@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -23,5 +24,13 @@ public class testController {
         model.addAttribute("testData", user);
 
         return "test";
+    }
+
+    @GetMapping("/test/data")
+    @ResponseBody
+    public List<testDto> testData() {
+        List<testDto> user = service.findAjaxData();
+
+        return user;
     }
 }

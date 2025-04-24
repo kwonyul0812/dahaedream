@@ -7,6 +7,9 @@
         SELECT id, name, email FROM test
     </select>
 
+    <select id="findAjax" resultType="com.dahaedream.test.model.testDto">
+        SELECT id, name, email FROM test WHERE name='ajax'
+    </select>
 </mapper>
 
 
