@@ -1,16 +1,17 @@
 package com.dahaedream.login.controller;
 
-import com.dahaedream.test.mapper.testMapper;
-import com.dahaedream.test.model.testDto;
+import com.dahaedream.login.model.MemberDto;
+import com.dahaedream.login.service.LoginService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
+
+    private final LoginService service;
 
     @GetMapping("/login")
     public String login() {
@@ -22,5 +23,13 @@ public class LoginController {
         return "login/signup";
     }
 
+    @PostMapping("/login/signup")
+    @ResponseBody
+    public ResponseEntity signup(@ModelAttribute MemberDto member) {
+
+        service.createMember(member);
+
+        return ResponseEntity.ok().build();
+    }
 
 }

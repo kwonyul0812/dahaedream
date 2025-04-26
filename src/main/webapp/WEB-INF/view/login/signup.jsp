@@ -33,7 +33,7 @@
             <button class="btn btn-outline-secondary" type="button" id="emailCheck">이메일 인증</button>
         </div>
         <div class="input-group mb-3">
-            <input type="password" class="form-control" id="password" placeholder="비밀번호">
+            <input type="password" class="form-control" id="password" placeholder="비밀번호 8자 이상">
         </div>
         <div class="input-group mb-3">
             <input type="password" class="form-control" id="passwordCheck" placeholder="비밀번호 확인">
@@ -60,74 +60,94 @@
 </div>
 
 <script>
-    $(function() {
-      // 이메일 앞부분: 영문, 숫자, 일부 특수문자만 허용
-      $('#emailFront').on('input', function () {
-        const value = $(this).val();
-        const filtered = value.replace(/[^a-zA-Z0-9._-]/g, ''); // 허용: . _ -
-        $(this).val(filtered);
-      });
+  $(function () {
+    // 이메일 앞부분: 영문, 숫자, 일부 특수문자만 허용
+    $('#emailFront').on('input', function () {
+      const value = $(this).val();
+      const filtered = value.replace(/[^a-zA-Z0-9._-]/g, ''); // 허용: . _ -
+      $(this).val(filtered);
+    });
 
-      // 이메일 뒷부분: 도메인 형식 (영문, 숫자, -, .)
-      $('#emailBack').on('input', function () {
-        const value = $(this).val();
-        const filtered = value.replace(/[^a-zA-Z0-9.-]/g, ''); // 허용: . -
-        $(this).val(filtered);
-      });
+    // 이메일 뒷부분: 도메인 형식 (영문, 숫자, -, .)
+    $('#emailBack').on('input', function () {
+      const value = $(this).val();
+      const filtered = value.replace(/[^a-zA-Z0-9.-]/g, ''); // 허용: . -
+      $(this).val(filtered);
+    });
 
-      // 연락처 입력란 숫자만 받도록
-      $('#phone1, #phone2, #phone3').on('input', function() {
-        const value = $(this).val();
-        const filtered = value.replace(/[^0-9]/g, '') // 숫자만 남기고 나머지 입력안되게
-        $(this).val(filtered);
-      })
+    // 연락처 입력란 숫자만 받도록
+    $('#phone1, #phone2, #phone3').on('input', function () {
+      const value = $(this).val();
+      const filtered = value.replace(/[^0-9]/g, '') // 숫자만 남기고 나머지 입력안되게
+      $(this).val(filtered);
+    })
 
-      $('#signupForm').on('submit', function(e) {
-        e.preventDefault();
+    $('#signupForm').on('submit', function (e) {
+      e.preventDefault();
 
-        const emailFront = $('#emailFront').val().trim();
-        const emailBack = $('#emailBack').val().trim();
-        const password = $('#password').val().trim();
-        const passwordCheck = $('#passwordCheck').val().trim();
-        const nickname = $('#nickname').val().trim();
-        const address = $('#address').val().trim();
-        const phone = $('#phone1').val().trim() + $('#phone2').val().trim() + $('#phone3').val().trim();
+      const emailFront = $('#emailFront').val().trim();
+      const emailBack = $('#emailBack').val().trim();
+      const password = $('#password').val().trim();
+      const passwordCheck = $('#passwordCheck').val().trim();
+      const nickname = $('#nickname').val().trim();
+      const address = $('#address').val().trim();
+      const phone = $('#phone1').val().trim() + $('#phone2').val().trim() + $('#phone3').val().trim();
 
-        if (!emailFront || !emailBack) {
-          alert('이메일을 확인해주세요.');
-          return;
-        }
+      if (!emailFront || !emailBack) {
+        alert('이메일을 확인해주세요.');
+        return;
+      }
 
-        if(password.length < 8) {
-          alert('비밀번호는 최소 8자 이상이여야 합니다.');
-          return;
-        }
+      if (password.length < 8) {
+        alert('비밀번호는 최소 8자 이상이여야 합니다.');
+        return;
+      }
 
-        if(password !== passwordCheck) {
-          alert('비밀번호가 일치하지 않습니다.');
-          return;
-        }
+      if (password !== passwordCheck) {
+        alert('비밀번호가 일치하지 않습니다.');
+        return;
+      }
 
-        if(!nickname) {
-          alert('닉네임을 확인해주세요.');
-          return;
-        }
+      if (!nickname) {
+        alert('닉네임을 확인해주세요.');
+        return;
+      }
 
-        if(!address) {
-          alert('주소를 확인해주세요.');
-          return;
-        }
+      if (!address) {
+        alert('주소를 확인해주세요.');
+        return;
+      }
 
-        if(!isValidPhoneNumber(phone)) {
-          alert('핸드폰을 확인해주세요.');
-          return;
+      if (!isValidPhoneNumber(phone)) {
+        alert('핸드폰을 확인해주세요.');
+        return;
+      }
+
+      // ajax로 비밀번호 확인 필드 제외 후 데이터 전송
+      $.ajax({
+        url: '/login/signup',
+        type: 'POST',
+        data: {
+          email: emailFront + "@" + emailBack,
+          password: password,
+          nickname: nickname,
+          address: address,
+          phone: phone
+        },
+        success: function(res) {
+          alert('전송 완료');
+        },
+        error: function(err) {
+
         }
       });
     });
-    function isValidPhoneNumber(phone) {
-      const regex = /^(01[0-9])(\d{4})(\d{4})$/;
-      return regex.test(phone);
-    }
+  });
+
+  function isValidPhoneNumber(phone) {
+    const regex = /^(01[0-9])(\d{4})(\d{4})$/;
+    return regex.test(phone);
+  }
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
