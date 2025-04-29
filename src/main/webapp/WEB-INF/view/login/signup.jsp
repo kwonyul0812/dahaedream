@@ -59,6 +59,21 @@
     </form>
 </div>
 
+<div class="modal fade" id="alertModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title w-100">알림</h5>
+            </div>
+            <div class="modal-body text-center">
+                <span id="alertText"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
   $(function () {
@@ -94,33 +109,43 @@
       const address = $('#address').val().trim();
       const phone = $('#phone1').val().trim() + $('#phone2').val().trim() + $('#phone3').val().trim();
 
+      // checkValue 가 false 이면 알림 모달띄우기
+      let checkValue = true;
+
       if (!emailFront || !emailBack) {
-        alert('이메일을 확인해주세요.');
-        return;
+        $('#alertText').text('이메일을 확인해주세요.');
+        checkValue = false;
       }
 
       if (password.length < 8) {
-        alert('비밀번호는 최소 8자 이상이여야 합니다.');
-        return;
+        $('#alertText').text('비밀번호는 최소 8자 이상이여야 합니다.');
+        checkValue = false;
       }
 
       if (password !== passwordCheck) {
-        alert('비밀번호가 일치하지 않습니다.');
-        return;
+        $('#alertText').text('비밀번호가 일치하지 않습니다.');
+        checkValue = false;
       }
 
       if (!nickname) {
-        alert('닉네임을 확인해주세요.');
-        return;
+        $('#alertText').text('닉네임을 확인해주세요.');
+        checkValue = false;
       }
 
       if (!address) {
-        alert('주소를 확인해주세요.');
-        return;
+        $('#alertText').text('주소를 확인해주세요.');
+        checkValue = false;
       }
 
       if (!isValidPhoneNumber(phone)) {
-        alert('핸드폰을 확인해주세요.');
+        $('#alertText').text('핸드폰을 확인해주세요.');
+        checkValue = false;
+      }
+
+      // checkValue 가 false이면 알림 모달 띄우고 작업중지
+      if(!checkValue) {
+        const modal = new bootstrap.Modal(document.getElementById('alertModal'));
+        modal.show()
         return;
       }
 
@@ -140,11 +165,18 @@
         },
         success: function (res) {
           // 회원가입 성공시
-          alert('회원가입 성공');
-          window.location.href = '/login';
+          $('#alertText').text('회원가입 성공');
+          const modal = new bootstrap.Modal(document.getElementById('alertModal'));
+          // 모달 닫힐 때 페이지 이동
+          $('#alertModal').one('hide.bs.modal', function () {
+            window.location.href = '/login';
+          });
+          modal.show();
         },
         error: function (err) {
-          alert('회원가입 실패');
+          $('#alertText').text('회원가입 실패');
+          const modal = new bootstrap.Modal(document.getElementById('alertModal'));
+          modal.show()
         },
         complete: function () {
           $('#signupBtn').prop('disabled', false);

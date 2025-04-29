@@ -28,6 +28,7 @@ public class LoginService {
         // 이메일 중복이 없다면 비밀번호 암호화
         member.setPassword(bCryptPasswordEncoder.encode(password));
 
+        // member 테이블에 회원정보 insert
         int result = mapper.insertMember(member);
 
         if (result == 1) {
