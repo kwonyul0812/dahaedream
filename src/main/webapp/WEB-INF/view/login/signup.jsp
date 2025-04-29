@@ -54,10 +54,11 @@
             <input type="text" class="form-control" id="phone3" maxlength="4">
         </div>
         <div class="text-end">
-            <button type="submit" class="btn btn-primary">가입</button>
+            <button type="submit" id="signupBtn" class="btn btn-primary">가입</button>
         </div>
     </form>
 </div>
+
 
 <script>
   $(function () {
@@ -123,6 +124,9 @@
         return;
       }
 
+      // 중복방지를 위해 버튼 비활성화
+      $('#signupBtn').prop('disabled', true);
+
       // ajax로 비밀번호 확인 필드 제외 후 데이터 전송
       $.ajax({
         url: '/login/signup',
@@ -134,11 +138,16 @@
           address: address,
           phone: phone
         },
-        success: function(res) {
-          alert('전송 완료');
+        success: function (res) {
+          // 회원가입 성공시
+          alert('회원가입 성공');
+          window.location.href = '/login';
         },
-        error: function(err) {
-
+        error: function (err) {
+          alert('회원가입 실패');
+        },
+        complete: function () {
+          $('#signupBtn').prop('disabled', false);
         }
       });
     });

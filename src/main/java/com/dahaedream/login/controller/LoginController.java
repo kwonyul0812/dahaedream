@@ -27,9 +27,13 @@ public class LoginController {
     @ResponseBody
     public ResponseEntity signup(@ModelAttribute MemberDto member) {
 
-        service.createMember(member);
+        int result = service.createMember(member);
 
-        return ResponseEntity.ok().build();
+        if (result == 1) {
+            return ResponseEntity.ok().build(); // 성공 응답
+        } else {
+            return ResponseEntity.badRequest().build(); // 실패 응답
+        }
     }
 
 }
