@@ -85,7 +85,7 @@
 </html>
 
 <script>
-    function fnSubmit(){
+    function fnSubmit() {
         const categoryId = document.querySelector("#categorySelect").value;
         const title = document.querySelector("#title").value;
         const onOff = document.querySelector("#onOff").value;
@@ -111,8 +111,8 @@
 
                 category.forEach(data => {
                     const option = document.createElement("option");
-                    option.categoryId = data.categoryId;
-                    option.categoryName = data.categoryName;
+                    option.value = data.categoryId;
+                    option.text = data.categoryName;
                     selectBox.appendChild(option);
                 });
             })
