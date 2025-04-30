@@ -43,5 +43,11 @@ public class ClientController {
         resultMap = clientService.insertRequest(map);
         return new Gson().toJson(resultMap);
     }
+
+    public String getRequestList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap = clientService.selectRequestList(map);
+        return new Gson().toJson(resultMap);
+    }
 }
 

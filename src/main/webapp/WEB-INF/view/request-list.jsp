@@ -60,3 +60,12 @@
 
 </body>
 </html>
+
+<script>
+    function getRequestList() {
+        fetch("")
+    }
+
+    getRequestList();
+
+</script>

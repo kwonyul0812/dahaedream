@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +17,14 @@ public class ClientService {
     public HashMap<String, Object> insertRequest(HashMap<String, Object> map) {
         HashMap<String, Object> resultMap = new HashMap<>();
         clientMapper.insertRequest(map);
+        resultMap.put("result", "success");
+        return resultMap;
+    }
+
+    public HashMap<String, Object> selectRequestList(HashMap<String, Object> map) {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        List<Client> requestList =  clientMapper.selectRequestList(map);
+        resultMap.put("list", requestList);
         resultMap.put("result", "success");
         return resultMap;
     }

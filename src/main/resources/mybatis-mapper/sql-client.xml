@@ -8,4 +8,7 @@
         INSERT INTO REQUEST VALUES (null, 1, #{categoryId}, #{title}, #{onOff}, #{price}, null, #{content}, NOW(), '대기중')
     </insert>
 
+    <select id="selectRequestList" parameterType="hashmap" resultType="com.dahaedream.client.model.Client">
+        SELECT * FROM REQUEST
+    </select>
 </mapper>
