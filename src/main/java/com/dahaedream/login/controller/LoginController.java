@@ -1,26 +1,49 @@
 package com.dahaedream.login.controller;
 
-import com.dahaedream.test.mapper.testMapper;
-import com.dahaedream.test.model.testDto;
+import com.dahaedream.login.model.MemberDto;
+import com.dahaedream.login.service.LoginService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
+
+    private final LoginService service;
 
     @GetMapping("/login")
     public String login() {
         return "login/signin";
     }
 
+//    @PostMapping("/login")
+//    @ResponseBody
+//    public ResponseEntity login(@ModelAttribute MemberDto dto) {
+//
+////        System.out.println(dto.getEmail());
+//
+//        return ResponseEntity.ok().build();
+//    }
+
     @GetMapping("/login/signup")
     public String signup() {
         return "login/signup";
     }
 
+    @PostMapping("/login/signup")
+    @ResponseBody
+    public ResponseEntity signup(@ModelAttribute MemberDto member) {
+
+        int result = service.createMember(member);
+
+        if (result == 1) {
+            return ResponseEntity.ok().build(); // 성공 응답gownj
+
+        } else {
+            return ResponseEntity.badRequest().build(); // 실패 응답
+        }
+    }
 
 }
