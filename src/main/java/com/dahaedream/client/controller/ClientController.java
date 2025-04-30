@@ -44,6 +44,8 @@ public class ClientController {
         return new Gson().toJson(resultMap);
     }
 
+    @PostMapping("/client/select.dox")
+    @ResponseBody
     public String getRequestList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<>();
         resultMap = clientService.selectRequestList(map);

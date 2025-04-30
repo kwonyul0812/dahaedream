@@ -10,7 +10,7 @@ public class Client {
     private int memberId;
     private int categoryId;
     private String title;
-    private int isOnline;
+    private String onOff;
     private int price;
     private String address;
     private String content;

@@ -23,49 +23,70 @@
 <div class="container py-5">
     <h1 class="mb-4 text-center">의뢰목록</h1>
     <button class="btn btn-outline-primary" onclick="location.href='/client/add'">의뢰하러가기</button>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-
-        <div class="col">
-            <div class="card h-100 shadow-sm">
-                <img src="" class="card-img-top" alt="썸네일 이미지">
-                <div class="card-body">
-                    <h5 class="card-title">수영 알려주실 분</h5>
-                    <p class="card-text"><strong>30000P</strong></p>
-                    <p class="card-text"><strong>기간:</strong>주1회</p>
-                    <p class="card-text"><strong>의뢰자:</strong>홍길동</p>
-                </div>
-                <div class="card-footer p-0">
-                    <button class="btn btn-outline-primary" onclick="location.href='/client/info'">자세히 보기</button>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 shadow-sm">
-                <img src="" class="card-img-top" alt="썸네일 이미지">
-                <div class="card-body">
-                    <h5 class="card-title">요리 알려주실 분</h5>
-                    <p class="card-text"><strong>50000P</strong></p>
-                    <p class="card-text"><strong>기간:</strong>3일</p>
-                    <p class="card-text"><strong>의뢰자:</strong>홍길동</p>
-                </div>
-                <div class="card-footer p-0">
-                    <button class="btn btn-outline-primary" onclick="location.href='/client/info'">자세히 보기</button>
-                </div>
-            </div>
-        </div>
-
+    <div id="request-list" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
     </div>
 </div>
 
 </body>
 </html>
-
 <script>
+
+
     function getRequestList() {
-        fetch("")
+        fetch("/client/select.dox", {
+            method : "POST"
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data.list);
+                const listContainer = document.getElementById("request-list");
+                listContainer.innerHTML = "";
+
+                data.list.forEach(item => {
+
+                    const col = document.createElement("div");
+                    col.className = "col";
+
+                    const card = document.createElement("div");
+                    card.className = "card h-100 shadow-sm";
+
+                    const img = document.createElement("img");
+                    img.className = "card-img-top";
+                    img.alt = "썸네일 이미지";
+
+                    const body = document.createElement("div");
+                    body.className = "card-body";
+                    body.innerHTML = `
+                        <h5 class="card-title">\${item.title}</h5>
+                        <p class="card-text"><strong>\${item.price}P</strong></p>
+                        <p class="card-text"><strong>작성시간:</strong>\${item.createdAt}</p>
+                    `;
+
+                    const footer = document.createElement("div");
+                    footer.className = "card-footer p-0";
+
+                    const button = document.createElement("button");
+                    button.className = "btn btn-outline-primary";
+                    button.textContent = "자세히 보기";
+                    button.onclick = () => location.href = `/client/info?requestId=${item.requestId}`;
+
+                    footer.appendChild(button);
+                    card.appendChild(img);
+                    card.appendChild(body);
+                    card.appendChild(footer);
+                    col.appendChild(card);
+                    listContainer.appendChild(col);
+                });
+            })
+            .catch(err => {
+                console.error("에러 발생:", err);
+            });
     }
 
     getRequestList();
 
 </script>
+
+
+
