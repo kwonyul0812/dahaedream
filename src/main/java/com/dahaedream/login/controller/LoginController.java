@@ -39,7 +39,8 @@ public class LoginController {
         int result = service.createMember(member);
 
         if (result == 1) {
-            return ResponseEntity.ok().build(); // 성공 응답
+            return ResponseEntity.ok().build(); // 성공 응답gownj
+
         } else {
             return ResponseEntity.badRequest().build(); // 실패 응답
         }

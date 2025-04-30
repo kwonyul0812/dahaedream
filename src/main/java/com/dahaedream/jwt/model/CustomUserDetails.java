@@ -52,4 +52,13 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    // memberId와 nickname 추가
+    public int getMemberId() {
+        return member.getMemberId();
+    }
+
+    public String getNickname() {
+        return member.getNickname();
+    }
 }

@@ -43,6 +43,7 @@
 </div>
 <div>
     <button id="testBtn" class="btn btn-primary">에이잭스 테스트</button>
+    <button id="jwtTest" class="btn">jwt테스트</button>
 </div>
 
 <script>
@@ -70,6 +71,13 @@
           complete: function() { // 성공 혹은 실패 후 반드시 실행하는 코드
             alert("ajax 알림");
           }
+        })
+      })
+
+      $('#jwtTest').on('click', function() {
+        $.ajax({
+          url: 'test/jwtTest', // 컨트롤러 매핑 주소
+          type: 'GET',
         })
       })
     })

@@ -1,6 +1,8 @@
 package com.dahaedream.jwt.config;
 
-import com.dahaedream.jwt.filter.LoginFilter;
+import com.dahaedream.jwt.JWTFilter;
+import com.dahaedream.jwt.JWTUtill;
+import com.dahaedream.jwt.LoginFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,9 +20,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final AuthenticationConfiguration authenticationConfiguration;
+    private final JWTUtill jwtUtill;
 
-    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration) {
+    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtill jwtUtill) {
         this.authenticationConfiguration = authenticationConfiguration;
+        this.jwtUtill = jwtUtill;
     }
 
     @Bean
@@ -56,9 +60,12 @@ public class SecurityConfig {
 //                        .anyRequest().authenticated());
 
 
+        // jwt filter 등록
+        http
+                .addFilterBefore(new JWTFilter(jwtUtill), LoginFilter.class);
         // 필터 추가 LoginFilter()는 인자를 받음(AuthenticationManager() 메소드에 authenticationConfiguration 객체를 넣어야함) 따라서 등록 필요
         http
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration)), UsernamePasswordAuthenticationFilter.class);
+                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtill), UsernamePasswordAuthenticationFilter.class);
 
         //세션 설정
         http

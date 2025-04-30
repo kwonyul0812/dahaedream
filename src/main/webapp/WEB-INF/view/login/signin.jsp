@@ -66,6 +66,22 @@
     </ul>
 </div>
 
+<div class="modal fade" id="alertModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title w-100">알림</h5>
+            </div>
+            <div class="modal-body text-center">
+                <span id="alertText"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
   $(function () {
     $('#loginForm').on('submit', function (e) {
@@ -80,6 +96,24 @@
         data: {
           email: email,
           password: password
+        },
+        success: function(data, status, xhr) {
+          // jwt token을 local storage에 저장
+          const token = xhr.getResponseHeader('Authorization');
+
+          if(token) {
+            console.log("토큰 : " + token);
+            localStorage.setItem('jwtToken', token);
+          } else {
+            console.log("토큰 없음");
+          }
+          window.location.href = '/'; // 홈페이지로 이동
+        },
+        error: function(err) {
+          $('#alertText').text('로그인 실패');
+
+          const modal = new bootstrap.Modal(document.getElementById('alertModal'));
+          modal.show();
         }
       })
     })
