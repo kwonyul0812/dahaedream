@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
@@ -41,7 +38,7 @@ public class ClientController {
 
     @PostMapping("/client/insert.dox")
     @ResponseBody
-    public String addRequest(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+    public String addRequest(Model model, @RequestBody HashMap<String, Object> map) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<>();
         resultMap = clientService.insertRequest(map);
         return new Gson().toJson(resultMap);

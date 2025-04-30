@@ -92,9 +92,26 @@
         const price = document.querySelector("#price").value;
         const content = document.querySelector("#content").value;
 
+        let data = {
+            categoryId, title, onOff, price, content
+        };
+
+
+
         if(confirm('의뢰 하시겠습니까?')) {
+            fetch("/client/insert.dox", {
+            method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            body : JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
             alert('등록되었습니다.');
-            location.href='/request/list';
+            // location.href='/request/list';
         }
 
     }

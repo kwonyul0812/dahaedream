@@ -5,7 +5,7 @@
 <mapper namespace="com.dahaedream.client.mapper.ClientMapper">
 
     <insert id="insertRequest" parameterType="hashmap">
-        INSERT INTO REQUEST VALUES (null, 1, {categoryId}, {onOff}, {price}, null, {content}, NOW(), '대기중')
+        INSERT INTO REQUEST VALUES (null, 1, #{categoryId}, #{title}, #{onOff}, #{price}, null, #{content}, NOW(), '대기중')
     </insert>
 
 </mapper>
