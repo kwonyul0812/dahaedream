@@ -39,11 +39,11 @@ public class ClientController {
         return "/client/client-info"; 
     }
 
-    @PostMapping("/client/test.dox")
+    @PostMapping("/client/insert.dox")
     @ResponseBody
-    public String test(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
-        HashMap<String, Object> resultMap = new HashMap<String, Object>();
-        resultMap = clientService.selectClient(map);
+    public String addRequest(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap = clientService.insertRequest(map);
         return new Gson().toJson(resultMap);
     }
 }

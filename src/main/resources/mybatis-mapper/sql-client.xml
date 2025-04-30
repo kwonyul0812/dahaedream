@@ -4,8 +4,8 @@
 
 <mapper namespace="com.dahaedream.client.mapper.ClientMapper">
 
-    <select id="selectClient" parameterType="hashmap" resultType="com.dahaedream.client.model.Client">
-        SELECT * FROM CLIENT
-    </select>
+    <insert id="insertRequest" parameterType="hashmap">
+        INSERT INTO REQUEST VALUES (null, 1, {categoryId}, {onOff}, {price}, null, {content}, NOW(), '대기중')
+    </insert>
 
 </mapper>

@@ -13,11 +13,10 @@ public class ClientService {
 
     private final ClientMapper clientMapper;
 
-    public HashMap<String, Object> selectClient(HashMap<String, Object> map) {
+    public HashMap<String, Object> insertRequest(HashMap<String, Object> map) {
         HashMap<String, Object> resultMap = new HashMap<>();
-        Client client = clientMapper.selectClient(map);
-        resultMap.put("client", client);
+        clientMapper.insertRequest(map);
+        resultMap.put("result", "success");
         return resultMap;
-
     }
 }

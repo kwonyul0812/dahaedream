@@ -4,7 +4,11 @@ import lombok.Data;
 
 @Data
 public class Client {
-    private String firstName;
-    private String lastName;
+
+    private String title;
+    private String category;
+    private String onOff;
+    private int price;
+    private String content;
 
 }
