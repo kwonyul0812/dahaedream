@@ -7,6 +7,6 @@ import java.util.HashMap;
 
 @Mapper
 public interface ClientMapper {
-    Client selectRequest(HashMap<String, Object> map);
 
+    void insertRequest(HashMap<String, Object> map);
 }

@@ -10,13 +10,13 @@ import java.util.HashMap;
 @Service
 @RequiredArgsConstructor
 public class ClientService {
+
     private final ClientMapper clientMapper;
 
-    public HashMap<String, Object> getRequest(HashMap<String, Object> map) {
+    public HashMap<String, Object> insertRequest(HashMap<String, Object> map) {
         HashMap<String, Object> resultMap = new HashMap<>();
-
-        Client request = clientMapper.selectRequest(map);
-        resultMap.put("request", request);
+        clientMapper.insertRequest(map);
+        resultMap.put("result", "success");
         return resultMap;
     }
 }

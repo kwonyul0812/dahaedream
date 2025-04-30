@@ -13,4 +13,10 @@ public class Client {
     private String content;
     private int statusId;
 
+    private String title;
+    private String category;
+    private String onOff;
+    private int price;
+    private String content;
+
 }

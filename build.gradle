@@ -39,8 +39,7 @@ dependencies {
     implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
     implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
 
-    implementation 'com.google.code.gson:gson:2.13.0'
-
+    implementation 'com.google.code.gson:gson:2.9.1'
 }
 
 tasks.named('test') {
