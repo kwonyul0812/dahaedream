@@ -9,13 +9,18 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"
+    ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
             crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
@@ -24,6 +29,7 @@
             width: 600px;
             height: 300px;
         }
+
         .swiper-slide {
             display: flex;
             justify-content: center;
@@ -57,7 +63,7 @@
         <h4 class="text-start">음식 하는법 알려주세요</h4>
         <div class="bg-body-secondary rounded mt-3 d-flex justify-content-evenly">
             <div class="d-flex flex-column align-items-center">
-                <img src="https://picsum.photos/200/200" class="rounded mt-4" >
+                <img src="https://picsum.photos/200/200" class="rounded mt-4">
                 <p class="mt-3">제목1</p>
             </div>
             <div class="d-flex flex-column align-items-center">
@@ -78,7 +84,7 @@
         <h4 class="text-start">수영 하는법 알려주세요</h4>
         <div class="bg-body-secondary rounded mt-3 d-flex justify-content-evenly">
             <div class="d-flex flex-column align-items-center">
-                <img src="https://picsum.photos/200/200" class="rounded mt-4" >
+                <img src="https://picsum.photos/200/200" class="rounded mt-4">
                 <p class="mt-3">제목1</p>
             </div>
             <div class="d-flex flex-column align-items-center">
@@ -101,18 +107,18 @@
 </html>
 
 <script>
-    const swiper = new Swiper('.swiper', {
-        loop: true, // 무한 루프
-        pagination: {
-            el: '.swiper-pagination',
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-        },
-    });
+  const swiper = new Swiper('.swiper', {
+    loop: true, // 무한 루프
+    pagination: {
+      el: '.swiper-pagination',
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+    },
+  });
 </script>

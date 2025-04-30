@@ -12,4 +12,5 @@ public interface ClientMapper {
     void insertRequest(HashMap<String, Object> map);
 
     List<Client> selectRequestList(HashMap<String, Object> map);
+
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dahaedream.test.mapper.testMapper">
+    <select id="findAll" resultType="com.dahaedream.test.model.testDto">
+        SELECT id, name, email FROM test
+    </select>
+
+    <select id="findAjax" resultType="com.dahaedream.test.model.testDto">
+        SELECT id, name, email FROM test WHERE name='ajax'
+    </select>
+</mapper>
+
+
+        <!--<?xml version="1.0" encoding="UTF-8" ?>-->
+        <!--<mapper xmlns="http://mybatis.org/schema/mybatis-mapper"-->
+        <!--        namespace="com.dahaedream.test.mapper.testMapper">-->
