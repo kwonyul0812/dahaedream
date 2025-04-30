@@ -15,4 +15,8 @@
         INSERT INTO member (email, password, nickname, address, phone)
         VALUES (#{email}, #{password}, #{nickname}, #{address}, #{phone})
     </insert>
+
+    <select id="selectByEmail" parameterType="string" resultType="com.dahaedream.login.model.MemberDto">
+        SELECT * FROM member WHERE email = #{email}
+    </select>
 </mapper>

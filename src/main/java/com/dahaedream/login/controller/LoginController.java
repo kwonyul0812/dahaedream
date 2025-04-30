@@ -18,6 +18,15 @@ public class LoginController {
         return "login/signin";
     }
 
+//    @PostMapping("/login")
+//    @ResponseBody
+//    public ResponseEntity login(@ModelAttribute MemberDto dto) {
+//
+////        System.out.println(dto.getEmail());
+//
+//        return ResponseEntity.ok().build();
+//    }
+
     @GetMapping("/login/signup")
     public String signup() {
         return "login/signup";

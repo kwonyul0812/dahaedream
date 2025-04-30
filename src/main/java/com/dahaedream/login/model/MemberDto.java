@@ -10,4 +10,5 @@ public class MemberDto {
     private String nickname;
     private String address;
     private String phone;
+    private String isSocial;
 }

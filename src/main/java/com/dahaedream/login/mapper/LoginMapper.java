@@ -13,4 +13,7 @@ public interface LoginMapper {
     // 회원가입 insert
     int insertMember(MemberDto member);
 
+    // 회원 조회
+    MemberDto selectByEmail(String email);
+
 }
