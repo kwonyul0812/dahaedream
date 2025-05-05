@@ -59,7 +59,6 @@ public class SecurityConfig {
 //                        .requestMatchers("/admin").hasRole("ADMIN")
 //                        .anyRequest().authenticated());
 
-
         // jwt filter 등록
         http
                 .addFilterBefore(new JWTFilter(jwtUtill), LoginFilter.class);
