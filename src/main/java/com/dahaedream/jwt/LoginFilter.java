@@ -47,7 +47,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         int memberId = customUserDetails.getMemberId();
         String nickname = customUserDetails.getNickname();
 
-        String token = jwtUtill.createJwt(memberId, nickname, 60*60L);
+        String token = jwtUtill.createJwt(memberId, nickname, 60 * 60L);
 
         // token 응답
         response.addHeader("Authorization", "Bearer " + token);
