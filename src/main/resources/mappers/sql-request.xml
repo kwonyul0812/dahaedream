@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dahaedream.client.mapper.ClientMapper">
+    <select id="selectRequest" parameterType="hashmap" resultType="com.dahaedream.client.model.Client">
+        SELECT * FROM REQUEST
+    </select>
+
+</mapper>

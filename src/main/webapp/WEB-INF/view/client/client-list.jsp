@@ -7,7 +7,11 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
     <title>의뢰내역</title>
-
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"
+    ></script>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
@@ -69,6 +73,23 @@
             alert('삭제되었습니다.');
         }
 
+    }
+
+    function fnGet() {
+        $.ajax({
+            url: '/client/get',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+
+            }),
+            success: function(res) {
+                console.log('성공!', res);
+            },
+            error: function(err) {
+                console.error('에러 발생:', err);
+            }
+        });
     }
 
 </script>

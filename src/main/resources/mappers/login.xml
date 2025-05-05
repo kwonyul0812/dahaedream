@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dahaedream.login.mapper.LoginMapper">
+    <select id="isExistEmail" resultType="boolean">
+        SELECT EXISTS (
+            SELECT 1
+            FROM member
+            WHERE email = #{email}
+        )
+    </select>
+
+    <insert id="insertMember" parameterType="com.dahaedream.login.model.MemberDto" >
+        INSERT INTO member (email, password, nickname, address, phone)
+        VALUES (#{email}, #{password}, #{nickname}, #{address}, #{phone})
+    </insert>
+
+    <select id="selectByEmail" parameterType="string" resultType="com.dahaedream.login.model.MemberDto">
+        SELECT * FROM member WHERE email = #{email}
+    </select>
+</mapper>
