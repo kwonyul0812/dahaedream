@@ -1,8 +1,9 @@
-package com.dahaedream.jwt.config;
+package com.dahaedream.auth.config;
 
-import com.dahaedream.jwt.JWTFilter;
-import com.dahaedream.jwt.JWTUtill;
-import com.dahaedream.jwt.LoginFilter;
+import com.dahaedream.auth.filter.JWTFilter;
+import com.dahaedream.auth.JWTUtill;
+import com.dahaedream.auth.filter.LoginFilter;
+import com.dahaedream.auth.service.CustomOAuth2UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,11 +22,18 @@ public class SecurityConfig {
 
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JWTUtill jwtUtill;
+//    private final CustomOAuth2UserService customOAuth2UserService;
 
     public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtill jwtUtill) {
         this.authenticationConfiguration = authenticationConfiguration;
         this.jwtUtill = jwtUtill;
     }
+
+//    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtill jwtUtill, CustomOAuth2UserService customOAuth2UserService) {
+//        this.authenticationConfiguration = authenticationConfiguration;
+//        this.jwtUtill = jwtUtill;
+//        this.customOAuth2UserService = customOAuth2UserService;
+//    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
@@ -51,6 +59,11 @@ public class SecurityConfig {
         // http basic 인증 방식 disable
         http
                 .httpBasic((auth) -> auth.disable());
+//        //oauth2
+//        http
+//                .oauth2Login((oauth2) -> oauth2
+//                        .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
+//                                .userService(customOAuth2UserService)));
 
         //경로별 인가 작업, 컨트롤러에서 @PreAuthorize 로 권한 확인절차 해도 됨.
 //        http
