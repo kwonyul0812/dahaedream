@@ -66,7 +66,7 @@
 
                     <div class="text-center mt-4">
                         <a href="/request/list" class="btn btn-secondary">목록으로</a>
-                        <button id="acceptBtn" style="display: none" class="btn btn-primary" onclick="fn()">의뢰 수락 요청</button>
+                        <button id="acceptBtn" style="display: none" class="btn btn-primary" onclick="fnSend()">의뢰 수락 요청</button>
                     </div>
 
                 </div>
@@ -79,6 +79,7 @@
 </body>
 </html>
 <script>
+
     $(function () {
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -122,8 +123,28 @@
 
     });
 
-    function fn() {
-        alert("버튼 누름!!");
+    function fnSend() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const requestId = urlParams.get("requestId");
+        const token = localStorage.getItem('jwtToken');
+        if(token) {
+            const decoded = jwtDecode(token);
+
+            fetch("/solver/send.dox", {
+                method : "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body : JSON.stringify({requestId, solverId : decoded.memberId})
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    alert("의뢰 수락 요청을 보냈습니다.");
+                })
+        } else {
+            console.log("토큰 없음!");
+        }
     }
 
 
