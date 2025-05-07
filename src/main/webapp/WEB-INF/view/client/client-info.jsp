@@ -66,7 +66,7 @@
 
                     <div class="text-center mt-4">
                         <a href="/request/list" class="btn btn-secondary">목록으로</a>
-                        <button id="acceptBtn" style="display: none" class="btn btn-primary">의뢰 수락 요청</button>
+                        <button id="acceptBtn" style="display: none" class="btn btn-primary" onclick="fn()">의뢰 수락 요청</button>
                     </div>
 
                 </div>
@@ -121,6 +121,10 @@
             });
 
     });
+
+    function fn() {
+        alert("버튼 누름!!");
+    }
 
 
 
