@@ -18,8 +18,10 @@
     <script
             src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-            crossorigin="anonymous"
-    ></script>
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@4.0.0/build/cjs/index.min.js"></script>
+
+
 </head>
 <body class="bg-light">
 <jsp:include page="../../fragment/navbar.jsp"/>
@@ -96,11 +98,18 @@
         const price = document.querySelector("#price").value;
         const content = document.querySelector("#content").value;
 
+        let memberId = "";
+        const token = localStorage.getItem('jwtToken');
+        if(token) {
+            const decoded = jwtDecode(token);
+            memberId = decoded.memberId;
+        } else {
+            console.log("토큰 없음!");
+        }
+
         let data = {
-            categoryId, title, onOff, price, content
+            categoryId, title, onOff, price, content, memberId
         };
-
-
 
         if(confirm('의뢰 하시겠습니까?')) {
             fetch("/client/insert.dox", {

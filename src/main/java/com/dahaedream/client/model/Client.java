@@ -16,6 +16,13 @@ public class Client {
     private String content;
     private String createdAt;
     private String status;
+    private String isOnline;
+
+    //Member Table
+    private String nickname;
+
+    //Category Table
+    private String categoryName;
 
 
 

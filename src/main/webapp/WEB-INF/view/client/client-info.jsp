@@ -17,6 +17,8 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
           crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@4.0.0/build/cjs/index.min.js"></script>
+
 </head>
 <body class="bg-light">
 <jsp:include page="../../fragment/navbar.jsp"/>
@@ -32,37 +34,39 @@
 
                     <dl class="row mb-3">
                         <dt class="col-sm-3">제목</dt>
-                        <dd class="col-sm-9">수영알려주실 분</dd>
+                        <dd class="col-sm-9" id="title"></dd>
 
-                        <dt class="col-sm-3">하는 일</dt>
-                        <dd class="col-sm-9">수영 강습</dd>
+                        <dt class="col-sm-3">의뢰자</dt>
+                        <dd class="col-sm-9" id="nickname"></dd>
 
-                        <dt class="col-sm-3">진행 방법</dt>
-                        <dd class="col-sm-9">오프라인</dd>
+                        <dt class="col-sm-3">카테고리</dt>
+                        <dd class="col-sm-9" id="category"></dd>
+
+                        <dt class="col-sm-3">온라인/오프라인</dt>
+                        <dd class="col-sm-9" id="onOff"></dd>
 
                         <dt class="col-sm-3">기간</dt>
                         <dd class="col-sm-9">3주</dd>
 
                         <dt class="col-sm-3">의뢰비</dt>
-                        <dd class="col-sm-9">300,000원</dd>
+                        <dd class="col-sm-9" id="price"></dd>
 
                         <dt class="col-sm-3">내용</dt>
-                        <dd class="col-sm-9">
-                            안녕하세요 저는 수영 초보 이고 물에만 뜨게 해주시면 되요. <br>
-                            주 2회 만나서 수영 알려주시면 좋겠어요.
-                        </dd>
+                        <dd class="col-sm-9" id="content"></dd>
 
                         <dt class="col-sm-3">주소</dt>
                         <dd class="col-sm-9">서울시 강남구 테헤란로 123</dd>
 
-                        <dt class="col-sm-3">이미지</dt>
-                        <dd class="col-sm-9">
-                            <img src="/upload/sample-swim.jpg" class="img-fluid rounded" alt="의뢰 이미지">
-                        </dd>
+                        <dt class="col-sm-3">등록일</dt>
+                        <dd class="col-sm-9" id="createdAt"></dd>
+
+                        <dt class="col-sm-3">상태</dt>
+                        <dd class="col-sm-9" id="status"></dd>
                     </dl>
 
                     <div class="text-center mt-4">
                         <a href="/request/list" class="btn btn-secondary">목록으로</a>
+                        <button id="acceptBtn" style="display: none" class="btn btn-primary" onclick="fn()">의뢰 수락 요청</button>
                     </div>
 
                 </div>
@@ -74,3 +78,57 @@
 
 </body>
 </html>
+<script>
+    $(function () {
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const requestId = urlParams.get("requestId");
+
+        console.log("페이지 로드 됨!");
+        fetch("/client/info.dox", {
+            method : "POST",
+            headers : {
+                "Content-type" : "application/json"
+            },
+            body : JSON.stringify({requestId : requestId})
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                const info = data.info;
+                document.getElementById("title").textContent = info.title;
+                document.getElementById("nickname").textContent = info.nickname;
+                document.getElementById("category").textContent = info.categoryName;
+                document.getElementById("onOff").textContent = info.isOnline === "online" ? "온라인" : "오프라인";
+                document.getElementById("price").textContent = Number(info.price).toLocaleString() + "P";
+                document.getElementById("content").textContent = info.content;
+                document.getElementById("createdAt").textContent = info.createdAt;
+                document.getElementById("status").textContent = info.status;
+                const token = localStorage.getItem('jwtToken');
+                if(token) {
+                    const decoded = jwtDecode(token);
+                    console.log("로그인한 사용자 ID:", decoded.memberId);
+
+                    console.log("의뢰 작성자 ID:", info.memberId);
+                    if (decoded.memberId !== info.memberId) {
+                        // 작성자가 아닌 경우 → 버튼 보이기
+                        document.getElementById("acceptBtn").style.display = "inline-block";
+                    }
+                } else {
+                    console.log('토큰 없음!');
+
+                }
+            });
+
+    });
+
+    function fn() {
+        alert("버튼 누름!!");
+    }
+
+
+
+
+
+</script>
+
