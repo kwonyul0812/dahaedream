@@ -28,4 +28,12 @@ public class ClientService {
         resultMap.put("result", "success");
         return resultMap;
     }
+
+    public HashMap<String, Object> selectInfo(HashMap<String, Object> map) {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        Client info = clientMapper.selectInfo(map);
+        resultMap.put("info", info);
+        resultMap.put("result", "success");
+        return resultMap;
+    }
 }

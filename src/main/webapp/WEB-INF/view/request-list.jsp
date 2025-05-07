@@ -74,7 +74,7 @@
                     const button = document.createElement("button");
                     button.className = "btn btn-outline-primary";
                     button.textContent = "자세히 보기";
-                    button.onclick = () => location.href = `/client/info?requestId=${item.requestId}`;
+                    button.onclick = () => location.href = `/client/info?requestId=\${item.requestId}`;
 
                     footer.appendChild(button);
                     card.appendChild(img);
