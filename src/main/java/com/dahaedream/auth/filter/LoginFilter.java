@@ -1,6 +1,6 @@
 package com.dahaedream.auth.filter;
 
-import com.dahaedream.auth.JWTUtill;
+import com.dahaedream.auth.jwt.JWTUtil;
 import com.dahaedream.auth.model.CustomUserDetails;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,11 +15,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
-    private final JWTUtill jwtUtill;
+    private final JWTUtil jwtUtil;
 
-    public LoginFilter(AuthenticationManager authenticationManager, JWTUtill jwtUtill) {
+    public LoginFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
-        this.jwtUtill = jwtUtill;
+        this.jwtUtil = jwtUtil;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         int memberId = customUserDetails.getMemberId();
         String nickname = customUserDetails.getNickname();
 
-        String token = jwtUtill.createJwt(memberId, nickname, 60 * 60L);
+        String token = jwtUtil.createJwt(memberId, nickname, 60 * 60 * 1000L);
 
         // token 응답
         response.addHeader("Authorization", "Bearer " + token);

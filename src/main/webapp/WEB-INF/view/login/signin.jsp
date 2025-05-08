@@ -56,7 +56,9 @@
             <button type="submit" class="btn mb-1" style="background-color: greenyellow">로그인</button>
         </div>
     </form>
-    <button class="btn" style="width: 450px;background-color: #f3dc00; margin-left: 25px; margin-top: -20px">카카오 로그인
+        <a href="/oauth2/authorization/kakao" class="btn" style="width: 450px;background-color: #f3dc00; margin-left: 25px; margin-top: -20px" role="button">
+            카카오 로그인
+        </a>
     </button>
 
     <ul class="d-flex justify-content-center list-unstyled find-links" style="margin-bottom: 100px">
@@ -84,6 +86,11 @@
 
 <script>
   $(function () {
+    const token = localStorage.getItem('jwtToken');
+    if(token) {
+      localStorage.removeItem('jwtToken');
+    }
+
     $('#loginForm').on('submit', function (e) {
       e.preventDefault();
 
