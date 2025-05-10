@@ -40,27 +40,4 @@ public class LoginController {
             return ResponseEntity.badRequest().build(); // 실패 응답
         }
     }
-
-    @GetMapping("/login/loading")
-    public String loading() {
-        return "login/loading";
-    }
-
-    @PostMapping("/login/loading")
-    public ResponseEntity loading(HttpServletRequest request, HttpServletResponse response) {
-        Cookie[] cookies = request.getCookies();
-
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("Authorization")) {
-                    String token = cookie.getValue();
-                    response.addHeader("Authorization", "Bearer " + token);
-
-                    return ResponseEntity.ok().build();
-                }
-            }
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-    }
-
 }

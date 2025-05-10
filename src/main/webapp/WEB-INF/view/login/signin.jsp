@@ -86,9 +86,11 @@
 
 <script>
   $(function () {
-    const token = localStorage.getItem('jwtToken');
-    if(token) {
-      localStorage.removeItem('jwtToken');
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+
+    if (error === 'expired') {
+      alert('로그인이 만료되었습니다. 다시 로그인 해주세요.');
     }
 
     $('#loginForm').on('submit', function (e) {
@@ -104,16 +106,7 @@
           email: email,
           password: password
         },
-        success: function(data, status, xhr) {
-          // jwt token을 local storage에 저장
-          const token = xhr.getResponseHeader('Authorization');
-
-          if(token) {
-            console.log("토큰 : " + token);
-            localStorage.setItem('jwtToken', token);
-          } else {
-            console.log("토큰 없음");
-          }
+        success: function(res) {
           window.location.href = '/'; // 홈페이지로 이동
         },
         error: function(err) {

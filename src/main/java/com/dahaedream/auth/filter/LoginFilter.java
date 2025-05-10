@@ -3,6 +3,7 @@ package com.dahaedream.auth.filter;
 import com.dahaedream.auth.jwt.JWTUtil;
 import com.dahaedream.auth.model.CustomUserDetails;
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -48,16 +49,23 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         int memberId = customUserDetails.getMemberId();
         String nickname = customUserDetails.getNickname();
 
-        String token = jwtUtil.createJwt(memberId, nickname, 60 * 60 * 1000L);
+        String token = jwtUtil.createJwt(memberId, nickname, 60 * 60L);
 
-        // token 응답
-        response.addHeader("Authorization", "Bearer " + token);
-
+        response.addCookie(createCookie("Authorization", token));
     }
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) {
 
         response.setStatus(401);
+    }
+
+    private Cookie createCookie(String key, String value) {
+        Cookie cookie = new Cookie(key, value);
+        cookie.setMaxAge(60*60);
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+
+        return cookie;
     }
 }

@@ -42,7 +42,7 @@
                     <a class="nav-link active" aria-current="page" href="/mypage/member">마이페이지</a>
                 </li>
                 <li class="nav-item">
-                    <span class="nav-link active" aria-current="page" style="cursor: pointer" id="message">쪽지</span>
+                    <a href="/message/receivedMessage" class="nav-link active" aria-current="page" style="cursor: pointer" id="message">쪽지</a>
                 </li>
                 <li>
                     <span id="info" style="display: none"></span>
@@ -51,7 +51,7 @@
                     <a href="/login/signin" class="btn btn-sm btn-outline-secondary" id="loginBtn" role="button">로그인</a>
                 </li>
                 <li>
-                    <button class="btn btn-sm btn-outline-secondary" id="logoutBtn" style="display: none">로그아웃</button>
+                    <a href="/logout" class="btn btn-sm btn-outline-secondary" id="logoutBtn" role="button" style="display: none">로그아웃</a>
                 </li>
             </ul>
         </div>
@@ -59,49 +59,21 @@
 </nav>
 <script>
   $(function () {
-    // 로컬 스토리지에서 token 가져옴
-    const token = localStorage.getItem('jwtToken');
-
-    // 토큰이 있으면 로그인 버튼 숨기고 로그아웃 버튼 보이기
-    if (token) {
-      const decoded = jwtDecode(token); // 라이브러리 함수
-      $("#info").text(decoded.nickname + "님").show();
-      $('#loginBtn').hide();
-      $('#logoutBtn').show();
-    } else {
-      $('#info').text("").hide();
-      $('#loginBtn').show();
-      $('#logoutBtn').hide();
-    }
-
-    $('#logoutBtn').on('click', function () {
-      // 로그아웃 클릭시 jwt 토큰 삭제 처리
-      localStorage.removeItem('jwtToken');
-
-      window.location.href = "/";
-    })
-
-    $('#message').on('click', function () {
-      const token = localStorage.getItem("jwtToken");
-      $.ajax({
-        url: '/message/receivedMessage',
-        type: 'GET',
-        headers: {
-          'Authorization': token  // Authorization 헤더에 JWT 토큰 추가
-        }, success: function (res) {
-          // 서버 응답이 성공적으로 왔을 때, 페이지를 이동
-          window.location.href = "/message/receivedMessage";
-        },
-        error: function (err) {
-          // 에러가 발생한 경우
-          if (err.status === 401) {
-            alert("로그인이 필요합니다.");
-            window.location.href = "/login/signin";  // 인증 실패시 로그인 페이지로 리디렉션
-          } else {
-            alert("오류가 발생했습니다.");
-          }
-        }
-      })
+    $.ajax({
+      url: "/auth/getUser",
+      type: "GET",
+      success: function (res) {
+        $("#info").text(res.nickname).show();
+        // 로그인 버튼 숨기고 로그아웃 버튼 표시
+        $('#loginBtn').hide();
+        $('#logoutBtn').show();
+      },
+      error: function (err) {
+        // 인증되지 않은 경우
+        $('#info').text("").hide();
+        $('#loginBtn').show();
+        $('#logoutBtn').hide();
+      }
     })
   })
 </script>

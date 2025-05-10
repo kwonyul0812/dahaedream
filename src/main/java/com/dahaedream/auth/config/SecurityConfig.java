@@ -63,6 +63,14 @@ public class SecurityConfig {
         http
                 .httpBasic((auth) -> auth.disable());
 
+        // 로그아웃 설정
+        http
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")  // 로그아웃 성공 후 리다이렉트할 URL
+                        .deleteCookies("Authorization")  // JWT 쿠키 삭제
+                );
+
 
         //경로별 인가 작업, 컨트롤러에서 @PreAuthorize 로 권한 확인절차 해도 됨.
 //        http
@@ -78,6 +86,7 @@ public class SecurityConfig {
                         request -> true // 모든 요청에 대해 적용
                 )
         );
+
 
         // jwt filter 등록
         http

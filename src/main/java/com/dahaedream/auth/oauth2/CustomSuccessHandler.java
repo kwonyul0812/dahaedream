@@ -29,16 +29,15 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         int memberId = customUserDetails.getMemberId();
         String nickname = customUserDetails.getName();
 
-        String token = jwtUtil.createJwt(memberId, nickname, 60 * 60 * 1000L);
+        String token = jwtUtil.createJwt(memberId, nickname, 60 * 60L);
 
         response.addCookie(createCookie("Authorization", token));
-        response.sendRedirect("http://localhost/login/loading");
+        response.sendRedirect("/");
     }
 
     private Cookie createCookie(String key, String value) {
         Cookie cookie = new Cookie(key, value);
         cookie.setMaxAge(60*60);
-//        cookie.setSecure(true); // 쿠키가 https 요청시에만 전달되도록
         cookie.setPath("/");
         cookie.setHttpOnly(true);
 
