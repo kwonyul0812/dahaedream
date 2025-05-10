@@ -29,7 +29,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         int memberId = customUserDetails.getMemberId();
         String nickname = customUserDetails.getName();
 
-        String token = jwtUtil.createJwt(memberId, nickname, 60 * 60L);
+        String token = jwtUtil.createJwt(memberId, nickname, 60 * 60 * 1000L);
 
         response.addCookie(createCookie("Authorization", token));
         response.sendRedirect("/");

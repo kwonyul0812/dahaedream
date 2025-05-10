@@ -49,7 +49,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         int memberId = customUserDetails.getMemberId();
         String nickname = customUserDetails.getNickname();
 
-        String token = jwtUtil.createJwt(memberId, nickname, 60 * 60L);
+        String token = jwtUtil.createJwt(memberId, nickname, 60 * 60 * 1000L);
 
         response.addCookie(createCookie("Authorization", token));
     }

@@ -96,6 +96,7 @@ public class JWTFilter extends OncePerRequestFilter {
 
             if (isHyperlinkRequest) {
                 response.sendRedirect("/login/signin?error=expired");
+                return;
             }
 
             filterChain.doFilter(request, response);
