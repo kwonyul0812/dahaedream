@@ -56,7 +56,9 @@
             <button type="submit" class="btn mb-1" style="background-color: greenyellow">로그인</button>
         </div>
     </form>
-    <button class="btn" style="width: 450px;background-color: #f3dc00; margin-left: 25px; margin-top: -20px">카카오 로그인
+        <a href="/oauth2/authorization/kakao" class="btn" style="width: 450px;background-color: #f3dc00; margin-left: 25px; margin-top: -20px" role="button">
+            카카오 로그인
+        </a>
     </button>
 
     <ul class="d-flex justify-content-center list-unstyled find-links" style="margin-bottom: 100px">
@@ -84,6 +86,13 @@
 
 <script>
   $(function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+
+    if (error === 'expired') {
+      alert('로그인이 만료되었습니다. 다시 로그인 해주세요.');
+    }
+
     $('#loginForm').on('submit', function (e) {
       e.preventDefault();
 
@@ -97,16 +106,7 @@
           email: email,
           password: password
         },
-        success: function(data, status, xhr) {
-          // jwt token을 local storage에 저장
-          const token = xhr.getResponseHeader('Authorization');
-
-          if(token) {
-            console.log("토큰 : " + token);
-            localStorage.setItem('jwtToken', token);
-          } else {
-            console.log("토큰 없음");
-          }
+        success: function(res) {
           window.location.href = '/'; // 홈페이지로 이동
         },
         error: function(err) {
