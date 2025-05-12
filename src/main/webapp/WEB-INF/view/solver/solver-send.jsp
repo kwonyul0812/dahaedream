@@ -20,6 +20,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
             crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@4.0.0/build/cjs/index.min.js"></script>
 </head>
 <body class="bg-light">
 
@@ -43,12 +44,16 @@
     }
 
     function getRequestList() {
+
+        const token = localStorage.getItem('jwtToken');
+        const decoded = token ? jwtDecode(token) : null;
+
         fetch("/solver/getRequest.dox", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body : JSON.stringify({})
+            body : JSON.stringify({solverId : decoded?.memberId})
         })
             .then(res => res.json())
             .then(data => {

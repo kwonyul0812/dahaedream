@@ -18,4 +18,10 @@
         INNER JOIN MEMBER M ON R.MEMBER_ID = M.MEMBER_ID
         WHERE REQUEST_ID = #{requestId}
     </select>
+
+    <select id="selectRequest" parameterType="hashmap" resultType="int">
+        SELECT COUNT(*) FROM REQUEST_ACCEPT
+        WHERE REQUEST_ID = #{requestId} AND SOLVER_ID = #{solverId}
+    </select>
+
 </mapper>

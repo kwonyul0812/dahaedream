@@ -32,6 +32,9 @@ public class ClientService {
     public HashMap<String, Object> selectInfo(HashMap<String, Object> map) {
         HashMap<String, Object> resultMap = new HashMap<>();
         Client info = clientMapper.selectInfo(map);
+        int count = clientMapper.selectRequest(map);
+        boolean alreadySent = count > 0;
+        resultMap.put("alreadySent", alreadySent);
         resultMap.put("info", info);
         resultMap.put("result", "success");
         return resultMap;

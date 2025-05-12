@@ -14,4 +14,6 @@ public interface ClientMapper {
     List<Client> selectRequestList(HashMap<String, Object> map);
 
     Client selectInfo(HashMap<String, Object> map);
+
+    int selectRequest(HashMap<String, Object> map);
 }

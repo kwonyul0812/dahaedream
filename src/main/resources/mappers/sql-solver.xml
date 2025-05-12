@@ -12,5 +12,8 @@
         inner join request r on ra.request_id = r.request_id
         inner join member m1 on m1.member_id = ra.solver_id
         inner join member m2 on m2.member_id = r.member_id
+        where solver_id = #{solverId}
     </select>
+
+
 </mapper>
