@@ -22,4 +22,12 @@ public class Solver {
     private String status;
     private String isOnline;
 
+    //category
+    private String categoryName;
+
+    //member
+
+    private String solverName;
+    private String clientName;
+
 }

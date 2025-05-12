@@ -116,24 +116,7 @@
                                  }
                           };
 
-
-                    const acceptBtn = document.createElement("button");
-                    acceptBtn.className = "btn btn-outline-success";
-                    acceptBtn.textContent = "수락";
-                    acceptBtn.onclick = () => {
-                        if (confirm('이 의뢰를 수락하시겠습니까?')) {
-                            fetch(`/solver/accept?requestId=${item.requestId}`, { method: 'POST' })
-                                .then(res => {
-                                    if (!res.ok) throw new Error(res.status);
-                                        alert('수락했습니다.');
-                                        getRequestList(); // 리스트 갱신
-                                       })
-                                .catch(err => console.error(err));
-                                }
-                           };
-
                     footer.appendChild(cancelBtn);
-                    footer.appendChild(acceptBtn);
                     footer.appendChild(button);
                     card.appendChild(img);
                     card.appendChild(body);

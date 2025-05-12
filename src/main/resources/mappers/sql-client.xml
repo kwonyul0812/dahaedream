@@ -24,4 +24,14 @@
         WHERE REQUEST_ID = #{requestId} AND SOLVER_ID = #{solverId}
     </select>
 
+    <select id="selectRequestAccept" parameterType="hashmap" resultType="com.dahaedream.solver.model.Solver">
+        SELECT RA.REQUEST_ID, RA.SOLVER_ID, M1.NICKNAME as solverName , M2.NICKNAME as clientName, RA.STATUS, R.*, C.CATEGORY_NAME FROM REQUEST_ACCEPT RA
+        INNER JOIN REQUEST R ON RA.REQUEST_ID = R.REQUEST_ID
+        INNER JOIN MEMBER M1 ON M1.MEMBER_ID = RA.SOLVER_ID
+        INNER JOIN MEMBER M2 ON M2.MEMBER_ID = R.MEMBER_ID
+        INNER JOIN CATEGORY C ON C.CATEGORY_ID = R.CATEGORY_ID
+        WHERE RA.STATUS IS NULL AND R.MEMBER_ID = #{clientId}
+
+    </select>
+
 </mapper>

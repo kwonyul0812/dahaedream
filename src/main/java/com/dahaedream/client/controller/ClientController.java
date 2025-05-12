@@ -59,5 +59,13 @@ public class ClientController {
         resultMap = clientService.selectInfo(map);
         return new Gson().toJson(resultMap);
     }
+
+    @PostMapping("/client/getRequest.dox")
+    @ResponseBody
+    public String getRequest(@RequestBody HashMap<String, Object> map) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap = clientService.selectRequest(map);
+        return new Gson().toJson(resultMap);
+    }
 }
 

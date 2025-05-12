@@ -1,6 +1,7 @@
 package com.dahaedream.client.mapper;
 
 import com.dahaedream.client.model.Client;
+import com.dahaedream.solver.model.Solver;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.HashMap;
@@ -16,4 +17,6 @@ public interface ClientMapper {
     Client selectInfo(HashMap<String, Object> map);
 
     int selectRequest(HashMap<String, Object> map);
+
+    List<Solver> selectRequestAccept(HashMap<String, Object> map);
 }
