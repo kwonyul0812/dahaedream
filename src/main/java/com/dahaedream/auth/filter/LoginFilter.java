@@ -49,7 +49,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         int memberId = customUserDetails.getMemberId();
         String nickname = customUserDetails.getNickname();
 
-        String token = jwtUtil.createJwt(memberId, nickname, 60 * 60 * 1000L);
+        String token = jwtUtil.createJwt(memberId, nickname, 60 * 60 * 1000 * 10L);
 
         response.addCookie(createCookie("Authorization", token));
     }
@@ -62,7 +62,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private Cookie createCookie(String key, String value) {
         Cookie cookie = new Cookie(key, value);
-        cookie.setMaxAge(60*60);
+        cookie.setMaxAge(60*60*10);
         cookie.setPath("/");
         cookie.setHttpOnly(true);
 
