@@ -14,6 +14,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@4.0.0/build/cjs/index.min.js"></script>
+
 </head>
 <body class="bg-light">
 <jsp:include page="../../fragment/navbar.jsp"/>
@@ -25,11 +27,11 @@
     <ul class="nav nav-tabs mb-4" id="requestTab" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="inprogress-tab" data-bs-toggle="tab" data-bs-target="#inprogress"
-                    type="button" role="tab">진행중</button>
+                    type="button" role="tab" onclick="fnGetAcceptRequest()">진행중</button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="completed-tab" data-bs-toggle="tab" data-bs-target="#completed"
-                    type="button" role="tab">완료</button>
+                    type="button" role="tab" onclick="fnGetCompleteRequest()">완료</button>
         </li>
     </ul>
 
@@ -39,86 +41,14 @@
         <!-- 진행중 -->
         <div class="tab-pane fade show active" id="inprogress" role="tabpanel">
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                <div class="col">
-                    <div class="card h-100 shadow-sm">
-                        <img src="" class="card-img-top" alt="썸네일 이미지">
-                        <div class="card-body">
-                            <h5 class="card-title">요리 알려주실 분</h5>
-                            <p class="card-text"><strong>상태:</strong> 진행중</p>
-                            <p class="card-text"><strong>50000P</strong></p>
-                            <p class="card-text"><strong>기간:</strong>3일</p>
-                            <p class="card-text"><strong>의뢰자:</strong>홍길동</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 shadow-sm">
-                        <img src="" class="card-img-top" alt="썸네일 이미지">
-                        <div class="card-body">
-                            <h5 class="card-title">요리 알려주실 분</h5>
-                            <p class="card-text"><strong>상태:</strong> 진행중</p>
-                            <p class="card-text"><strong>50000P</strong></p>
-                            <p class="card-text"><strong>기간:</strong>3일</p>
-                            <p class="card-text"><strong>의뢰자:</strong>홍길동</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 shadow-sm">
-                        <img src="" class="card-img-top" alt="썸네일 이미지">
-                        <div class="card-body">
-                            <h5 class="card-title">요리 알려주실 분</h5>
-                            <p class="card-text"><strong>상태:</strong> 진행중</p>
-                            <p class="card-text"><strong>50000P</strong></p>
-                            <p class="card-text"><strong>기간:</strong>3일</p>
-                            <p class="card-text"><strong>의뢰자:</strong>홍길동</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- 진행중 카드 추가 가능 -->
+
             </div>
         </div>
 
         <!-- 완료 -->
         <div class="tab-pane fade" id="completed" role="tabpanel">
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                <div class="col">
-                    <div class="card h-100 shadow-sm">
-                        <img src="" class="card-img-top" alt="썸네일 이미지">
-                        <div class="card-body">
-                            <h5 class="card-title">수영 알려주실 분</h5>
-                            <p class="card-text"><strong>상태:</strong> 완료</p>
-                            <p class="card-text"><strong>30000P</strong></p>
-                            <p class="card-text"><strong>기간:</strong>주1회</p>
-                            <p class="card-text"><strong>의뢰자:</strong>홍길동</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 shadow-sm">
-                        <img src="" class="card-img-top" alt="썸네일 이미지">
-                        <div class="card-body">
-                            <h5 class="card-title">수영 알려주실 분</h5>
-                            <p class="card-text"><strong>상태:</strong> 완료</p>
-                            <p class="card-text"><strong>30000P</strong></p>
-                            <p class="card-text"><strong>기간:</strong>주1회</p>
-                            <p class="card-text"><strong>의뢰자:</strong>홍길동</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 shadow-sm">
-                        <img src="" class="card-img-top" alt="썸네일 이미지">
-                        <div class="card-body">
-                            <h5 class="card-title">수영 알려주실 분</h5>
-                            <p class="card-text"><strong>상태:</strong> 완료</p>
-                            <p class="card-text"><strong>30000P</strong></p>
-                            <p class="card-text"><strong>기간:</strong>주1회</p>
-                            <p class="card-text"><strong>의뢰자:</strong>홍길동</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- 완료 카드 추가 가능 -->
+
             </div>
         </div>
 
@@ -127,3 +57,99 @@
 
 </body>
 </html>
+<script>
+    const token = localStorage.getItem('jwtToken');
+    const decoded = token ? jwtDecode(token) : null;
+
+    fnGetAcceptRequest();
+
+    function fnGetAcceptRequest() {
+        fetch("/solver/getAcceptRequest.dox", {
+            method:"POST",
+            headers : {'Content-Type': 'application/json'},
+            body : JSON.stringify({
+                solverId : decoded?.memberId
+            })
+        })
+            .then(res=>res.json())
+            .then(data => {
+                console.log(data);
+                const items = data.list
+                    ? (Array.isArray(data.list) ? data.list : [data.list])
+                    : [];
+                const container = document.querySelector("#inprogress .row");
+                container.innerHTML = "";
+
+                items.forEach(item => {
+                    const card = `
+                        <div class="col">
+                            <div class="card h-100 border-success shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">\${item.title}</h5>
+                                    <p class="card-text">카테고리 : \${item.categoryName}</p>
+                                    <p class="card-text">내용 : \${item.content}</p>
+                                    <p class="card-text">의뢰비 : \${item.price}</p>
+                                    <button class="btn btn-primary" onclick="fnComplete(\${item.requestId})">완료</button>
+
+                                </div>
+                            </div>
+                        </div>`;
+                    container.insertAdjacentHTML("beforeend", card);
+                })
+            })
+    }
+
+    function fnGetCompleteRequest() {
+        fetch("/solver/getCompleteRequest.dox", {
+            method:"POST",
+            headers : {'Content-Type': 'application/json'},
+            body : JSON.stringify({
+                solverId : decoded?.memberId
+            })
+        })
+            .then(res=>res.json())
+            .then(data => {
+                console.log(data);
+                const items = data.list
+                    ? (Array.isArray(data.list) ? data.list : [data.list])
+                    : [];
+                const container = document.querySelector("#completed .row");
+                container.innerHTML = "";
+
+                items.forEach(item => {
+                    const card = `
+                        <div class="col">
+                            <div class="card h-100 border-success shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">\${item.title}</h5>
+                                    <p class="card-text">카테고리 : \${item.categoryName}</p>
+                                    <p class="card-text">내용 : \${item.content}</p>
+                                    <p class="card-text">의뢰비 : \${item.price}</p>
+                                </div>
+                            </div>
+                        </div>`;
+                    container.insertAdjacentHTML("beforeend", card);
+                })
+            })
+    }
+
+    function fnComplete(request_id) {
+        if(confirm("완료 요청하시겠습니까?")) {
+            fetch("/solver/completeRequest.dox", {
+                method : "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body : JSON.stringify({requestId : request_id})
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    alert(data.message);
+                    fnGetAcceptRequest();
+                })
+        }
+    }
+
+
+</script>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dahaedream.solver.mapper.SolverMapper">
+    <insert id="insertRequestAccept">
+        INSERT INTO REQUEST_ACCEPT VALUES (NULL, #{requestId}, #{solverId}, NULL)
+    </insert>
+
+    <select id="selectRequest" parameterType="hashmap" resultType="com.dahaedream.solver.model.Solver">
+        select ra.request_id, ra.solver_id, m1.nickname, m2.nickname, ra.status as acceptStatus, r.*, category_name from request_accept ra
+        inner join request r on ra.request_id = r.request_id
+        inner join member m1 on m1.member_id = ra.solver_id
+        inner join member m2 on m2.member_id = r.member_id
+        inner join category c on c.category_id = r.category_id
+        where solver_id = #{solverId} and r.status = '대기중'
+    </select>
+
+    <select id="selectAcceptRequest" parameterType="hashmap" resultType="com.dahaedream.solver.model.Solver">
+        select ra.request_id, ra.solver_id, m1.nickname, m2.nickname, ra.status as acceptStatus, r.*, category_name from request_accept ra
+        inner join request r on ra.request_id = r.request_id
+        inner join member m1 on m1.member_id = ra.solver_id
+        inner join member m2 on m2.member_id = r.member_id
+        inner join category c on c.category_id = r.category_id
+        where solver_id = #{solverId} and r.status = '진행중'
+
+    </select>
+
+    <select id="selectCompleteRequest" parameterType="hashmap" resultType="com.dahaedream.solver.model.Solver">
+        select ra.request_id, ra.solver_id, m1.nickname, m2.nickname, ra.status as acceptStatus, r.*, category_name from request_accept ra
+        inner join request r on ra.request_id = r.request_id
+        inner join member m1 on m1.member_id = ra.solver_id
+        inner join member m2 on m2.member_id = r.member_id
+        inner join category c on c.category_id = r.category_id
+        where solver_id = #{solverId} and r.status = '완료'
+    </select>
+
+    <update id="completeRequest" parameterType="hashmap">
+        update request set status = '완료' where request_id = #{requestId}
+    </update>
+
+</mapper>

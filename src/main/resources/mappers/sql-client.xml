@@ -5,10 +5,65 @@
 <mapper namespace="com.dahaedream.client.mapper.ClientMapper">
 
     <insert id="insertRequest" parameterType="hashmap">
-        INSERT INTO REQUEST VALUES (null, 1, #{categoryId}, #{title}, #{onOff}, #{price}, null, #{content}, NOW(), '대기중')
+        INSERT INTO REQUEST VALUES (null, #{memberId}, #{categoryId}, #{title}, #{onOff}, #{price}, null, #{content}, NOW(), '대기중')
     </insert>
 
     <select id="selectRequestList" parameterType="hashmap" resultType="com.dahaedream.client.model.Client">
         SELECT * FROM REQUEST
     </select>
+
+    <select id="selectInfo" parameterType="hashmap" resultType="com.dahaedream.client.model.Client">
+        SELECT REQUEST_ID, R.MEMBER_ID, TITLE, IS_ONLINE, PRICE, R.ADDRESS, CONTENT, CREATED_AT, STATUS, CATEGORY_NAME, NICKNAME FROM REQUEST R
+        INNER JOIN CATEGORY C ON R.CATEGORY_ID = C.CATEGORY_ID
+        INNER JOIN MEMBER M ON R.MEMBER_ID = M.MEMBER_ID
+        WHERE REQUEST_ID = #{requestId}
+    </select>
+
+    <select id="selectRequest" parameterType="hashmap" resultType="int">
+        SELECT COUNT(*) FROM REQUEST_ACCEPT
+        WHERE REQUEST_ID = #{requestId} AND SOLVER_ID = #{solverId}
+    </select>
+
+    <select id="selectRequestAccept" parameterType="hashmap" resultType="com.dahaedream.solver.model.Solver">
+        SELECT RA.REQUEST_ID, RA.SOLVER_ID, M1.NICKNAME as solverName , M2.NICKNAME as clientName, RA.STATUS, R.*, C.CATEGORY_NAME FROM REQUEST_ACCEPT RA
+        INNER JOIN REQUEST R ON RA.REQUEST_ID = R.REQUEST_ID
+        INNER JOIN MEMBER M1 ON M1.MEMBER_ID = RA.SOLVER_ID
+        INNER JOIN MEMBER M2 ON M2.MEMBER_ID = R.MEMBER_ID
+        INNER JOIN CATEGORY C ON C.CATEGORY_ID = R.CATEGORY_ID
+        WHERE RA.STATUS IS NULL AND R.MEMBER_ID = #{clientId}
+
+    </select>
+
+    <update id="updateRequestAccept" parameterType="hashmap">
+        UPDATE REQUEST_ACCEPT SET STATUS = 'accept'
+        WHERE REQUEST_ID = #{requestId} AND SOLVER_ID = #{solverId}
+    </update>
+
+    <update id="updateRequestStatus" parameterType="hashmap">
+        UPDATE REQUEST SET STATUS = '진행중' WHERE REQUEST_ID = #{requestId}
+    </update>
+
+
+    <select id="selectMyRequestList" parameterType="hashmap" resultType="com.dahaedream.client.model.Client">
+        SELECT * FROM REQUEST WHERE MEMBER_ID = #{memberId}
+    </select>
+
+    <delete id="deleteRequest" parameterType="hashmap">
+        DELETE FROM REQUEST WHERE REQUEST_ID = #{requestId}
+    </delete>
+
+    <select id="selectRequestAcceptCnt" parameterType="hashmap" resultType="int">
+        SELECT COUNT(*) AS COUNT FROM REQUEST_ACCEPT WHERE REQUEST_ID = #{requestId}
+    </select>
+
+    <delete id="cancelRequest" parameterType="hashmap">
+        DELETE FROM REQUEST_ACCEPT WHERE REQUEST_ID = #{requestId} AND SOLVER_ID = #{solverId}
+    </delete>
+
+    <delete id="completeRequest" parameterType="hashmap">
+        DELETE FROM REQUEST WHERE REQUEST_ID = #{requestId}
+    </delete>
+
+
+
 </mapper>

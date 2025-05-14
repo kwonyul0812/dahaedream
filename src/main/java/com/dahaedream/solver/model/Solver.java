@@ -1,12 +1,17 @@
-package com.dahaedream.client.model;
+package com.dahaedream.solver.model;
 
 import lombok.Data;
 
 @Data
-public class Client {
+public class Solver {
+
+    // Request Accept Table
+
+    private String requestId;
+    private String solverId;
+    private String acceptStatus;
 
     //Request Table
-    private int requestId;
     private int memberId;
     private int categoryId;
     private String title;
@@ -18,12 +23,13 @@ public class Client {
     private String status;
     private String isOnline;
 
-    //Member Table
-    private String nickname;
 
-    //Category Table
+    //category
     private String categoryName;
 
+    //member
 
+    private String solverName;
+    private String clientName;
 
 }
