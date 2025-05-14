@@ -2,7 +2,11 @@ package com.dahaedream.login.controller;
 
 import com.dahaedream.login.model.MemberDto;
 import com.dahaedream.login.service.LoginService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -13,19 +17,10 @@ public class LoginController {
 
     private final LoginService service;
 
-    @GetMapping("/login")
+    @GetMapping("/login/signin")
     public String login() {
         return "login/signin";
     }
-
-//    @PostMapping("/login")
-//    @ResponseBody
-//    public ResponseEntity login(@ModelAttribute MemberDto dto) {
-//
-////        System.out.println(dto.getEmail());
-//
-//        return ResponseEntity.ok().build();
-//    }
 
     @GetMapping("/login/signup")
     public String signup() {
@@ -45,5 +40,4 @@ public class LoginController {
             return ResponseEntity.badRequest().build(); // 실패 응답
         }
     }
-
 }

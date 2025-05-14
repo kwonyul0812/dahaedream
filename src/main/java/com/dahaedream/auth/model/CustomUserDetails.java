@@ -1,11 +1,10 @@
-package com.dahaedream.jwt.model;
+package com.dahaedream.auth.model;
 
 
 import com.dahaedream.login.model.MemberDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 

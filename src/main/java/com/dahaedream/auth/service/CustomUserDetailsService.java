@@ -1,6 +1,6 @@
-package com.dahaedream.jwt.service;
+package com.dahaedream.auth.service;
 
-import com.dahaedream.jwt.model.CustomUserDetails;
+import com.dahaedream.auth.model.CustomUserDetails;
 import com.dahaedream.login.mapper.LoginMapper;
 import com.dahaedream.login.model.MemberDto;
 import lombok.RequiredArgsConstructor;

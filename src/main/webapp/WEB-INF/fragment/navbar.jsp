@@ -1,15 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<!DOCTYPE html>--%>
-<%--<html lang="en">--%>
-<%--<head>--%>
-<%--    <meta charset="UTF-8">--%>
-<%--    <meta name="viewport"--%>
-<%--          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">--%>
-<%--    <meta http-equiv="X-UA-Compatible" content="ie=edge">--%>
-<%--    <title></title>--%>
 
-<%--</head>--%>
-<%--<body>--%>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -52,46 +42,38 @@
                     <a class="nav-link active" aria-current="page" href="/mypage/member">마이페이지</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/message/received">쪽지</a>
+                    <a href="/message/receivedMessage" class="nav-link active" aria-current="page" style="cursor: pointer" id="message">쪽지</a>
                 </li>
                 <li>
-                    <span id="info">권율</span>
+                    <span id="info" style="display: none"></span>
                 </li>
                 <li>
-                    <a href="/login" class="btn btn-sm btn-outline-secondary" id="loginBtn" role="button">로그인</a>
+                    <a href="/login/signin" class="btn btn-sm btn-outline-secondary" id="loginBtn" role="button">로그인</a>
                 </li>
                 <li>
-                    <button class="btn btn-sm btn-outline-secondary" id="logoutBtn">로그아웃</button>
+                    <a href="/logout" class="btn btn-sm btn-outline-secondary" id="logoutBtn" role="button" style="display: none">로그아웃</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-
 <script>
   $(function () {
-    // 로컬 스토리지에서 token 가져옴
-    const token = localStorage.getItem('jwtToken');
-
-
-    // 토큰이 있으면 로그인 버튼 숨기고 로그아웃 버튼 보이기
-    if (token) {
-      $('#info').show();
-      $('#loginBtn').hide();
-      $('#logoutBtn').show();
-    } else {
-      $('#info').hide();
-      $('#loginBtn').show();
-      $('#logoutBtn').hide();
-    }
-
-    $('#logoutBtn').on('click', function () {
-      // 로그아웃 클릭시 jwt 토큰 삭제 처리
-      localStorage.removeItem('jwtToken');
-
-      window.location.href = "/";
+    $.ajax({
+      url: "/auth/getUser",
+      type: "GET",
+      success: function (res) {
+        $("#info").text(res.nickname).show();
+        // 로그인 버튼 숨기고 로그아웃 버튼 표시
+        $('#loginBtn').hide();
+        $('#logoutBtn').show();
+      },
+      error: function (err) {
+        // 인증되지 않은 경우
+        $('#info').text("").hide();
+        $('#loginBtn').show();
+        $('#logoutBtn').hide();
+      }
     })
   })
 </script>
-<%--</body>--%>
-<%--</html>--%>

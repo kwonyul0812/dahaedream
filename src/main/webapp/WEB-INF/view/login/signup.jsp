@@ -169,7 +169,7 @@
           const modal = new bootstrap.Modal(document.getElementById('alertModal'));
           // 모달 닫힐 때 페이지 이동
           $('#alertModal').one('hide.bs.modal', function () {
-            window.location.href = '/login';
+            window.location.href = '/login/signin';
           });
           modal.show();
         },
