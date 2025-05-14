@@ -43,4 +43,13 @@ public class SolverService {
         resultMap.put("result", "success");
         return resultMap;
     }
+
+
+    public HashMap<String, Object> completeRequest(HashMap<String, Object> map) {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        solverMapper.completeRequest(map);
+        resultMap.put("message", "완료 요청되었습니다.");
+        resultMap.put("result", "success");
+        return resultMap;
+    }
 }

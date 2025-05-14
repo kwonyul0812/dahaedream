@@ -15,4 +15,6 @@ public interface SolverMapper {
     List<Solver> selectAcceptRequest(HashMap<String, Object> map);
 
     List<Solver> selectCompleteRequest(HashMap<String, Object> map);
+
+    void completeRequest(HashMap<String, Object> map);
 }

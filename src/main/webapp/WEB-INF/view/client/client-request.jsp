@@ -103,9 +103,20 @@
         fnGetRequest();
     }
 
-    function fnCancel() {
+    function fnCancel(request_id, solver_id) {
         if(confirm('취소하시겠습니까?')) {
-            alert('취소되었습니다.');
+            fetch("/client/cancelRequest.dox", {
+                method:"POST",
+                headers : {'Content-Type': 'application/json'},
+                body : JSON.stringify({requestId : request_id, solverId : solver_id})
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    alert(data.message);
+                    fnGetRequest();
+                })
+
         }
     }
 
@@ -139,7 +150,7 @@
                                 </div>
                                 <div class="card-footer p-0">
                                     <div class="btn-group w-100" role="group">
-                                        <button class="btn btn-outline-secondary" onclick="fnCancel()">취소</button>
+                                        <button class="btn btn-outline-secondary" onclick="fnCancel(\${item.requestId}, \${item.solverId})">취소</button>
                                         <button class="btn btn-outline-success"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#acceptModal"

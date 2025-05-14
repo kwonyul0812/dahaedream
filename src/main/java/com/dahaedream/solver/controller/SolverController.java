@@ -60,5 +60,16 @@ public class SolverController {
         return new Gson().toJson(resultMap);
     }
 
+    @PostMapping("/solver/completeRequest.dox")
+    @ResponseBody
+    public String completeRequest(@RequestBody HashMap<String, Object> map) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap = solverService.completeRequest(map);
+        return new Gson().toJson(resultMap);
+    }
+
+
+
+
 
 }

@@ -43,4 +43,27 @@
         UPDATE REQUEST SET STATUS = '진행중' WHERE REQUEST_ID = #{requestId}
     </update>
 
+
+    <select id="selectMyRequestList" parameterType="hashmap" resultType="com.dahaedream.client.model.Client">
+        SELECT * FROM REQUEST WHERE MEMBER_ID = #{memberId}
+    </select>
+
+    <delete id="deleteRequest" parameterType="hashmap">
+        DELETE FROM REQUEST WHERE REQUEST_ID = #{requestId}
+    </delete>
+
+    <select id="selectRequestAcceptCnt" parameterType="hashmap" resultType="int">
+        SELECT COUNT(*) AS COUNT FROM REQUEST_ACCEPT WHERE REQUEST_ID = #{requestId}
+    </select>
+
+    <delete id="cancelRequest" parameterType="hashmap">
+        DELETE FROM REQUEST_ACCEPT WHERE REQUEST_ID = #{requestId} AND SOLVER_ID = #{solverId}
+    </delete>
+
+    <delete id="completeRequest" parameterType="hashmap">
+        DELETE FROM REQUEST WHERE REQUEST_ID = #{requestId}
+    </delete>
+
+
+
 </mapper>

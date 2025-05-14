@@ -33,9 +33,10 @@
         inner join member m2 on m2.member_id = r.member_id
         inner join category c on c.category_id = r.category_id
         where solver_id = #{solverId} and r.status = '완료'
-
     </select>
 
-
+    <update id="completeRequest" parameterType="hashmap">
+        update request set status = '완료' where request_id = #{requestId}
+    </update>
 
 </mapper>

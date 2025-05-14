@@ -23,4 +23,14 @@ public interface ClientMapper {
     void updateRequestAccept(HashMap<String, Object> map);
 
     void updateRequestStatus(HashMap<String, Object> map);
+
+    List<Client> selectMyRequestList(HashMap<String, Object> map);
+
+    void deleteRequest(HashMap<String, Object> map);
+
+    int selectRequestAcceptCnt(HashMap<String, Object> map);
+
+    void cancelRequest(HashMap<String, Object> map);
+
+    void completeRequest(HashMap<String, Object> map);
 }

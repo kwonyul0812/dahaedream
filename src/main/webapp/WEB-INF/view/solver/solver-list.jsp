@@ -89,7 +89,7 @@
                                     <p class="card-text">카테고리 : \${item.categoryName}</p>
                                     <p class="card-text">내용 : \${item.content}</p>
                                     <p class="card-text">의뢰비 : \${item.price}</p>
-                                    <button class="btn btn-primary" onclick="fn()">완료</button>
+                                    <button class="btn btn-primary" onclick="fnComplete(\${item.requestId})">완료</button>
 
                                 </div>
                             </div>
@@ -133,13 +133,22 @@
             })
     }
 
-    function fn() {
-        if(confirm("완료 요청")) {
-            alert("완료되었습니다.");
-        } else {
-            alert("취소되었습니다.");
+    function fnComplete(request_id) {
+        if(confirm("완료 요청하시겠습니까?")) {
+            fetch("/solver/completeRequest.dox", {
+                method : "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body : JSON.stringify({requestId : request_id})
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    alert(data.message);
+                    fnGetAcceptRequest();
+                })
         }
-
     }
 
 

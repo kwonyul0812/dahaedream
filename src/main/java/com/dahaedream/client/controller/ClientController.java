@@ -1,5 +1,6 @@
 package com.dahaedream.client.controller;
 
+import com.dahaedream.client.mapper.ClientMapper;
 import com.dahaedream.client.service.ClientService;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ public class ClientController {
 
 
     private final ClientService clientService;
+    private final ClientMapper clientMapper;
 
     @GetMapping("/client/add")
     public String clientAdd() {
@@ -74,6 +76,40 @@ public class ClientController {
         HashMap<String, Object> resultMap = new HashMap<>();
         resultMap = clientService.updateRequestAccept(map);
         return new Gson().toJson(resultMap);
+    }
+
+    @PostMapping("/client/getRequest.dox")
+    @ResponseBody
+    public String getRequestList(@RequestBody HashMap<String, Object> map) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap = clientService.selectMyRequestList(map);
+        return new Gson().toJson(resultMap);
+
+    }
+
+    @PostMapping("/client/delete.dox")
+    @ResponseBody
+    public String deleteRequest(@RequestBody HashMap<String, Object> map) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap = clientService.deleteRequest(map);
+        return new Gson().toJson(resultMap);
+    }
+
+    @PostMapping("/client/cancelRequest.dox")
+    @ResponseBody
+    public String cancelRequest(@RequestBody HashMap<String, Object> map) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap = clientService.cancelRequest(map);
+        return new Gson().toJson(resultMap);
+    }
+
+    @PostMapping("/client/completeRequest.dox")
+    @ResponseBody
+    public String completeRequest(@RequestBody HashMap<String, Object> map) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap = clientService.completeRequest(map);
+        return new Gson().toJson(resultMap);
+
     }
 
 
