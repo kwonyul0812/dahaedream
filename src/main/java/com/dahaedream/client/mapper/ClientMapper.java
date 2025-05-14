@@ -19,4 +19,8 @@ public interface ClientMapper {
     int selectRequest(HashMap<String, Object> map);
 
     List<Solver> selectRequestAccept(HashMap<String, Object> map);
+
+    void updateRequestAccept(HashMap<String, Object> map);
+
+    void updateRequestStatus(HashMap<String, Object> map);
 }

@@ -44,5 +44,21 @@ public class SolverController {
 
     }
 
+    @PostMapping("/solver/getAcceptRequest.dox")
+    @ResponseBody
+    public String getAcceptRequest(@RequestBody HashMap<String, Object> map) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap = solverService.getAcceptRequest(map);
+        return new Gson().toJson(resultMap);
+    }
+
+    @PostMapping("/solver/getCompleteRequest.dox")
+    @ResponseBody
+    public String getCompleteRequest(@RequestBody HashMap<String, Object> map) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap = solverService.getCompleteRequest(map);
+        return new Gson().toJson(resultMap);
+    }
+
 
 }

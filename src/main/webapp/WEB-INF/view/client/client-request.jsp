@@ -58,10 +58,19 @@
 
 <!-- 스크립트 -->
 <script>
+
+    let requestId = null;
+    let solverId = null;
+
+
+    fnGetRequest();
     // 모달 열기 전에 거래 대상 및 포인트 설정
-    function prepareModal(name, point) {
+    function prepareModal(name, point, request_id, solver_id) {
         document.getElementById('modalTarget').textContent = name;
         document.getElementById('modalPoint').textContent = point;
+
+        requestId = request_id;
+        solverId = solver_id;
     }
 
     // 결제 처리
@@ -75,7 +84,23 @@
 
         // 모달 닫기
         const modal = bootstrap.Modal.getInstance(document.getElementById('acceptModal'));
+
+        fetch("/client/editRequestAccept.dox", {
+            method:"POST",
+            headers : {'Content-Type': 'application/json'},
+            body : JSON.stringify({
+                requestId : requestId,
+                solverId : solverId
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+
         modal.hide();
+
+        fnGetRequest();
     }
 
     function fnCancel() {
@@ -89,7 +114,7 @@
         const token = localStorage.getItem('jwtToken');
         const decoded = token ? jwtDecode(token) : null;
 
-        fetch("/client/getRequest.dox", {
+        fetch("/client/getRequestAccept.dox", {
             method:"POST",
             headers : {'Content-Type': 'application/json'},
             body : JSON.stringify({clientId : decoded?.memberId})
@@ -118,7 +143,7 @@
                                         <button class="btn btn-outline-success"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#acceptModal"
-                                                onclick="prepareModal('\${item.solverName}', \${item.price})">
+                                                onclick="prepareModal('\${item.solverName}', \${item.price}, \${item.requestId}, \${item.solverId})">
                                             수락
                                         </button>
                                         <button class="btn btn-outline-primary" onclick="location.href='/message/write'">쪽지 보내기</button>
@@ -130,11 +155,7 @@
                     container.insertAdjacentHTML('beforeend', card);
                 });
             })
-
     }
-
-    fnGetRequest();
-
 </script>
 
 </body>

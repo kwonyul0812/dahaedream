@@ -48,4 +48,12 @@ public class ClientService {
         resultMap.put("result", "success");
         return resultMap;
     }
+
+    public HashMap<String, Object> updateRequestAccept(HashMap<String, Object> map) {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        clientMapper.updateRequestAccept(map);
+        clientMapper.updateRequestStatus(map);
+        resultMap.put("result", "success");
+        return resultMap;
+    }
 }

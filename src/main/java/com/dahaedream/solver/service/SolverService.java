@@ -27,4 +27,20 @@ public class SolverService {
         resultMap.put("result", "success");
         return resultMap;
     }
+
+    public HashMap<String, Object> getAcceptRequest(HashMap<String, Object> map) {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        List<Solver> list = solverMapper.selectAcceptRequest(map);
+        resultMap.put("list", list);
+        resultMap.put("result", "success");
+        return resultMap;
+    }
+
+    public HashMap<String, Object> getCompleteRequest(HashMap<String, Object> map) {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        List<Solver> list = solverMapper.selectCompleteRequest(map);
+        resultMap.put("list", list);
+        resultMap.put("result", "success");
+        return resultMap;
+    }
 }

@@ -124,7 +124,7 @@
                 console.log(data);
             })
             alert('등록되었습니다.');
-            // location.href='/request/list';
+            location.href='/request/list';
         }
 
     }

@@ -60,12 +60,22 @@ public class ClientController {
         return new Gson().toJson(resultMap);
     }
 
-    @PostMapping("/client/getRequest.dox")
+    @PostMapping("/client/getRequestAccept.dox")
     @ResponseBody
     public String getRequest(@RequestBody HashMap<String, Object> map) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<>();
         resultMap = clientService.selectRequest(map);
         return new Gson().toJson(resultMap);
     }
+
+    @PostMapping("/client/editRequestAccept.dox")
+    @ResponseBody
+    public String updateRequestAccept(@RequestBody HashMap<String, Object> map) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap = clientService.updateRequestAccept(map);
+        return new Gson().toJson(resultMap);
+    }
+
+
 }
 
