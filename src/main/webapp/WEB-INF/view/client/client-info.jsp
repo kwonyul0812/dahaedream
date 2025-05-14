@@ -80,10 +80,11 @@
 </html>
 <script>
 
-    $(function () {
-
+    function fnGetList() {
+        const token = localStorage.getItem('jwtToken');
         const urlParams = new URLSearchParams(window.location.search);
         const requestId = urlParams.get("requestId");
+        const decoded = token ? jwtDecode(token) : null;
 
         console.log("페이지 로드 됨!");
         fetch("/client/info.dox", {
@@ -91,7 +92,10 @@
             headers : {
                 "Content-type" : "application/json"
             },
-            body : JSON.stringify({requestId : requestId})
+            body : JSON.stringify({
+                requestId : requestId,
+                solverId : decoded?.memberId
+            })
         })
             .then(res => res.json())
             .then(data => {
@@ -115,13 +119,19 @@
                         // 작성자가 아닌 경우 → 버튼 보이기
                         document.getElementById("acceptBtn").style.display = "inline-block";
                     }
+                    if (data.alreadySent) {
+                        document.getElementById("acceptBtn").textContent = "보낸 의뢰";
+                        document.getElementById("acceptBtn").disabled = true;
+                        document.getElementById("acceptBtn").classList.remove("btn-primary");
+                        document.getElementById("acceptBtn").classList.add("btn-secondary");
+                    }
                 } else {
                     console.log('토큰 없음!');
 
                 }
             });
 
-    });
+    }
 
     function fnSend() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -141,13 +151,14 @@
                 .then(data => {
                     console.log(data);
                     alert("의뢰 수락 요청을 보냈습니다.");
+                    fnGetList();
                 })
         } else {
             console.log("토큰 없음!");
         }
     }
 
-
+fnGetList();
 
 
 

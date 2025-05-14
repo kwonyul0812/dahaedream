@@ -9,6 +9,7 @@ public class Solver {
 
     private String requestId;
     private String solverId;
+    private String acceptStatus;
 
     //Request Table
     private int memberId;
@@ -21,5 +22,14 @@ public class Solver {
     private String createdAt;
     private String status;
     private String isOnline;
+
+
+    //category
+    private String categoryName;
+
+    //member
+
+    private String solverName;
+    private String clientName;
 
 }

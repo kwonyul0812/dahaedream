@@ -1,5 +1,6 @@
 package com.dahaedream.client.controller;
 
+import com.dahaedream.client.mapper.ClientMapper;
 import com.dahaedream.client.service.ClientService;
 import com.dahaedream.jwt.model.CustomUserDetails;
 import com.dahaedream.login.model.MemberDto;
@@ -20,6 +21,7 @@ public class ClientController {
 
 
     private final ClientService clientService;
+    private final ClientMapper clientMapper;
 
     @GetMapping("/client/add")
     public String clientAdd() {
@@ -76,5 +78,57 @@ public class ClientController {
         resultMap = clientService.selectInfo(map);
         return new Gson().toJson(resultMap);
     }
+
+    @PostMapping("/client/getRequestAccept.dox")
+    @ResponseBody
+    public String getRequest(@RequestBody HashMap<String, Object> map) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap = clientService.selectRequest(map);
+        return new Gson().toJson(resultMap);
+    }
+
+    @PostMapping("/client/editRequestAccept.dox")
+    @ResponseBody
+    public String updateRequestAccept(@RequestBody HashMap<String, Object> map) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap = clientService.updateRequestAccept(map);
+        return new Gson().toJson(resultMap);
+    }
+
+    @PostMapping("/client/getRequest.dox")
+    @ResponseBody
+    public String getRequestList(@RequestBody HashMap<String, Object> map) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap = clientService.selectMyRequestList(map);
+        return new Gson().toJson(resultMap);
+
+    }
+
+    @PostMapping("/client/delete.dox")
+    @ResponseBody
+    public String deleteRequest(@RequestBody HashMap<String, Object> map) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap = clientService.deleteRequest(map);
+        return new Gson().toJson(resultMap);
+    }
+
+    @PostMapping("/client/cancelRequest.dox")
+    @ResponseBody
+    public String cancelRequest(@RequestBody HashMap<String, Object> map) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap = clientService.cancelRequest(map);
+        return new Gson().toJson(resultMap);
+    }
+
+    @PostMapping("/client/completeRequest.dox")
+    @ResponseBody
+    public String completeRequest(@RequestBody HashMap<String, Object> map) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap = clientService.completeRequest(map);
+        return new Gson().toJson(resultMap);
+
+    }
+
+
 }
 

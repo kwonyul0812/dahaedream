@@ -19,6 +19,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
             crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@4.0.0/build/cjs/index.min.js"></script>
+
 </head>
 <body class="bg-light">
 
@@ -27,39 +30,7 @@
 <div class="container py-5">
     <h1 class="mb-4 text-center">의뢰 내역</h1>
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-
-        <div class="col">
-            <div class="card h-100 shadow-sm">
-                <img src="" class="card-img-top" alt="썸네일 이미지">
-                <div class="card-body">
-                    <h5 class="card-title">수영 알려주실 분</h5>
-                    <p class="card-text"><strong>상태:</strong> 대기중</p>
-                </div>
-                <div class="card-footer p-0">
-                    <div class="btn-group w-100" role="group">
-                        <button class="btn btn-outline-primary" onclick="location.href='/client/info'">수정</button>
-                        <button class="btn btn-outline-danger" onclick="fnDelete()">삭제</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 shadow-sm">
-                <img src="" class="card-img-top" alt="썸네일 이미지">
-                <div class="card-body">
-                    <h5 class="card-title">요리 알려주실 분</h5>
-                    <p class="card-text"><strong>상태:</strong> 대기중</p>
-                </div>
-                <div class="card-footer p-0">
-                    <div class="btn-group w-100" role="group">
-                        <button class="btn btn-outline-primary" onclick="location.href='/client/info'">수정</button>
-                        <button class="btn btn-outline-danger" onclick="fnDelete()">삭제</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="requestList">
 
     </div>
 </div>
@@ -67,29 +38,92 @@
 </body>
 </html>
 <script>
-    function fnDelete() {
+    fnGet();
+
+    function fnDelete(requestId) {
 
         if(confirm('삭제할까요?')) {
-            alert('삭제되었습니다.');
+            fetch("/client/delete.dox", {
+                method:"POST",
+                headers : {'Content-Type': 'application/json'},
+                body : JSON.stringify({requestId : requestId})
+            })
+                .then(res=>res.json())
+                .then(data => {
+                    console.log(data);
+                    alert(data.message);
+                    fnGet();
+                })
         }
-
     }
 
     function fnGet() {
-        $.ajax({
-            url: '/client/get',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({
+        const token = localStorage.getItem('jwtToken');
+        const decoded = token ? jwtDecode(token) : null;
 
-            }),
-            success: function(res) {
-                console.log('성공!', res);
-            },
-            error: function(err) {
-                console.error('에러 발생:', err);
-            }
-        });
+        fetch("/client/getRequest.dox", {
+            method:"POST",
+            headers : {'Content-Type': 'application/json'},
+            body : JSON.stringify({memberId : decoded?.memberId})
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                const items = data.list
+                    ? (Array.isArray(data.list) ? data.list : [data.list])
+                    : [];
+                const container = document.getElementById('requestList');
+                container.innerHTML = '';
+
+                items.forEach(item => {
+                    let button = '';
+
+                    if (item.status == '대기중') {
+                        button = `
+                    <button class="btn btn-outline-primary" onclick="location.href='/client/info?requestId=\${item.requestId}'">수정</button>
+                    <button class="btn btn-outline-danger" onclick="fnDelete(\${item.requestId})">삭제</button>
+                `;
+                    } else if (item.status == '진행중') {
+                        button = `
+                    <button class="btn btn-outline-secondary" disabled>수정 불가</button>
+                `;
+                    } else if (item.status == '완료') {
+                        button = `
+                    <button class="btn btn-success w-100" onclick="fnComplete(\${item.requestId})">완료 처리</button>
+                `;
+                    }
+
+                    const cardHtml = `
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="\${item.thumbnailUrl || ''}" class="card-img-top" alt="썸네일 이미지">
+                        <div class="card-body">
+                            <h5 class="card-title">\${item.title}</h5>
+                            <p class="card-text"><strong>상태:</strong> \${item.status}</p>
+                        </div>
+                        <div class="card-footer p-0">
+                            <div class="btn-group w-100" role="group">
+                                \${button}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+                    container.insertAdjacentHTML('beforeend', cardHtml);
+                })
+            })
+    }
+
+    function fnComplete(request_id) {
+        fetch("/client/completeRequest.dox", {
+            method : "POST",
+            headers : {'Content-Type': 'application/json'},
+            body : JSON.stringify({requestId : request_id})
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
     }
 
 </script>

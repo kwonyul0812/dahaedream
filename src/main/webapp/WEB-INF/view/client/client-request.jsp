@@ -19,6 +19,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
             crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@4.0.0/build/cjs/index.min.js"></script>
+
 </head>
 <body class="bg-light">
 
@@ -26,55 +28,10 @@
 
 <div class="container py-5">
     <h1 class="text-center mb-4">의뢰수락 요청</h1>
+    <div id="requestCardList" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        <div class="col">
-            <div class="card h-100 shadow-sm">
-                <img src="" class="card-img-top" alt="썸네일 이미지">
-                <div class="card-body">
-                    <h5 class="card-title">수영 알려주실 분</h5>
-                    <p class="card-text mb-1"><strong>카테고리:</strong> 수영</p>
-                    <p class="card-text mb-1"><strong>포인트:</strong> <span id="point">30000</span>P</p>
-                    <p class="card-text"><strong>해결사:</strong> <span id="targetName">홍길동</span></p>
-                </div>
-                <div class="card-footer p-0">
-                    <div class="btn-group w-100" role="group">
-                        <button class="btn btn-outline-secondary" onclick="fnCancel()">취소</button>
-                        <button class="btn btn-outline-success"
-                                data-bs-toggle="modal"
-                                data-bs-target="#acceptModal"
-                                onclick="prepareModal('홍길동', 30000)">
-                            수락
-                        </button>
-                        <button class="btn btn-outline-primary" onclick="location.href='/message/write'">쪽지 보내기</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 shadow-sm">
-                <img src="" class="card-img-top" alt="썸네일 이미지">
-                <div class="card-body">
-                    <h5 class="card-title">요리 알려주실 분</h5>
-                    <p class="card-text mb-1"><strong>카테고리:</strong> 수영</p>
-                    <p class="card-text mb-1"><strong>포인트:</strong> <span id="point">30000</span>P</p>
-                    <p class="card-text"><strong>해결사:</strong> <span id="targetName">홍길동</span></p>
-                </div>
-                <div class="card-footer p-0">
-                    <div class="btn-group w-100" role="group">
-                        <button class="btn btn-outline-secondary" onclick="fnCancel()">취소</button>
-                        <button class="btn btn-outline-success"
-                                data-bs-toggle="modal"
-                                data-bs-target="#acceptModal"
-                                onclick="prepareModal('홍길동', 30000)">
-                            수락
-                        </button>
-                        <button class="btn btn-outline-primary" onclick="location.href='/message/write'">쪽지 보내기</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
+
 </div>
 
 <!-- 결제 확인 모달 -->
@@ -101,10 +58,19 @@
 
 <!-- 스크립트 -->
 <script>
+
+    let requestId = null;
+    let solverId = null;
+
+
+    fnGetRequest();
     // 모달 열기 전에 거래 대상 및 포인트 설정
-    function prepareModal(name, point) {
+    function prepareModal(name, point, request_id, solver_id) {
         document.getElementById('modalTarget').textContent = name;
         document.getElementById('modalPoint').textContent = point;
+
+        requestId = request_id;
+        solverId = solver_id;
     }
 
     // 결제 처리
@@ -118,13 +84,88 @@
 
         // 모달 닫기
         const modal = bootstrap.Modal.getInstance(document.getElementById('acceptModal'));
+
+        fetch("/client/editRequestAccept.dox", {
+            method:"POST",
+            headers : {'Content-Type': 'application/json'},
+            body : JSON.stringify({
+                requestId : requestId,
+                solverId : solverId
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+
         modal.hide();
+
+        fnGetRequest();
     }
 
-    function fnCancel() {
+    function fnCancel(request_id, solver_id) {
         if(confirm('취소하시겠습니까?')) {
-            alert('취소되었습니다.');
+            fetch("/client/cancelRequest.dox", {
+                method:"POST",
+                headers : {'Content-Type': 'application/json'},
+                body : JSON.stringify({requestId : request_id, solverId : solver_id})
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    alert(data.message);
+                    fnGetRequest();
+                })
+
         }
+    }
+
+    function fnGetRequest() {
+
+        const token = localStorage.getItem('jwtToken');
+        const decoded = token ? jwtDecode(token) : null;
+
+        fetch("/client/getRequestAccept.dox", {
+            method:"POST",
+            headers : {'Content-Type': 'application/json'},
+            body : JSON.stringify({clientId : decoded?.memberId})
+        })
+            .then(res => res.json())
+            .then(data => {
+                const list = data.list || [];
+                console.log(data.list);
+                const container = document.getElementById('requestCardList');
+                container.innerHTML = ''; // 초기화
+
+                list.forEach(item => {
+                    const card = `
+                        <div class="col">
+                            <div class="card h-100 shadow-sm">
+                                <img src="\${item.imgUrl || ''}" class="card-img-top" alt="썸네일 이미지">
+                                <div class="card-body">
+                                    <h5 class="card-title">\${item.title}</h5>
+                                    <p class="card-text mb-1"><strong>카테고리:</strong> \${item.categoryName}</p>
+                                    <p class="card-text mb-1"><strong>포인트:</strong> <span>\${item.price}</span>P</p>
+                                    <p class="card-text"><strong>해결사:</strong> <span>\${item.solverName}</span></p>
+                                </div>
+                                <div class="card-footer p-0">
+                                    <div class="btn-group w-100" role="group">
+                                        <button class="btn btn-outline-secondary" onclick="fnCancel(\${item.requestId}, \${item.solverId})">취소</button>
+                                        <button class="btn btn-outline-success"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#acceptModal"
+                                                onclick="prepareModal('\${item.solverName}', \${item.price}, \${item.requestId}, \${item.solverId})">
+                                            수락
+                                        </button>
+                                        <button class="btn btn-outline-primary" onclick="location.href='/message/write'">쪽지 보내기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.insertAdjacentHTML('beforeend', card);
+                });
+            })
     }
 </script>
 
