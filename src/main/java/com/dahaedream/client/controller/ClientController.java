@@ -2,7 +2,6 @@ package com.dahaedream.client.controller;
 
 import com.dahaedream.client.mapper.ClientMapper;
 import com.dahaedream.client.service.ClientService;
-import com.dahaedream.jwt.model.CustomUserDetails;
 import com.dahaedream.login.model.MemberDto;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
@@ -58,16 +57,16 @@ public class ClientController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if(authentication.getPrincipal() instanceof CustomUserDetails userDetails) {
-            Integer memberId = userDetails.getMemberId();
-            map.put("memberId", memberId);
-
-            resultMap.put("memberId", memberId);
-
-        } else {
-            System.out.println(authentication.getPrincipal());
-
-        }
+//        if(authentication.getPrincipal() instanceof CustomUserDetails userDetails) {
+//            Integer memberId = userDetails.getMemberId();
+//            map.put("memberId", memberId);
+//
+//            resultMap.put("memberId", memberId);
+//
+//        } else {
+//            System.out.println(authentication.getPrincipal());
+//
+//        }
         return new Gson().toJson(resultMap);
     }
 
