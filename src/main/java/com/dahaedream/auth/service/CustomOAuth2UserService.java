@@ -53,7 +53,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             userDto.setName(member.getNickname());
 
             return new CustomOAuth2User(userDto);
-        } else {
+        } else if(existData != null && existData.getIsSocial().equals("Y")) { // 작업중
             existData.setNickname(oAuth2Response.getName());
 
             loginMapper.updateSocialMember(existData);
@@ -63,6 +63,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             userDto.setName(oAuth2Response.getName());
 
             return new CustomOAuth2User(userDto);
+        } else {
+            return null;
         }
     }
 }
