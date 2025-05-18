@@ -27,19 +27,18 @@ public class JWTFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-////         쿠키 방식으로 작동할경우 로그인페이지의 경우 jwt 검사를 하지 않도록 변경이 필요함...
-//        String path = request.getRequestURI();
-//
-//        // 로그인 페이지는 JWT 체크 안 함
-//        if (path.equals("/login/signin")) {
-//            filterChain.doFilter(request, response);
-//            return;
-//        }
+        // 로그인창의 경우 jwt 검증 안함
+        String path = request.getRequestURI();
+
+        if (path.startsWith("/login/signin")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         //cookie들을 불러온 뒤 Authorization Key에 담긴 쿠키를 찾음
         String authorization = null;
         Cookie[] cookies = request.getCookies();
-        if(cookies != null) {
+        if (cookies != null) {
             for (Cookie cookie : cookies) {
 
                 System.out.println(cookie.getName());
@@ -74,32 +73,8 @@ public class JWTFilter extends OncePerRequestFilter {
             expiredCookie.setMaxAge(0);  // 쿠키를 삭제하기 위해 Max-Age를 0으로 설정
             response.addCookie(expiredCookie);
 
-            // AJAX 요청인지 확인
-//            boolean isAjax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
-//
-//            // AJAX 요청인 경우 401 응답 보내기
-//            if (isAjax) {
-//                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-//                response.setContentType("application/json");
-//                response.getWriter().write("{\"error\": \"expired\"}");
-//            } else {
-//                // 일반 요청인 경우 로그인 페이지로 리다이렉트
-//                response.sendRedirect("/login/signin?error=expired");
-//            }
+            response.sendRedirect("/login/signin?error=expired");
 
-            // 하이퍼링크 요청인지 확인...
-            boolean isHyperlinkRequest =
-                    !"XMLHttpRequest".equals(request.getHeader("X-Requested-With")) &&
-                    request.getHeader("Accept") != null &&
-                    request.getHeader("Accept").contains("text/html") &&
-                    "GET".equals(request.getMethod());
-
-            if (isHyperlinkRequest) {
-                response.sendRedirect("/login/signin?error=expired");
-                return;
-            }
-
-            filterChain.doFilter(request, response);
             //조건이 해당되면 메소드 종료 (필수)
             return;
         }
