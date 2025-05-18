@@ -37,4 +37,8 @@ public class LoginService {
             return 0; // 실패
         }
     }
+
+    public MemberDto getByEmail(String email) {
+        return mapper.selectByEmail(email);
+    }
 }
