@@ -41,7 +41,7 @@ public class JWTFilter extends OncePerRequestFilter {
         if (cookies != null) {
             for (Cookie cookie : cookies) {
 
-                System.out.println(cookie.getName());
+//                System.out.println(cookie.getName());
                 if (cookie.getName().equals("Authorization")) {
 
                     authorization = cookie.getValue();
@@ -52,7 +52,7 @@ public class JWTFilter extends OncePerRequestFilter {
         //Authorization 헤더 검증
         if (authorization == null) {
 
-            System.out.println("token null");
+//            System.out.println("token null");
             filterChain.doFilter(request, response);
 
             //조건이 해당되면 메소드 종료 (필수)
@@ -65,7 +65,7 @@ public class JWTFilter extends OncePerRequestFilter {
         //토큰 소멸 시간 검증
         if (jwtUtil.isExpired(token)) {
 
-            System.out.println("token expired");
+//            System.out.println("token expired");
 
             // 쿠키 삭제: 만료된 JWT 쿠키 삭제
             Cookie expiredCookie = new Cookie("Authorization", null);
@@ -95,7 +95,7 @@ public class JWTFilter extends OncePerRequestFilter {
         Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
         //세션에 사용자 등록
         SecurityContextHolder.getContext().setAuthentication(authToken);
-        System.out.println("토큰 인증 성공");
+//        System.out.println("토큰 인증 성공");
 
         filterChain.doFilter(request, response);
 
