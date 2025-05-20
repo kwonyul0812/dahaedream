@@ -45,6 +45,8 @@
             .then(res => res.json())
             .then(data => {
                 console.log(data.list);
+                console.log(data.memberId);
+
                 const listContainer = document.getElementById("request-list");
                 listContainer.innerHTML = "";
 

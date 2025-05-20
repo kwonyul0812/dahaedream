@@ -1,10 +1,15 @@
 package com.dahaedream.client.controller;
 
+import com.dahaedream.auth.model.CustomUserDetails;
 import com.dahaedream.client.mapper.ClientMapper;
 import com.dahaedream.client.service.ClientService;
+import com.dahaedream.login.model.MemberDto;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -48,9 +53,12 @@ public class ClientController {
 
     @PostMapping("/client/select.dox")
     @ResponseBody
-    public String getRequestList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+    public String getRequestList(@AuthenticationPrincipal CustomUserDetails user,
+            @RequestParam HashMap<String, Object> map) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<>();
         resultMap = clientService.selectRequestList(map);
+        resultMap.put("nickname", user.getNickname());
+        resultMap.put("memberId", user.getMemberId());
         return new Gson().toJson(resultMap);
     }
 

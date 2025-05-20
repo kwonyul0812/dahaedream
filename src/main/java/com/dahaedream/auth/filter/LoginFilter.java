@@ -1,7 +1,9 @@
-package com.dahaedream.jwt;
+package com.dahaedream.auth.filter;
 
-import com.dahaedream.jwt.model.CustomUserDetails;
+import com.dahaedream.auth.jwt.JWTUtil;
+import com.dahaedream.auth.model.CustomUserDetails;
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,11 +16,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
-    private final JWTUtill jwtUtill;
+    private final JWTUtil jwtUtil;
 
-    public LoginFilter(AuthenticationManager authenticationManager, JWTUtill jwtUtill) {
+    public LoginFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
-        this.jwtUtill = jwtUtill;
+        this.jwtUtil = jwtUtil;
     }
 
     @Override
@@ -47,16 +49,23 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         int memberId = customUserDetails.getMemberId();
         String nickname = customUserDetails.getNickname();
 
-        String token = jwtUtill.createJwt(memberId, nickname, 60*60L);
+        String token = jwtUtil.createJwt(memberId, nickname, 60 * 60 * 1000 * 10L);
 
-        // token 응답
-        response.addHeader("Authorization", "Bearer " + token);
-
+        response.addCookie(createCookie("Authorization", token));
     }
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) {
 
         response.setStatus(401);
+    }
+
+    private Cookie createCookie(String key, String value) {
+        Cookie cookie = new Cookie(key, value);
+        cookie.setMaxAge(60*60*10);
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+
+        return cookie;
     }
 }

@@ -11,12 +11,22 @@
         )
     </select>
 
+    <select id="selectByEmail" parameterType="string" resultType="com.dahaedream.login.model.MemberDto">
+        SELECT * FROM member WHERE email = #{email}
+    </select>
+
     <insert id="insertMember" parameterType="com.dahaedream.login.model.MemberDto" >
         INSERT INTO member (email, password, nickname, address, phone)
         VALUES (#{email}, #{password}, #{nickname}, #{address}, #{phone})
     </insert>
 
-    <select id="selectByEmail" parameterType="string" resultType="com.dahaedream.login.model.MemberDto">
-        SELECT * FROM member WHERE email = #{email}
-    </select>
+    <insert id="insertSocialMember" parameterType="com.dahaedream.login.model.MemberDto" useGeneratedKeys="true" keyProperty="memberId" >
+        INSERT INTO member (email, password, nickname, is_social)
+        VALUES (#{email}, '', #{nickname}, 'Y')
+    </insert>
+
+    <update id="updateSocialMember" parameterType="com.dahaedream.login.model.MemberDto">
+        UPDATE member SET nickname = #{nickname} WHERE email = #{email}
+    </update>
+
 </mapper>
