@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dahaedream.message.mapper.MessageMapper">
+    <select id="selectMemberByNickname" resultType="com.dahaedream.login.model.MemberDto">
+        SELECT member_id, email, nickname FROM member
+                                          WHERE nickname = #{nickname}
+                                            AND member_id != #{senderId}
+    </select>
+
+    <insert id="insertMessage" parameterType="com.dahaedream.message.model.MessageDto">
+        INSERT INTO message (sender_id, receiver_id, title, content)
+                    VALUES (#{senderId}, #{receiverId}, #{title}, #{content})
+    </insert>
+
+    <select id="selectSendedMessageListBySenderId" resultType="com.dahaedream.message.model.MessageDto">
+        SELECT ms.message_id, m.nickname, ms.title, ms.send_date
+        FROM message ms
+                 JOIN member m ON ms.receiver_id = m.member_id
+        WHERE ms.sender_id = #{senderId}
+        ORDER BY ms.send_date DESC
+    </select>
+
+    <select id="selectReceivedMessageListByReceiverId" resultType="com.dahaedream.message.model.MessageDto">
+        SELECT ms.message_id, m.nickname, ms.title, ms.send_date
+        FROM message ms
+                 JOIN member m ON ms.sender_id = m.member_id
+        WHERE ms.receiver_id = #{receiverId}
+        ORDER BY ms.send_date DESC
+    </select>
+
+    <select id="selectSendedMessageByMessageId" resultType="com.dahaedream.message.model.MessageDto">
+        SELECT ms.message_id, ms.receiver_id, m.nickname, ms.title, ms.content
+        FROM message ms
+                 JOIN member m ON ms.receiver_id = m.member_id
+        WHERE ms.message_id = #{messageId}
+    </select>
+
+    <select id="selectReceivedMessageByMessageId" resultType="com.dahaedream.message.model.MessageDto">
+        SELECT ms.message_id, ms.sender_id, m.nickname, ms.title, ms.content
+        FROM message ms
+                 JOIN member m ON ms.sender_id = m.member_id
+        WHERE ms.message_id = #{messageId}
+    </select>
+</mapper>

@@ -13,11 +13,11 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private final JWTUtil jwtUtil;
 
-    public CustomSuccessHandler(JWTUtil jwtUtil) {
+    public CustomOAuth2SuccessHandler(JWTUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
     }
 
