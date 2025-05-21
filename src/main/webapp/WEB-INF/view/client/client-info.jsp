@@ -81,7 +81,7 @@
                         <dd class="col-sm-8 info-value" id="content"></dd>
 
                         <dt class="col-sm-4">주소</dt>
-                        <dd class="col-sm-8 info-value">서울시 강남구 테헤란로 123</dd>
+                        <dd class="col-sm-8 info-value" id="address"></dd>
 
                         <dt class="col-sm-4">등록일</dt>
                         <dd class="col-sm-8 info-value" id="createdAt"></dd>
@@ -120,7 +120,6 @@
     function fnGetList() {
         const urlParams = new URLSearchParams(window.location.search);
         const requestId = urlParams.get("requestId");
-
         fetch("/client/info.dox", {
             method: "POST",
             headers: {
@@ -145,13 +144,13 @@
                 if(memberId !== 0) {
                     if (memberId !== info.memberId) {
                         document.getElementById("acceptBtn").style.display = "inline-block";
-                    }
-                    if (data.alreadySent) {
-                        const btn = document.getElementById("acceptBtn");
-                        btn.textContent = "보낸 의뢰";
-                        btn.disabled = true;
-                        btn.classList.remove("btn-primary");
-                        btn.classList.add("btn-secondary");
+                        if (data.alreadySent) {
+                            const btn = document.getElementById("acceptBtn");
+                            btn.textContent = "보낸 의뢰";
+                            btn.disabled = true;
+                            btn.classList.remove("btn-primary");
+                            btn.classList.add("btn-secondary");
+                        }
                     }
                 } else {
                     alert('로그인이 필요합니다.');

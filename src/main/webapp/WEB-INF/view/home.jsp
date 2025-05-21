@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!doctype html>
 <html lang="en">
@@ -7,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
-    <title>세련된 페이지</title>
+    <title>다해드림</title>
 
     <!-- CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -68,9 +67,9 @@
 <!-- Swiper -->
 <div class="swiper">
     <div class="swiper-wrapper">
-        <div class="swiper-slide">슬라이드 1</div>
-        <div class="swiper-slide">슬라이드 2</div>
-        <div class="swiper-slide">슬라이드 3</div>
+        <div class="swiper-slide">누구나 해결사가 될 수 있습니다</div>
+        <div class="swiper-slide">다해드림에서 고민을 해결하세요</div>
+        <div class="swiper-slide">다해드림</div>
     </div>
     <div class="swiper-pagination"></div>
     <div class="swiper-button-prev"></div>
@@ -82,31 +81,11 @@
     <!-- 섹션 1 -->
     <h4 class="section-title">🍳 음식 하는법 알려주세요</h4>
     <div class="row g-4">
-        <c:forEach var="item" items="${foodList}">
-            <div class="col-6 col-md-3">
-                <div class="card h-100 text-center shadow-sm">
-                    <img src="https://picsum.photos/200/200" class="card-img-top rounded-top" alt="음식 이미지">
-                    <div class="card-body">
-                        <p class="card-text">제목1</p>
-                    </div>
-                </div>
-            </div>
-        </c:forEach>
     </div>
 
     <!-- 섹션 2 -->
     <h4 class="section-title">🏊 수영 하는법 알려주세요</h4>
     <div class="row g-4 mb-5">
-        <c:forEach var="item" items="${swimList}">
-            <div class="col-6 col-md-3">
-                <div class="card h-100 text-center shadow-sm">
-                    <img src="https://picsum.photos/200/200" class="card-img-top rounded-top" alt="수영 이미지">
-                    <div class="card-body">
-                        <p class="card-text">제목2</p>
-                    </div>
-                </div>
-            </div>
-        </c:forEach>
     </div>
 </div>
 
