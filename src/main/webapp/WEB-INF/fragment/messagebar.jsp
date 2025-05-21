@@ -6,7 +6,7 @@
             <a class="nav-link text-black" href="/message/received">받은 쪽지</a>
         </li>
         <li class="nav-item mb-2">
-            <a class="nav-link text-black" href="/message/written">보낸 쪽지</a>
+            <a class="nav-link text-black" href="/message/sended">보낸 쪽지</a>
         </li>
         <li class="nav-item mb-2">
             <a class="nav-link text-black" href="/message/write">쪽지 쓰기</a>

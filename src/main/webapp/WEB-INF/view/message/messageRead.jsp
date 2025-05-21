@@ -17,7 +17,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 </head>
-<body>
+<body data-message-type="${type}">
+<input type="text" value="${message.messageId}" hidden>
+<c:choose>
+    <c:when test="${type eq 'sended'}">
+        <input type="hidden" id="receiverId" value="${message.receiverId}" />
+    </c:when>
+    <c:when test="${type eq 'received'}">
+        <input type="hidden" id="senderId" value="${message.senderId}" />
+    </c:when>
+</c:choose>
 
 <c:import url="/WEB-INF/fragment/navbar.jsp"/>
 
@@ -27,15 +36,15 @@
 
     <div style="flex-grow: 1; height: 500px">
         <div class="d-flex flex-column justify-content-center align-items-center">
-            <h4 class="text-center mt-5 mb-5">받은 쪽지</h4>
+            <h4 class="text-center mt-5 mb-5" id="messageType">받은 쪽지</h4>
 
             <div style="width: 50%">
 
                 <!-- 받는 이 -->
                 <div class="row mb-3">
-                    <label class="col-2 col-form-label text-end">보낸 사람</label>
+                    <label class="col-2 col-form-label text-end" id="nicknameType">보낸 사람</label>
                     <div class="col-10">
-                        <input type="text" class="form-control" value="홍길동" id="nickName" readonly/>
+                        <input type="text" class="form-control" value="${message.nickname}" id="nickname" readonly/>
                     </div>
                 </div>
 
@@ -43,7 +52,7 @@
                 <div class="row mb-3">
                     <label class="col-2 col-form-label text-end">제목</label>
                     <div class="col-10">
-                        <input type="text" class="form-control" value="의뢰 관련하여 문의 드립니다." readonly/>
+                        <input type="text" class="form-control" value="${message.title}" readonly/>
                     </div>
                 </div>
 
@@ -51,7 +60,7 @@
                 <div class="row mb-3">
                     <label class="col-2 col-form-label text-end">내용</label>
                     <div class="col-10">
-                        <textarea class="form-control" rows="10" style="resize: none" readonly>비용 협상을 하고 싶습니다.</textarea>
+                        <textarea class="form-control" rows="10" style="resize: none" readonly>${message.content}</textarea>
                     </div>
                 </div>
 
@@ -103,6 +112,13 @@
 
 <script>
     $(function() {
+      const type = $('body').data('message-type');
+
+      if(type === 'sended') {
+        $('#messageType').text('보낸 쪽지');
+        $('#nicknameType').text('받는 사람');
+      }
+
       $('#nickName').on('click', function() {
         const modal = new bootstrap.Modal(document.getElementById('memberInfo'));
         modal.show()

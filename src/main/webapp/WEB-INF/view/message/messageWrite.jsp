@@ -52,7 +52,8 @@
                 <div class="row mb-3">
                     <label class="col-2 col-form-label text-end">내용</label>
                     <div class="col-10">
-                        <textarea id="content" class="form-control" rows="10" style="resize: none" placeholder="내용 입력"></textarea>
+                        <textarea id="content" class="form-control" rows="10" style="resize: none"
+                                  placeholder="내용 입력"></textarea>
                     </div>
                 </div>
 
@@ -145,35 +146,37 @@
         },
       });
     });
-    $('#sendMessageBtn').on('click', function() {
+    $('#sendMessageBtn').on('click', function () {
       const memberId = $('#memberId').val();
       const nickname = $('#nickname').val().trim();
       const title = $('#title').val().trim();
       const content = $('#content').val().trim();
 
-      // if(nickname === "") {
-      //   alert('닉네임을 입력해주세요.');
-      //   return;
-      // } else if(title === "") {
-      //   alert('제목을 입력해주세요.')
-      //   return;
-      // } else if(content === "") {
-      //   alert('내용을 입력해주세요.');
-      //   return;
-      // }
+      if (nickname === "") {
+        alert('닉네임을 입력해주세요.');
+        return;
+      } else if (title === "") {
+        alert('제목을 입력해주세요.')
+        return;
+      } else if (content === "") {
+        alert('내용을 입력해주세요.');
+        return;
+      }
 
       $.ajax({
-        url:'/message/insert',
-        type:'POST',
+        url: '/message/insert',
+        type: 'POST',
         data: {
           receiverId: memberId,
           title: title,
           content: content,
         },
-        success: function() {
-
+        success: function (data, textStatus, jqXHR) {
+          if (jqXHR.status === 200) {
+            window.location.href = '/message/sended';
+          }
         },
-        error: function() {
+        error: function () {
           alert('오류 발생');
         }
       });

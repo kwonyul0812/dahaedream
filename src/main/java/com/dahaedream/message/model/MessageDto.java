@@ -11,6 +11,7 @@ public class MessageDto {
     private int messageId;
     private int senderId;
     private int receiverId;
+    private String nickname;
     private String title;
     private String content;
     private LocalDateTime sendDate;
