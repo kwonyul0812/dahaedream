@@ -64,62 +64,73 @@ public class ClientController {
 
     @PostMapping("/client/info.dox")
     @ResponseBody
-    public String getInfo(@RequestBody HashMap<String, Object> map) throws Exception {
+    public String getInfo(@RequestBody HashMap<String, Object> map, @AuthenticationPrincipal CustomUserDetails user) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<>();
         resultMap = clientService.selectInfo(map);
+        resultMap.put("nickname", user.getNickname());
+        resultMap.put("memberId", user.getMemberId());
         return new Gson().toJson(resultMap);
     }
 
     @PostMapping("/client/getRequestAccept.dox")
     @ResponseBody
-    public String getRequest(@RequestBody HashMap<String, Object> map) throws Exception {
+    public String getRequest(@RequestBody HashMap<String, Object> map, @AuthenticationPrincipal CustomUserDetails user) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<>();
         resultMap = clientService.selectRequest(map);
+        resultMap.put("nickname", user.getNickname());
+        resultMap.put("memberId", user.getMemberId());
         return new Gson().toJson(resultMap);
     }
 
     @PostMapping("/client/editRequestAccept.dox")
     @ResponseBody
-    public String updateRequestAccept(@RequestBody HashMap<String, Object> map) throws Exception {
+    public String updateRequestAccept(@RequestBody HashMap<String, Object> map, @AuthenticationPrincipal CustomUserDetails user) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<>();
         resultMap = clientService.updateRequestAccept(map);
+        resultMap.put("nickname", user.getNickname());
+        resultMap.put("memberId", user.getMemberId());
         return new Gson().toJson(resultMap);
     }
 
     @PostMapping("/client/getRequest.dox")
     @ResponseBody
-    public String getRequestList(@RequestBody HashMap<String, Object> map) throws Exception {
+    public String getRequestList(@RequestBody HashMap<String, Object> map, @AuthenticationPrincipal CustomUserDetails user) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<>();
         resultMap = clientService.selectMyRequestList(map);
+        resultMap.put("nickname", user.getNickname());
+        resultMap.put("memberId", user.getMemberId());
         return new Gson().toJson(resultMap);
 
     }
 
     @PostMapping("/client/delete.dox")
     @ResponseBody
-    public String deleteRequest(@RequestBody HashMap<String, Object> map) throws Exception {
+    public String deleteRequest(@RequestBody HashMap<String, Object> map, @AuthenticationPrincipal CustomUserDetails user) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<>();
         resultMap = clientService.deleteRequest(map);
+        resultMap.put("nickname", user.getNickname());
+        resultMap.put("memberId", user.getMemberId());
         return new Gson().toJson(resultMap);
     }
 
     @PostMapping("/client/cancelRequest.dox")
     @ResponseBody
-    public String cancelRequest(@RequestBody HashMap<String, Object> map) throws Exception {
+    public String cancelRequest(@RequestBody HashMap<String, Object> map, @AuthenticationPrincipal CustomUserDetails user) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<>();
         resultMap = clientService.cancelRequest(map);
+        resultMap.put("nickname", user.getNickname());
+        resultMap.put("memberId", user.getMemberId());
         return new Gson().toJson(resultMap);
     }
 
     @PostMapping("/client/completeRequest.dox")
     @ResponseBody
-    public String completeRequest(@RequestBody HashMap<String, Object> map) throws Exception {
+    public String completeRequest(@RequestBody HashMap<String, Object> map, @AuthenticationPrincipal CustomUserDetails user) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<>();
         resultMap = clientService.completeRequest(map);
+        resultMap.put("nickname", user.getNickname());
+        resultMap.put("memberId", user.getMemberId());
         return new Gson().toJson(resultMap);
 
     }
-
-
 }
-
