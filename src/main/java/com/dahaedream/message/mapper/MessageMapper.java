@@ -14,7 +14,11 @@ public interface MessageMapper {
 
     int insertMessage(MessageDto message);
 
-    List<MessageDto> selectSendedMessageBySenderId(@Param("senderId") int senderId);
+    List<MessageDto> selectSendedMessageListBySenderId(@Param("senderId") int memberId);
+
+    List<MessageDto> selectReceivedMessageListByReceiverId(@Param("receiverId") int memberId);
 
     MessageDto selectSendedMessageByMessageId(@Param("messageId") int messageId);
+
+    MessageDto selectReceivedMessageByMessageId(@Param("messageId") int messageId);
 }

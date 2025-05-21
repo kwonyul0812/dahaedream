@@ -20,24 +20,21 @@ public class MessageController {
 
     private final MessageService service;
 
-    @GetMapping("/message/received")
-    @PreAuthorize("isAuthenticated()")
-    public String receivedMessage() {
 
-        return "message/receivedMessage";
+    @GetMapping("/message/list")
+    @PreAuthorize("isAuthenticated()")
+    public String sendedMessage(@RequestParam("type") String type,
+                                @AuthenticationPrincipal CustomUserDetails user,
+                                Model model) {
+        int memberId = user.getMemberId();
+        List<MessageDto> list = service.getMessageList(memberId, type);
+
+        model.addAttribute("messageList", list);
+        model.addAttribute("type", type);
+
+        return "message/messageList";
     }
 
-    @GetMapping("/message/sended")
-    @PreAuthorize("isAuthenticated()")
-    public String writtenMessage(@AuthenticationPrincipal CustomUserDetails user, Model model) {
-        int senderId = user.getMemberId();
-        List<MessageDto> list = service.getSendedMessageList(senderId);
-        System.out.println(list);
-
-        model.addAttribute("sendedMessageList", list);
-
-        return "message/sendedMessage";
-    }
 
     @GetMapping("/message/write")
     @PreAuthorize("isAuthenticated()")

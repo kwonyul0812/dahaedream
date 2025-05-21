@@ -25,7 +25,7 @@
         }
     </style>
 </head>
-<body>
+<body data-message-type="${type}">
 
 <c:import url="/WEB-INF/fragment/navbar.jsp"/>
 
@@ -35,19 +35,34 @@
 
     <div style="flex-grow: 1; height: 500px">
         <div class="d-flex flex-column justify-content-center align-items-center">
-            <h4 class="text-center mt-5 mb-5">보낸 쪽지</h4>
-
+            <c:choose>
+                <c:when test="${type eq 'sended'}">
+                    <h4 class="text-center mt-5 mb-5" id="messageType">보낸 쪽지</h4>
+                </c:when>
+                <c:when test="${type eq 'received'}">
+                    <h4 class="text-center mt-5 mb-5" id="messageType">받은 쪽지</h4>
+                </c:when>
+            </c:choose>
             <div class="w-75">
                 <table class="table table-hover text-center">
                     <thead>
+
                     <tr>
-                        <th class="w-20">받는 사람</th>
+                        <c:choose>
+                            <c:when test="${type eq 'sended'}">
+                                <th class="w-20">받는 사람</th>
+                            </c:when>
+                            <c:when test="${type eq 'received'}">
+                                <th class="w-20">보낸 사람</th>
+                            </c:when>
+                        </c:choose>
                         <th class="w-50">제목</th>
                         <th class="w-25">날짜</th>
                     </tr>
+
                     </thead>
                     <tbody>
-                    <c:forEach var="message" items="${sendedMessageList}">
+                    <c:forEach var="message" items="${messageList}">
                         <tr class="messageRow list" data-message-id="${message.messageId}">
                             <td>${message.nickname}</td>
                             <td>${message.title}</td>
@@ -61,6 +76,15 @@
     </div>
 </div>
 
+<c:choose>
+    <c:when test="${type eq 'sended'}">
+        <input type="hidden" id="receiverId" value="${message.receiverId}"/>
+    </c:when>
+    <c:when test="${type eq 'received'}">
+        <input type="hidden" id="senderId" value="${message.senderId}"/>
+    </c:when>
+</c:choose>
+
 <script>
   dayjs.extend(dayjs_plugin_relativeTime);
   dayjs.locale('ko');
@@ -72,13 +96,14 @@
     el.innerText = relative;
   });
 
-  $(function() {
-    $('.messageRow').on('click', function() {
+  $(function () {
+    $('.messageRow').on('click', function () {
+      const type = $('body').data('message-type');
       const messageId = $(this).data('message-id');
       console.log(messageId);
 
-      const url = '/message/read?messageId=' + messageId + '&type=sended';
-      window.location.href=url;
+      const url = '/message/read?messageId=' + messageId + '&type=' + type;
+      window.location.href = url;
     })
   })
 </script>

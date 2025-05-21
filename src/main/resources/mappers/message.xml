@@ -14,7 +14,7 @@
                     VALUES (#{senderId}, #{receiverId}, #{title}, #{content})
     </insert>
 
-    <select id="selectSendedMessageBySenderId" resultType="com.dahaedream.message.model.MessageDto">
+    <select id="selectSendedMessageListBySenderId" resultType="com.dahaedream.message.model.MessageDto">
         SELECT ms.message_id, m.nickname, ms.title, ms.send_date
         FROM message ms
                  JOIN member m ON ms.receiver_id = m.member_id
@@ -22,10 +22,25 @@
         ORDER BY ms.send_date DESC
     </select>
 
+    <select id="selectReceivedMessageListByReceiverId" resultType="com.dahaedream.message.model.MessageDto">
+        SELECT ms.message_id, m.nickname, ms.title, ms.send_date
+        FROM message ms
+                 JOIN member m ON ms.sender_id = m.member_id
+        WHERE ms.receiver_id = #{receiverId}
+        ORDER BY ms.send_date DESC
+    </select>
+
     <select id="selectSendedMessageByMessageId" resultType="com.dahaedream.message.model.MessageDto">
         SELECT ms.message_id, ms.receiver_id, m.nickname, ms.title, ms.content
         FROM message ms
                  JOIN member m ON ms.receiver_id = m.member_id
+        WHERE ms.message_id = #{messageId}
+    </select>
+
+    <select id="selectReceivedMessageByMessageId" resultType="com.dahaedream.message.model.MessageDto">
+        SELECT ms.message_id, ms.sender_id, m.nickname, ms.title, ms.content
+        FROM message ms
+                 JOIN member m ON ms.sender_id = m.member_id
         WHERE ms.message_id = #{messageId}
     </select>
 </mapper>

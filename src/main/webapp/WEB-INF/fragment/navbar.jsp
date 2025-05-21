@@ -42,7 +42,7 @@
                     <a class="nav-link active" aria-current="page" href="/mypage/member">마이페이지</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/message/received" class="nav-link active" aria-current="page" style="cursor: pointer" id="message">쪽지</a>
+                    <a href="/message/list?type=received" class="nav-link active" aria-current="page" style="cursor: pointer" id="message">쪽지</a>
                 </li>
                 <li>
                     <span id="info" style="display: none"></span>

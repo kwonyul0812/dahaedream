@@ -90,12 +90,12 @@
     </div>
 </div>
 
-
-<div id="memberTemplate" class="memberItem mb-2 d-flex align-items-center gap-2 justify-content-between"
-     style="display: none">
-    <span class="ms-3 searchedNickname"></span>
-    <button class="btn btn-primary selectMember" style="width: 60px">선택</button>
-</div>
+<template id="memberTemplate">
+    <div class="memberItem mb-2 d-flex align-items-center gap-2 justify-content-between">
+        <span class="ms-3 searchedNickname"></span>
+        <button class="btn btn-primary selectMember" style="width: 60px">선택</button>
+    </div>
+</template>
 
 <script>
   $(function () {
@@ -124,7 +124,7 @@
           nickname: nickname
         },
         success: function (members) {
-          const $template = $('#memberTemplate').clone();
+          // const $template = $('#memberTemplate').clone();
 
           $('#searchResults').empty();
 
@@ -134,8 +134,10 @@
           }
 
           members.forEach(member => {
-            const $item = $template.clone();
-            $item.show();
+            // const $item = $template.clone();
+            // $item.show();
+            const template = document.getElementById('memberTemplate');
+            const $item = $(template.content.cloneNode(true));
             $item.find('.searchedNickname').text(member.nickname + ' (' + maskEmail(member.email) + ')');
             $item.find('.selectMember').data({
               memberId: member.memberId,
@@ -173,7 +175,7 @@
         },
         success: function (data, textStatus, jqXHR) {
           if (jqXHR.status === 200) {
-            window.location.href = '/message/sended';
+            window.location.href = '/message/list?type=sended';
           }
         },
         error: function () {

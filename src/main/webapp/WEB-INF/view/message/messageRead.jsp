@@ -21,10 +21,10 @@
 <input type="text" value="${message.messageId}" hidden>
 <c:choose>
     <c:when test="${type eq 'sended'}">
-        <input type="hidden" id="receiverId" value="${message.receiverId}" />
+        <input type="hidden" id="receiverId" value="${message.receiverId}"/>
     </c:when>
     <c:when test="${type eq 'received'}">
-        <input type="hidden" id="senderId" value="${message.senderId}" />
+        <input type="hidden" id="senderId" value="${message.senderId}"/>
     </c:when>
 </c:choose>
 
@@ -36,13 +36,29 @@
 
     <div style="flex-grow: 1; height: 500px">
         <div class="d-flex flex-column justify-content-center align-items-center">
-            <h4 class="text-center mt-5 mb-5" id="messageType">받은 쪽지</h4>
+
+            <c:choose>
+                <c:when test="${type eq 'sended'}">
+                    <h4 class="text-center mt-5 mb-5">보낸 쪽지</h4>
+                </c:when>
+                <c:when test="${type eq 'received'}">
+                    <h4 class="text-center mt-5 mb-5">받은 쪽지</h4>
+                </c:when>
+            </c:choose>
+
 
             <div style="width: 50%">
 
                 <!-- 받는 이 -->
                 <div class="row mb-3">
-                    <label class="col-2 col-form-label text-end" id="nicknameType">보낸 사람</label>
+                    <c:choose>
+                        <c:when test="${type eq 'sended'}">
+                            <label class="col-2 col-form-label text-end">받는 사람</label>
+                        </c:when>
+                        <c:when test="${type eq 'received'}">
+                            <label class="col-2 col-form-label text-end">보낸 사람</label>
+                        </c:when>
+                    </c:choose>
                     <div class="col-10">
                         <input type="text" class="form-control" value="${message.nickname}" id="nickname" readonly/>
                     </div>
@@ -60,10 +76,27 @@
                 <div class="row mb-3">
                     <label class="col-2 col-form-label text-end">내용</label>
                     <div class="col-10">
-                        <textarea class="form-control" rows="10" style="resize: none" readonly>${message.content}</textarea>
+                        <textarea class="form-control" rows="10" style="resize: none"
+                                  readonly>${message.content}</textarea>
                     </div>
                 </div>
-
+                <!-- 버튼 -->
+                <c:choose>
+                    <c:when test="${type eq 'sended'}">
+                        <div class="row mt-5">
+                            <div class="offset-3 col-9 text-end">
+                                <button id="deleteBtn" class="btn btn-danger">삭제</button>
+                            </div>
+                        </div>
+                    </c:when>
+                    <c:when test="${type eq 'received'}">
+                        <div class="row mt-5">
+                            <div class="offset-3 col-9 text-end">
+                                <button id="replyBtn" class="btn btn-success">답장</button>
+                            </div>
+                        </div>
+                    </c:when>
+                </c:choose>
             </div>
         </div>
     </div>
@@ -111,23 +144,17 @@
 
 
 <script>
-    $(function() {
-      const type = $('body').data('message-type');
+  $(function () {
 
-      if(type === 'sended') {
-        $('#messageType').text('보낸 쪽지');
-        $('#nicknameType').text('받는 사람');
-      }
-
-      $('#nickName').on('click', function() {
-        const modal = new bootstrap.Modal(document.getElementById('memberInfo'));
-        modal.show()
-      });
+    $('#nickName').on('click', function () {
+      const modal = new bootstrap.Modal(document.getElementById('memberInfo'));
+      modal.show()
     });
+  });
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
         crossorigin="anonymous"></script>
 </body>
-</html>
+</html>d
