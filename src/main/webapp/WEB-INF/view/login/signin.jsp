@@ -91,6 +91,8 @@
 
     if (error === 'expired') {
       alert('로그인이 만료되었습니다. 다시 로그인 해주세요.');
+    } else if(error === 'accountDuplicate') {
+      alert('자체로그인으로 이미 생성된 계정입니다.')
     }
 
     $('#loginForm').on('submit', function (e) {
