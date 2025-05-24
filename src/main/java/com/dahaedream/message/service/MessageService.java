@@ -50,4 +50,8 @@ public class MessageService {
     public MemberDto getMember(int memberId) {
         return mapper.selectMemberByMemberId(memberId);
     }
+
+    public int deleteMessage(int messageId) {
+        return mapper.deleteMessageByMessageId(messageId);
+    }
 }

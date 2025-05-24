@@ -18,7 +18,7 @@
           integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 </head>
 <body data-message-type="${type}">
-<input type="text" value="${message.messageId}" hidden>
+<input type="text" id="messageId" value="${message.messageId}" hidden>
 <c:choose>
     <c:when test="${type eq 'sended'}">
         <input type="hidden" id="receiverId" value="${message.receiverId}"/>
@@ -149,6 +149,29 @@
     $('#nickName').on('click', function () {
       const modal = new bootstrap.Modal(document.getElementById('memberInfo'));
       modal.show()
+    });
+
+    $('#replyBtn').on('click', function() {
+      const senderId = $('#senderId').val();
+      window.location.href="/message/write?receiverId=" + senderId;
+    })
+
+    $('#deleteBtn').on('click', function() {
+      const messageId = $('#messageId').val();
+
+      $.ajax({
+        url:'/message/delete',
+        type:'DELETE',
+        data: {
+          messageId: messageId
+        },
+        success: function(res, textStatus, jqXHR) {
+            if(jqXHR.status === 200) {
+              alert('삭제 성공');
+              window.location.href="/message/list?type=sended";
+            }
+        }
+      });
     });
   });
 </script>

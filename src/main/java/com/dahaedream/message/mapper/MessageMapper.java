@@ -23,4 +23,6 @@ public interface MessageMapper {
     MessageDto selectReceivedMessageByMessageId(@Param("messageId") int messageId);
 
     MemberDto selectMemberByMemberId(@Param("memberId") int memberId);
+
+    int deleteMessageByMessageId(@Param("messageId") int messageId);
 }

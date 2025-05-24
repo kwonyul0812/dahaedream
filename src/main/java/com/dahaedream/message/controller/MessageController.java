@@ -86,4 +86,16 @@ public class MessageController {
         return service.getMember(memberId);
     }
 
+    @DeleteMapping("/message/delete")
+    @ResponseBody
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity deleteMessage(@RequestParam int messageId) {
+        int result = service.deleteMessage(messageId);
+
+        if(result > 0) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

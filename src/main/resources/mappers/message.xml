@@ -48,4 +48,8 @@
                  JOIN member m ON ms.sender_id = m.member_id
         WHERE ms.message_id = #{messageId}
     </select>
+
+    <delete id="deleteMessageByMessageId">
+        DELETE FROM message WHERE message_id = #{messageId}
+    </delete>
 </mapper>
