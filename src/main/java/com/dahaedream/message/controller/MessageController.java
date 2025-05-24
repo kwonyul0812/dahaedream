@@ -79,4 +79,11 @@ public class MessageController {
         }
     }
 
+    @GetMapping("/message/getMember")
+    @ResponseBody
+    @PreAuthorize("isAuthenticated()")
+    public MemberDto getMember(@RequestParam int memberId) {
+        return service.getMember(memberId);
+    }
+
 }

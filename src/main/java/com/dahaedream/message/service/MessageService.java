@@ -37,12 +37,17 @@ public class MessageService {
     public List<MessageDto> getMessageList(int memberId, String type) {
         List<MessageDto> list = null;
 
-        if(type.equals("sended")) {
+        if (type.equals("sended")) {
             list = mapper.selectSendedMessageListBySenderId(memberId);
-        } else if(type.equals("received")) {
+        } else if (type.equals("received")) {
             list = mapper.selectReceivedMessageListByReceiverId(memberId);
         }
 
         return list;
+    }
+
+
+    public MemberDto getMember(int memberId) {
+        return mapper.selectMemberByMemberId(memberId);
     }
 }

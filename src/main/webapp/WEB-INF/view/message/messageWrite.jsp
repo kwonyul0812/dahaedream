@@ -99,6 +99,24 @@
 
 <script>
   $(function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const receiverId = urlParams.get("receiverId");
+
+    if(receiverId !== null) {
+      $.ajax({
+        url: '/message/getMember',
+        type: 'GET',
+        data: {
+          memberId: receiverId
+        },
+        success: function(res) {
+            $('#nickname').val(res.nickname);
+            $('#memberId').val(res.memberId);
+        },
+      })
+    }
+
+
     $('#nickname').on('click', function () {
       const modal = new bootstrap.Modal(document.getElementById('searchMember'));
       modal.show();

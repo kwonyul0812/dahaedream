@@ -93,7 +93,7 @@
                     </dl>
 
                     <div class="text-center mt-4">
-                        <a id="messageBtn" style="display:none" href="/message/write"
+                        <a id="messageBtn" style="display:none"
                            class="btn btn-secondary btn-custom me-2">쪽지쓰기</a>
                         <button id="acceptBtn" style="display: none" class="btn btn-primary btn-custom"
                                 onclick="fnSend()">의뢰 수락 요청
@@ -152,6 +152,7 @@
           if (memberId !== info.memberId) {
             document.getElementById("acceptBtn").style.display = "inline-block";
             document.getElementById("messageBtn").style.display = "inline-block";
+            document.getElementById("messageBtn").href = "/message/write?receiverId=" + info.memberId
             // info.memberId 값을 이용해서 messageBtn 하이퍼링크 만들것 /message/write로 보내기
             if (data.alreadySent) {
               const btn = document.getElementById("acceptBtn");

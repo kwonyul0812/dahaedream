@@ -21,4 +21,6 @@ public interface MessageMapper {
     MessageDto selectSendedMessageByMessageId(@Param("messageId") int messageId);
 
     MessageDto selectReceivedMessageByMessageId(@Param("messageId") int messageId);
+
+    MemberDto selectMemberByMemberId(@Param("memberId") int memberId);
 }

@@ -9,6 +9,11 @@
                                             AND member_id != #{senderId}
     </select>
 
+    <select id="selectMemberByMemberId" resultType="com.dahaedream.login.model.MemberDto">
+        SELECT member_id, nickname FROM member
+        WHERE member_id = #{memberId}
+    </select>
+
     <insert id="insertMessage" parameterType="com.dahaedream.message.model.MessageDto">
         INSERT INTO message (sender_id, receiver_id, title, content)
                     VALUES (#{senderId}, #{receiverId}, #{title}, #{content})
