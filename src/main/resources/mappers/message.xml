@@ -28,7 +28,7 @@
     </select>
 
     <select id="selectReceivedMessageListByReceiverId" resultType="com.dahaedream.message.model.MessageDto">
-        SELECT ms.message_id, m.nickname, ms.title, ms.send_date
+        SELECT ms.message_id, m.nickname, ms.title, ms.send_date, ms.is_read
         FROM message ms
                  JOIN member m ON ms.sender_id = m.member_id
         WHERE ms.receiver_id = #{receiverId}
@@ -52,4 +52,15 @@
     <delete id="deleteMessageByMessageId">
         DELETE FROM message WHERE message_id = #{messageId}
     </delete>
+
+    <select id="selectUnreadMessageCountByMemberId">
+        SELECT COUNT(*) FROM message
+        WHERE receiver_id = #{memberId} AND is_read = FALSE
+    </select>
+
+    <update id="updateReadStatus">
+        UPDATE message
+        SET is_read = true
+        WHERE message_id = #{messageId}
+    </update>
 </mapper>

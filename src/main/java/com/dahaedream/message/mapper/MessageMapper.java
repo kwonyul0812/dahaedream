@@ -25,4 +25,8 @@ public interface MessageMapper {
     MemberDto selectMemberByMemberId(@Param("memberId") int memberId);
 
     int deleteMessageByMessageId(@Param("messageId") int messageId);
+
+    int selectUnreadMessageCountByMemberId(@Param("memberId") int memberId);
+
+    int updateReadStatus(@Param("messageId") int messageId);
 }

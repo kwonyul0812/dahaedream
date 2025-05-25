@@ -27,6 +27,7 @@ public class MessageService {
         if (type.equals("sended")) {
             message = mapper.selectSendedMessageByMessageId(messageId);
         } else if (type.equals("received")) {
+            mapper.updateReadStatus(messageId);
             message = mapper.selectReceivedMessageByMessageId(messageId);
         }
 
@@ -53,5 +54,10 @@ public class MessageService {
 
     public int deleteMessage(int messageId) {
         return mapper.deleteMessageByMessageId(messageId);
+    }
+
+    public int getUnreadMessageCount(int memberId) {
+        // 읽지않은 메시지의 수를 조회
+        return mapper.selectUnreadMessageCountByMemberId(memberId);
     }
 }

@@ -23,6 +23,10 @@
         .list:hover {
             cursor: pointer;
         }
+
+        tr.unread td {
+            color: blue;
+        }
     </style>
 </head>
 <body data-message-type="${type}">
@@ -63,11 +67,22 @@
                     </thead>
                     <tbody>
                     <c:forEach var="message" items="${messageList}">
-                        <tr class="messageRow list" data-message-id="${message.messageId}">
-                            <td>${message.nickname}</td>
-                            <td>${message.title}</td>
-                            <td><span class="time-text" data-senddate="${message.sendDate}"></span></td>
-                        </tr>
+                        <c:choose>
+                            <c:when test="${type eq 'received' and message.isRead == false}">
+                                <tr class="messageRow list unread" data-message-id="${message.messageId}">
+                                    <td>${message.nickname}</td>
+                                    <td>${message.title}</td>
+                                    <td><span class="time-text" data-senddate="${message.sendDate}"></span></td>
+                                </tr>
+                            </c:when>
+                            <c:otherwise>
+                                <tr class="messageRow list" data-message-id="${message.messageId}">
+                                    <td>${message.nickname}</td>
+                                    <td>${message.title}</td>
+                                    <td><span class="time-text" data-senddate="${message.sendDate}"></span></td>
+                                </tr>
+                            </c:otherwise>
+                        </c:choose>
                     </c:forEach>
                     </tbody>
                 </table>

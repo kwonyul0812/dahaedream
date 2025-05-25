@@ -44,7 +44,9 @@
                 </li>
                 <li class="nav-item">
                     <a href="/message/list?type=received" class="nav-link active" aria-current="page"
-                       style="cursor: pointer; display: none" id="message">쪽지</a>
+                       style="cursor: pointer; display: none" id="message">쪽지 <span id="msNotification"
+                                                                                    class="badge bg-danger"
+                                                                                    style="margin-left:-5px; display: none"></span></a>
                 </li>
                 <li>
                     <span id="info" style="display: none"></span>
@@ -72,6 +74,9 @@
         $('#logoutBtn').show();
         $('#mypage').show();
         $('#message').show();
+        if (res.msCount > 0) {
+          $('#msNotification').text(res.msCount).show();
+        }
       },
       error: function (err) {
         // 인증되지 않은 경우
@@ -80,5 +85,7 @@
         $('#logoutBtn').hide();
       }
     })
+
+
   })
 </script>
