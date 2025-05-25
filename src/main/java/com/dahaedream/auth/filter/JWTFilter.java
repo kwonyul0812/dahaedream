@@ -81,11 +81,13 @@ public class JWTFilter extends OncePerRequestFilter {
 
         // 토큰에서 memberId 와 nickname 획득
         int memberId = jwtUtil.getMemberId(token);
+        String email = jwtUtil.getEmail(token);
         String nickname = jwtUtil.getNickname(token);
 
         // MemberDto를 생성하여 값 set
         MemberDto member = new MemberDto();
         member.setMemberId(memberId);
+        member.setEmail(email);
         member.setNickname(nickname);
 
         // UserDetails에 회원 정보 객체 담기

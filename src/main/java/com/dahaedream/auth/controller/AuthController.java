@@ -31,8 +31,11 @@ public class AuthController {
         Map<String, Object> response = new HashMap<>();
         // 읽지않은 받은 쪽지 수 조회
         int msCount = messageService.getUnreadMessageCount(user.getMemberId());
+        response.put("email",user.getUsername());
         response.put("nickname", user.getNickname());
         response.put("msCount", msCount);
+
+//        System.out.println(user.getUsername());
 
         return ResponseEntity.ok().body(response);
     }
