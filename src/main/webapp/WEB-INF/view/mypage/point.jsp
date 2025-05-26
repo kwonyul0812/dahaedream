@@ -101,6 +101,17 @@
         return alert(response.message);
       } else {
         // 결제 성공 이후 포인트 충전 로직 필요
+        $.ajax({
+          url: '/mypage/addPoint',
+          type: 'POST',
+          data:{
+            point: point
+          },
+          success: function() {
+            alert('포인트 충전 성공');
+            location.reload();
+          }
+        })
       }
 
     })
@@ -112,7 +123,7 @@
       storeId: "store-609fd8d9-45b9-4c78-a314-f4b7dd2d4986", // 고객사 storeId로 변경해주세요.
       channelKey: "channel-key-731334c3-0464-43b1-bf87-322040ab1642", // 콘솔 결제 연동 화면에서 채널 연동 시 생성된 채널 키를 입력해주세요.
       paymentId: random,
-      orderName: "다해드림 포인트",
+      orderName: "다해드림 " + point + "p",
       totalAmount: point,
       currency: "CURRENCY_KRW",
       payMethod: "CARD",

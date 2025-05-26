@@ -15,7 +15,7 @@
         SELECT * FROM member WHERE email = #{email}
     </select>
 
-    <insert id="insertMember" parameterType="com.dahaedream.login.model.MemberDto" >
+    <insert id="insertMember" parameterType="com.dahaedream.login.model.MemberDto" useGeneratedKeys="true" keyProperty="memberId">
         INSERT INTO member (email, password, nickname, address, phone)
         VALUES (#{email}, #{password}, #{nickname}, #{address}, #{phone})
     </insert>
@@ -29,4 +29,7 @@
         UPDATE member SET nickname = #{nickname} WHERE email = #{email}
     </update>
 
+    <insert id="insertMemberPoint">
+        INSERT INTO point (member_id, point) VALUES (#{memberId}, 0)
+    </insert>
 </mapper>

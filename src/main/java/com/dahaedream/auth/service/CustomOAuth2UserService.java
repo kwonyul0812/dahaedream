@@ -46,6 +46,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             member.setNickname(oAuth2Response.getName());
 
             loginMapper.insertSocialMember(member);
+            loginMapper.insertMemberPoint(member.getMemberId());
 
             UserDto userDto = new UserDto();
             userDto.setMemberId(member.getMemberId());
