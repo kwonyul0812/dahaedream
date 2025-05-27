@@ -144,7 +144,6 @@
 </div>
 
 <!-- Script -->
-<script src="https://cdn.jsdelivr.net/npm/jwt-decode@4.0.0/build/jwt-decode.min.js"></script>
 <script>
     let memberId = 0;
     getMember();

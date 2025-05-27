@@ -40,16 +40,31 @@
 </div>
 
 <script>
+    let memberId = 0;
+    getMember();
+    function getMember() {
+        fetch("/getMember.dox", {
+            method : "POST",
+            headers : { "Content-Type": "application/json" },
+            body : JSON.stringify()
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                memberId = data.memberId;
+            })
+    }
+
+
     document.addEventListener("DOMContentLoaded", getRequestList);
 
     function getRequestList() {
-        const token = localStorage.getItem('jwtToken');
-        const decoded = token ? jwtDecode(token) : null;
+
 
         fetch("/solver/getRequest.dox", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ solverId: decoded?.memberId })
+            body: JSON.stringify({ solverId: memberId })
         })
             .then(res => res.json())
             .then(data => {

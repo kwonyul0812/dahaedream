@@ -162,23 +162,20 @@
     function fnSend() {
         const urlParams = new URLSearchParams(window.location.search);
         const requestId = urlParams.get("requestId");
-        const token = localStorage.getItem('jwtToken');
 
-        if (token) {
-            const decoded = jwtDecode(token);
             fetch("/solver/send.dox", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ requestId, solverId: decoded.memberId })
+                body: JSON.stringify({ requestId, solverId: memberId })
             })
                 .then(res => res.json())
                 .then(data => {
                     alert("의뢰 수락 요청을 보냈습니다.");
                     fnGetList();
                 });
-        }
+
     }
 
     fnGetList();

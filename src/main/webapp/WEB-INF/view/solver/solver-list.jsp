@@ -14,7 +14,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@4.0.0/build/cjs/index.min.js"></script>
 
 </head>
 <body class="bg-light">
@@ -58,9 +57,20 @@
 </body>
 </html>
 <script>
-    const token = localStorage.getItem('jwtToken');
-    const decoded = token ? jwtDecode(token) : null;
-
+    let memberId = 0;
+    getMember();
+    function getMember() {
+        fetch("/getMember.dox", {
+            method : "POST",
+            headers : { "Content-Type": "application/json" },
+            body : JSON.stringify()
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                memberId = data.memberId;
+            })
+    }
     fnGetAcceptRequest();
 
     function fnGetAcceptRequest() {
@@ -68,7 +78,7 @@
             method:"POST",
             headers : {'Content-Type': 'application/json'},
             body : JSON.stringify({
-                solverId : decoded?.memberId
+                solverId : memberId
             })
         })
             .then(res=>res.json())
@@ -104,7 +114,7 @@
             method:"POST",
             headers : {'Content-Type': 'application/json'},
             body : JSON.stringify({
-                solverId : decoded?.memberId
+                solverId : memberId
             })
         })
             .then(res=>res.json())
