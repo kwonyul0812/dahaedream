@@ -29,12 +29,15 @@ public class LoginService {
         member.setPassword(bCryptPasswordEncoder.encode(password));
 
         // member 테이블에 회원정보 insert
-        int result = mapper.insertMember(member);
+//        int result = mapper.insertMember(member);
+        mapper.insertMember(member);
 
-        if (result == 1) {
-            return 1; // 성공
+
+        if(member.getMemberId() != null) {
+            mapper.insertMemberPoint(member.getMemberId());
+            return 1;
         } else {
-            return 0; // 실패
+            return 0;
         }
     }
 

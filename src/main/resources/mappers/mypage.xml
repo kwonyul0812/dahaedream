@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dahaedream.mypage.mapper.MypageMapper">
+    <update id="updatePointByMemberId">
+        UPDATE point
+        SET point = point + #{point}
+        WHERE member_id = #{memberId}
+    </update>
+
+    <select id="selectPointByMemberId" resultType="int">
+        SELECT point FROM point WHERE member_id = #{memberId}
+    </select>
+</mapper>

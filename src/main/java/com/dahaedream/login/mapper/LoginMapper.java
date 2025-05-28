@@ -3,6 +3,7 @@ package com.dahaedream.login.mapper;
 
 import com.dahaedream.login.model.MemberDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface LoginMapper {
@@ -22,4 +23,5 @@ public interface LoginMapper {
     // 소셜로그인 회원 업데이트
     int updateSocialMember(MemberDto member);
 
+    int insertMemberPoint(@Param("memberId") Integer memberId);
 }
