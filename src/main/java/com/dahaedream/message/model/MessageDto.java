@@ -15,4 +15,9 @@ public class MessageDto {
     private String title;
     private String content;
     private LocalDateTime sendDate;
+    private boolean isRead;
+
+    public boolean getIsRead() {
+        return isRead;
+    }
 }

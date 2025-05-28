@@ -27,9 +27,10 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
         CustomOAuth2User customUserDetails = (CustomOAuth2User) authentication.getPrincipal();
 
         int memberId = customUserDetails.getMemberId();
+        String email = customUserDetails.getEmail();
         String nickname = customUserDetails.getName();
 
-        String token = jwtUtil.createJwt(memberId, nickname, 60 * 60 * 1000 * 10L);
+        String token = jwtUtil.createJwt(memberId, email, nickname, 60 * 60 * 1000 * 10L);
 
         response.addCookie(createCookie("Authorization", token));
         response.sendRedirect("/");
@@ -37,7 +38,7 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
     private Cookie createCookie(String key, String value) {
         Cookie cookie = new Cookie(key, value);
-        cookie.setMaxAge(60*60*10);
+        cookie.setMaxAge(60 * 60 * 10);
         cookie.setPath("/");
         cookie.setHttpOnly(true);
 

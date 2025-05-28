@@ -60,4 +60,5 @@ public class CustomUserDetails implements UserDetails {
     public String getNickname() {
         return member.getNickname();
     }
+
 }
