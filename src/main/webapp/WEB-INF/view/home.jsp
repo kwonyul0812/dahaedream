@@ -23,7 +23,6 @@
 
         .swiper {
             width: 90%;
-            max-width: 900px;
             height: 300px;
             margin: 40px auto;
             border-radius: 20px;
@@ -67,9 +66,18 @@
 <!-- Swiper -->
 <div class="swiper">
     <div class="swiper-wrapper">
-        <div class="swiper-slide">누구나 해결사가 될 수 있습니다</div>
-        <div class="swiper-slide">다해드림에서 고민을 해결하세요</div>
-        <div class="swiper-slide">다해드림</div>
+        <div class="swiper-slide">
+            <img src="/uploads/Logo.png" alt="" width="100" height="100">
+            누구나 해결사가 될 수 있습니다
+        </div>
+        <div class="swiper-slide">
+            <img src="/uploads/Logo.png" alt="">
+            다해드림에서 고민을 해결하세요
+        </div>
+        <div class="swiper-slide">
+            <img src="/uploads/Logo.png" alt="">
+            다해드림
+        </div>
     </div>
     <div class="swiper-pagination"></div>
     <div class="swiper-button-prev"></div>
