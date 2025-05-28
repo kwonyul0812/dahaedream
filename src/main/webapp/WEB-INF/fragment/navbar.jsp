@@ -35,14 +35,18 @@
                 </li>
             </ul>
 
-            <a class="navbar-brand mx-auto" href="/">로고</a>
+            <a class="navbar-brand mx-auto" href="/"><img src="/uploads/logo2.png" alt="로고" height="100" width="200"></a>
 
             <ul class="navbar-nav d-flex flex-row">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/mypage/member">마이페이지</a>
+                    <a class="nav-link active" aria-current="page" href="/mypage/member" style="display:none"
+                       id="mypage">마이페이지</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/message/receivedMessage" class="nav-link active" aria-current="page" style="cursor: pointer" id="message">쪽지</a>
+                    <a href="/message/list?type=received" class="nav-link active" aria-current="page"
+                       style="cursor: pointer; display: none" id="message">쪽지 <span id="msNotification"
+                                                                                    class="badge bg-danger"
+                                                                                    style="margin-left:-5px; display: none"></span></a>
                 </li>
                 <li>
                     <span id="info" style="display: none"></span>
@@ -51,7 +55,8 @@
                     <a href="/login/signin" class="btn btn-sm btn-outline-secondary" id="loginBtn" role="button">로그인</a>
                 </li>
                 <li>
-                    <a href="/logout" class="btn btn-sm btn-outline-secondary" id="logoutBtn" role="button" style="display: none">로그아웃</a>
+                    <a href="/logout" class="btn btn-sm btn-outline-secondary" id="logoutBtn" role="button"
+                       style="display: none">로그아웃</a>
                 </li>
             </ul>
         </div>
@@ -67,6 +72,11 @@
         // 로그인 버튼 숨기고 로그아웃 버튼 표시
         $('#loginBtn').hide();
         $('#logoutBtn').show();
+        $('#mypage').show();
+        $('#message').show();
+        if (res.msCount > 0) {
+          $('#msNotification').text(res.msCount).show();
+        }
       },
       error: function (err) {
         // 인증되지 않은 경우
@@ -75,5 +85,7 @@
         $('#logoutBtn').hide();
       }
     })
+
+
   })
 </script>

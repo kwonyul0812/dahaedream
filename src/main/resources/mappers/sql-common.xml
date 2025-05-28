@@ -5,7 +5,7 @@
 <mapper namespace="com.dahaedream.common.mapper.CommonMapper">
 
     <select id="selectCategory" parameterType="hashmap" resultType="com.dahaedream.common.model.Common">
-        SELECT * FROM CATEGORY
+        SELECT * FROM category
     </select>
 
 </mapper>

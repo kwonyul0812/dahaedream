@@ -3,7 +3,8 @@ package com.dahaedream.auth.config;
 import com.dahaedream.auth.filter.JWTFilter;
 import com.dahaedream.auth.jwt.JWTUtil;
 import com.dahaedream.auth.filter.LoginFilter;
-import com.dahaedream.auth.oauth2.CustomSuccessHandler;
+import com.dahaedream.auth.oauth2.CustomOAuth2FailureHandler;
+import com.dahaedream.auth.oauth2.CustomOAuth2SuccessHandler;
 import com.dahaedream.auth.service.CustomOAuth2UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
@@ -28,14 +29,16 @@ public class SecurityConfig {
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JWTUtil jwtUtil;
     private final CustomOAuth2UserService customOAuth2UserService;
-    private final CustomSuccessHandler customSuccessHandler;
+    private final CustomOAuth2SuccessHandler customSuccessHandler;
+    private final CustomOAuth2FailureHandler customFailureHandler;
 
 
-    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil, CustomOAuth2UserService customOAuth2UserService, CustomSuccessHandler customSuccessHandler) {
+    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil, CustomOAuth2UserService customOAuth2UserService, CustomOAuth2SuccessHandler customSuccessHandler, CustomOAuth2FailureHandler customFailureHandler) {
         this.authenticationConfiguration = authenticationConfiguration;
         this.jwtUtil = jwtUtil;
         this.customOAuth2UserService = customOAuth2UserService;
         this.customSuccessHandler = customSuccessHandler;
+        this.customFailureHandler = customFailureHandler;
     }
 
     @Bean
@@ -99,6 +102,7 @@ public class SecurityConfig {
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
                                 .userService(customOAuth2UserService))
                         .successHandler(customSuccessHandler)
+                        .failureHandler(customFailureHandler)
                 );
         // 필터 추가 LoginFilter()는 인자를 받음(AuthenticationManager() 메소드에 authenticationConfiguration 객체를 넣어야함) 따라서 등록 필요
         http

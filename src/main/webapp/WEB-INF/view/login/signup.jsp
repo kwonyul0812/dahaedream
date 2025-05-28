@@ -30,7 +30,7 @@
             <input type="text" class="form-control" id="emailFront" placeholder="이메일">
             <span class="input-group-text">@</span>
             <input type="text" class="form-control" id="emailBack">
-            <button class="btn btn-outline-secondary" type="button" id="emailCheck">이메일 인증</button>
+            <button class="btn btn-outline-secondary" type="button" id="emailCheckBtn">이메일 인증</button>
         </div>
         <div class="input-group mb-3">
             <input type="password" class="form-control" id="password" placeholder="비밀번호 8자 이상">
@@ -40,11 +40,9 @@
         </div>
         <div class="input-group mb-3">
             <input type="text" class="form-control" id="nickname" placeholder="닉네임">
-            <button class="btn btn-outline-secondary" type="button" id="nicknameCheck">중복 확인</button>
         </div>
         <div class="input-group mb-3">
             <input type="text" class="form-control" id="address" placeholder="주소">
-            <button class="btn btn-outline-secondary" type="button" id="searchAddress">주소 찾기</button>
         </div>
         <div class="input-group mb-3">
             <input type="text" class="form-control" id="phone1" placeholder="핸드폰" maxlength="3">
@@ -77,6 +75,8 @@
 
 <script>
   $(function () {
+    let checkEmail = false;
+
     // 이메일 앞부분: 영문, 숫자, 일부 특수문자만 허용
     $('#emailFront').on('input', function () {
       const value = $(this).val();
@@ -91,11 +91,47 @@
       $(this).val(filtered);
     });
 
+    // 이메일이 변경이되면 이메일 중복검사 하도록...
+    $('#emailFront, #emailBack').on('input', function() {
+      checkEmail = false;
+    });
+
     // 연락처 입력란 숫자만 받도록
     $('#phone1, #phone2, #phone3').on('input', function () {
       const value = $(this).val();
       const filtered = value.replace(/[^0-9]/g, '') // 숫자만 남기고 나머지 입력안되게
       $(this).val(filtered);
+    })
+
+    $('#emailCheckBtn').on('click', function () {
+      // 이메일 중복 검사
+      const emailFront = $('#emailFront').val().trim();
+      const emailBack = $('#emailBack').val().trim();
+      const email = emailFront + '@' + emailBack;
+
+      $.ajax({
+        url: '/login/checkEmail',
+        type: 'GET',
+        data: {
+          email: email
+        },
+        success: function (res, textStatus, jqXHR) {
+          if (jqXHR.status === 200) {
+            checkEmail = false;
+            $('#alertText').text('이미 사용중인 이메일입니다.');
+            const modal = new bootstrap.Modal(document.getElementById('alertModal'));
+            modal.show();
+          }
+        },
+        error: function (jqXHR) {
+          if (jqXHR.status === 404) {
+            checkEmail = true;
+            $('#alertText').text('사용 가능한 이메일입니다.');
+            const modal = new bootstrap.Modal(document.getElementById('alertModal'));
+            modal.show();
+          }
+        },
+      })
     })
 
     $('#signupForm').on('submit', function (e) {
@@ -111,11 +147,6 @@
 
       // checkValue 가 false 이면 알림 모달띄우기
       let checkValue = true;
-
-      if (!emailFront || !emailBack) {
-        $('#alertText').text('이메일을 확인해주세요.');
-        checkValue = false;
-      }
 
       if (password.length < 8) {
         $('#alertText').text('비밀번호는 최소 8자 이상이여야 합니다.');
@@ -142,8 +173,13 @@
         checkValue = false;
       }
 
-      // checkValue 가 false이면 알림 모달 띄우고 작업중지
-      if(!checkValue) {
+      if(!checkEmail) { // 이메일 중복검사 확인
+        $('#alertText').text('이메일 중복검사를 해주세요');
+        checkValue = false;
+      }
+
+      // checkValue가 false이면 알림 모달 띄우고 작업중지
+      if (!checkValue) {
         const modal = new bootstrap.Modal(document.getElementById('alertModal'));
         modal.show()
         return;

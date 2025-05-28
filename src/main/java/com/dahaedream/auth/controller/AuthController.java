@@ -1,6 +1,8 @@
 package com.dahaedream.auth.controller;
 
 import com.dahaedream.auth.model.CustomUserDetails;
+import com.dahaedream.message.service.MessageService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -14,7 +16,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
+@RequiredArgsConstructor
 public class AuthController {
+
+    private final MessageService messageService;
 
     @GetMapping("/auth/getUser")
     @ResponseBody
@@ -24,7 +29,13 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         Map<String, Object> response = new HashMap<>();
+        // 읽지않은 받은 쪽지 수 조회
+        int msCount = messageService.getUnreadMessageCount(user.getMemberId());
+        response.put("email",user.getUsername());
         response.put("nickname", user.getNickname());
+        response.put("msCount", msCount);
+
+//        System.out.println(user.getUsername());
 
         return ResponseEntity.ok().body(response);
     }

@@ -40,4 +40,16 @@ public class LoginController {
             return ResponseEntity.badRequest().build(); // 실패 응답
         }
     }
+
+    @GetMapping("/login/checkEmail")
+    @ResponseBody
+    public ResponseEntity checkEmail(@RequestParam String email) {
+        MemberDto memberDto = service.getByEmail(email);
+
+        if(memberDto == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().build();
+    }
 }

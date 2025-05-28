@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-public class CustomOAuth2User  implements OAuth2User {
+public class CustomOAuth2User implements OAuth2User {
 
     private final UserDto userDto;
 
@@ -28,6 +28,10 @@ public class CustomOAuth2User  implements OAuth2User {
     @Override
     public String getName() {
         return userDto.getName();
+    }
+
+    public String getEmail() {
+        return userDto.getEmail();
     }
 
     public int getMemberId() {

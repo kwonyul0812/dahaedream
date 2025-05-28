@@ -13,11 +13,11 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private final JWTUtil jwtUtil;
 
-    public CustomSuccessHandler(JWTUtil jwtUtil) {
+    public CustomOAuth2SuccessHandler(JWTUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
     }
 
@@ -27,9 +27,10 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         CustomOAuth2User customUserDetails = (CustomOAuth2User) authentication.getPrincipal();
 
         int memberId = customUserDetails.getMemberId();
+        String email = customUserDetails.getEmail();
         String nickname = customUserDetails.getName();
 
-        String token = jwtUtil.createJwt(memberId, nickname, 60 * 60 * 1000 * 10L);
+        String token = jwtUtil.createJwt(memberId, email, nickname, 60 * 60 * 1000 * 10L);
 
         response.addCookie(createCookie("Authorization", token));
         response.sendRedirect("/");
@@ -37,7 +38,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
     private Cookie createCookie(String key, String value) {
         Cookie cookie = new Cookie(key, value);
-        cookie.setMaxAge(60*60*10);
+        cookie.setMaxAge(60 * 60 * 10);
         cookie.setPath("/");
         cookie.setHttpOnly(true);
 

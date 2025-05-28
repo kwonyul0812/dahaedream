@@ -4,7 +4,7 @@
 
 <mapper namespace="com.dahaedream.solver.mapper.SolverMapper">
     <insert id="insertRequestAccept">
-        INSERT INTO REQUEST_ACCEPT VALUES (NULL, #{requestId}, #{solverId}, NULL)
+        INSERT INTO request_accept VALUES (NULL, #{requestId}, #{solverId}, NULL)
     </insert>
 
     <select id="selectRequest" parameterType="hashmap" resultType="com.dahaedream.solver.model.Solver">
