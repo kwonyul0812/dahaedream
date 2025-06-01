@@ -17,20 +17,42 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 
+    <style>
+
+        body {
+            background-color: #f3f5ff;
+            font-family: 'Apple SD Gothic Neo', sans-serif;
+        }
+
+        .signup-wrapper {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 50px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .signup-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
 
 <c:import url="/WEB-INF/fragment/navbar.jsp"/>
 
-<div class="mx-auto" style="width: 700px; margin-top: 30px">
-    <form id="signupForm" class="p-4">
-        <h4 class="text-center mb-4">회원가입</h4>
+<div class="signup-wrapper" >
+    <form id="signupForm">
+        <div class="text-center signup-title mb-5">회원가입</div>
 
         <div class="input-group mb-3">
             <input type="text" class="form-control" id="emailFront" placeholder="이메일">
             <span class="input-group-text">@</span>
             <input type="text" class="form-control" id="emailBack">
-            <button class="btn btn-outline-secondary" type="button" id="emailCheckBtn">이메일 인증</button>
+            <button class="btn btn-outline-primary" type="button" id="emailCheckBtn">이메일 인증</button>
         </div>
         <div class="input-group mb-3">
             <input type="password" class="form-control" id="password" placeholder="비밀번호 8자 이상">
@@ -51,8 +73,8 @@
             <span class="input-group-text">-</span>
             <input type="text" class="form-control" id="phone3" maxlength="4">
         </div>
-        <div class="text-end">
-            <button type="submit" id="signupBtn" class="btn btn-primary">가입</button>
+        <div class="text-center" style="margin-top: 30px">
+            <button type="submit" id="signupBtn" class="btn btn-primary" style="width: 100px">가입</button>
         </div>
     </form>
 </div>

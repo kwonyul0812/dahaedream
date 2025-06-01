@@ -17,6 +17,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <style>
+        body {
+            background-color: #f3f5ff;
+            font-family: 'Apple SD Gothic Neo', sans-serif;
+        }
+
         .find-links li:not(:last-child)::after {
             content: "|";
             margin-left: 10px;
@@ -32,16 +37,38 @@
             color: #212529;
             text-decoration: none;
         }
+
+        .signin-wrapper {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 50px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .kakaoBtn {
+            background-color: #FEE500;
+        }
+        .kakaoBtn:hover {
+            background-color: #e0c900;
+        }
+
+        .signin-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+        }
     </style>
 </head>
 <body>
 
 <c:import url="/WEB-INF/fragment/navbar.jsp"/>
 
-<div class="mx-auto" style="width: 500px; height: 380px; margin-top: 100px">
-    <form action="/login" class="p-4" id="loginForm">
-        <h4 class="text-center mb-4">로그인</h4>
+<div class="signin-wrapper">
 
+    <form action="/login" class="mb-2" id="loginForm">
+        <div class="text-center signin-title mb-5">로그인</div>
         <div class="form-floating mb-3">
             <input type="email" class="form-control" id="emailId" name="email" required>
             <label for="emailId">이메일 아이디</label>
@@ -52,16 +79,16 @@
             <label for="password">비밀번호</label>
         </div>
 
-        <div class="d-grid">
-            <button type="submit" class="btn mb-1" style="background-color: greenyellow">로그인</button>
+        <div class="d-grid mb-2">
+            <button type="submit" class="btn btn-primary">로그인</button>
         </div>
-    </form>
-        <a href="/oauth2/authorization/kakao" class="btn" style="width: 450px;background-color: #f3dc00; margin-left: 25px; margin-top: -20px" role="button">
+        <a href="/oauth2/authorization/kakao" class="d-grid btn kakaoBtn" role="button">
             카카오 로그인
         </a>
-    </button>
+    </form>
 
-    <ul class="d-flex justify-content-center list-unstyled find-links" style="margin-bottom: 100px">
+
+    <ul class="d-flex justify-content-center list-unstyled find-links">
         <li><a href="">비밀번호 찾기</a></li>
         <li><a href="">아이디 찾기</a></li>
         <li><a href="/login/signup">회원가입</a></li>
@@ -91,7 +118,7 @@
 
     if (error === 'expired') {
       alert('로그인이 만료되었습니다. 다시 로그인 해주세요.');
-    } else if(error === 'accountDuplicate') {
+    } else if (error === 'accountDuplicate') {
       alert('자체로그인으로 이미 생성된 계정입니다.')
     }
 
@@ -108,10 +135,10 @@
           email: email,
           password: password
         },
-        success: function(res) {
+        success: function (res) {
           window.location.href = '/'; // 홈페이지로 이동
         },
-        error: function(err) {
+        error: function (err) {
           $('#alertText').text('로그인 실패');
 
           const modal = new bootstrap.Modal(document.getElementById('alertModal'));
