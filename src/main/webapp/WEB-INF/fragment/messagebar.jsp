@@ -16,7 +16,7 @@
 </style>
 
 <div class="message-bar">
-            <a class="btn btn-primary message-bar-btn " href="/message/list?type=received" role="button">받은 쪽지</a>
+            <a class="btn btn-primary message-bar-btn" href="/message/list?type=received" role="button">받은 쪽지</a>
             <a class="btn btn-primary message-bar-btn" href="/message/list?type=sended" role="button">보낸 쪽지</a>
             <a class="btn btn-primary message-bar-btn " href="/message/write" role="button">쪽지 쓰기</a>
 </div>

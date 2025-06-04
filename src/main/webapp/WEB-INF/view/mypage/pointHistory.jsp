@@ -9,52 +9,74 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"
+    ></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f3f5ff;
+            font-family: 'Apple SD Gothic Neo', sans-serif;
+        }
+
+        .point-history-wrapper {
+            flex-grow: 1;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 50px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .point-history-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
 
 <c:import url="/WEB-INF/fragment/navbar.jsp"/>
-
+<c:import url="/WEB-INF/fragment/pointbar.jsp"/>
 
 <div class="d-flex">
     <c:import url="/WEB-INF/fragment/mypagebar.jsp"/>
 
-    <div style="flex-grow: 1; height: 500px">
-        <c:import url="/WEB-INF/fragment/pointbar.jsp"/>
-        <div class="d-flex flex-column justify-content-center align-items-center">
-            <h4 class="text-center mt-5 mb-5">포인트 내역</h4>
+    <div class="point-history-wrapper">
+        <h4 class="text-center point-history-title mb-5">포인트 내역</h4>
 
-            <div class="w-75">
-                <table class="table text-center">
-                    <thead>
-                    <tr>
-                        <th class="w-20">대상</th>
-                        <th class="w-20">거래 포인트</th>
-                        <th class="w-20">날짜</th>
-                        <th class="w-20">유형</th>
-                        <th class="w-20">잔액</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>홍길동</td>
-                        <td>30000</td>
-                        <td>25-03-31</td>
-                        <td>출금</td>
-                        <td>60000</td>
-                    </tr>
-                    <tr>
-                        <td>길동무</td>
-                        <td>20000</td>
-                        <td>25-03-30</td>
-                        <td>입금</td>
-                        <td>90000</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <table class="table text-center">
+            <thead>
+            <tr>
+                <th class="w-20">대상</th>
+                <th class="w-20">거래 포인트</th>
+                <th class="w-20">날짜</th>
+                <th class="w-20">유형</th>
+                <th class="w-20">잔액</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>홍길동</td>
+                <td>30000</td>
+                <td>25-03-31</td>
+                <td>출금</td>
+                <td>60000</td>
+            </tr>
+            <tr>
+                <td>길동무</td>
+                <td>20000</td>
+                <td>25-03-30</td>
+                <td>입금</td>
+                <td>90000</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
