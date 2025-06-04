@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<div style="width: 100%; height: 50px; background-color: greenyellow" class="d-flex justify-content-end align-items-center">
-    <span class="fs-4 me-5" id="pointText"></span>
+<div style="width: 100%; height: 50px; background-color: #0D6EFD" class="d-flex justify-content-end align-items-center">
+    <span class="fs-4 me-5" id="pointText" style="color: #FFFFFF"></span>
 </div>
 <script>
   $(function () {

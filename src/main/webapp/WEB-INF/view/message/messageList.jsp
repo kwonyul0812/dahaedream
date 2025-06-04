@@ -20,12 +20,33 @@
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/ko.js"></script>
     <style>
+        body {
+            background-color: #f3f5ff;
+            font-family: 'Apple SD Gothic Neo', sans-serif;
+        }
+
         .list:hover {
             cursor: pointer;
         }
 
         tr.unread td {
             color: blue;
+        }
+
+        .messageList-wrapper {
+            flex-grow: 1;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 50px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .messageList-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
         }
     </style>
 </head>
@@ -37,56 +58,52 @@
 <div class="d-flex">
     <c:import url="/WEB-INF/fragment/messagebar.jsp"/>
 
-    <div style="flex-grow: 1; height: 500px">
-        <div class="d-flex flex-column justify-content-center align-items-center">
-            <c:choose>
-                <c:when test="${type eq 'sended'}">
-                    <h4 class="text-center mt-5 mb-5" id="messageType">보낸 쪽지</h4>
-                </c:when>
-                <c:when test="${type eq 'received'}">
-                    <h4 class="text-center mt-5 mb-5" id="messageType">받은 쪽지</h4>
-                </c:when>
-            </c:choose>
-            <div class="w-75">
-                <table class="table table-hover text-center">
-                    <thead>
-
-                    <tr>
-                        <c:choose>
-                            <c:when test="${type eq 'sended'}">
-                                <th class="w-20">받는 사람</th>
-                            </c:when>
-                            <c:when test="${type eq 'received'}">
-                                <th class="w-20">보낸 사람</th>
-                            </c:when>
-                        </c:choose>
-                        <th class="w-50">제목</th>
-                        <th class="w-25">날짜</th>
-                    </tr>
-
-                    </thead>
-                    <tbody>
-                    <c:forEach var="message" items="${messageList}">
-                        <c:choose>
-                            <c:when test="${type eq 'received' and message.isRead == false}">
-                                <tr class="messageRow list unread" data-message-id="${message.messageId}">
-                                    <td>${message.nickname}</td>
-                                    <td>${message.title}</td>
-                                    <td><span class="time-text" data-senddate="${message.sendDate}"></span></td>
-                                </tr>
-                            </c:when>
-                            <c:otherwise>
-                                <tr class="messageRow list" data-message-id="${message.messageId}">
-                                    <td>${message.nickname}</td>
-                                    <td>${message.title}</td>
-                                    <td><span class="time-text" data-senddate="${message.sendDate}"></span></td>
-                                </tr>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </div>
+    <div class="messageList-wrapper">
+        <c:choose>
+            <c:when test="${type eq 'sended'}">
+                <div class="text-center messageList-title mb-5" id="messageType">보낸 쪽지</div>
+            </c:when>
+            <c:when test="${type eq 'received'}">
+                <div class="text-center messageList-title mb-5" id="messageType">받은 쪽지</div>
+            </c:when>
+        </c:choose>
+        <div>
+            <table class="table table-hover text-center">
+                <thead>
+                <tr>
+                    <c:choose>
+                        <c:when test="${type eq 'sended'}">
+                            <th class="w-20">받는 사람</th>
+                        </c:when>
+                        <c:when test="${type eq 'received'}">
+                            <th class="w-20">보낸 사람</th>
+                        </c:when>
+                    </c:choose>
+                    <th class="w-50">제목</th>
+                    <th class="w-25">날짜</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="message" items="${messageList}">
+                    <c:choose>
+                        <c:when test="${type eq 'received' and message.isRead == false}">
+                            <tr class="messageRow list unread" data-message-id="${message.messageId}">
+                                <td>${message.nickname}</td>
+                                <td>${message.title}</td>
+                                <td><span class="time-text" data-senddate="${message.sendDate}"></span></td>
+                            </tr>
+                        </c:when>
+                        <c:otherwise>
+                            <tr class="messageRow list" data-message-id="${message.messageId}">
+                                <td>${message.nickname}</td>
+                                <td>${message.title}</td>
+                                <td><span class="time-text" data-senddate="${message.sendDate}"></span></td>
+                            </tr>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

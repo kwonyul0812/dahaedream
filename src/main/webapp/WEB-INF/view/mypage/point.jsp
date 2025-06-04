@@ -17,36 +17,56 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
+    <style>
+        body {
+            background-color: #f3f5ff;
+            font-family: 'Apple SD Gothic Neo', sans-serif;
+        }
+
+        .point-wrapper {
+            flex-grow: 1;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 50px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .point-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
 
 <c:import url="/WEB-INF/fragment/navbar.jsp"/>
-
+<c:import url="/WEB-INF/fragment/pointbar.jsp"/>
 
 <div class="d-flex">
     <c:import url="/WEB-INF/fragment/mypagebar.jsp"/>
 
-    <div style="flex-grow: 1; height: 500px">
-        <c:import url="/WEB-INF/fragment/pointbar.jsp"/>
-        <div class="d-flex flex-column justify-content-center align-items-center">
-            <h4 class="text-center mt-5 mb-5">포인트 충전</h4>
+    <div class="point-wrapper">
 
-            <div class="w-75 mb-5">
-                <div class="d-flex justify-content-evenly">
-                    <button class="btn btn-secondary fs-4 amountBtn" id="point1" style="width: 8%">1만</button>
-                    <button class="btn btn-secondary fs-4 amountBtn" id="point2" style="width: 8%">3만</button>
-                    <button class="btn btn-secondary fs-4 amountBtn" id="point3" style="width: 8%">5만</button>
-                    <button class="btn btn-secondary fs-4 amountBtn" id="point4" style="width: 8%">10만</button>
-                </div>
+        <h4 class="text-center point-title mb-5">포인트 충전</h4>
+
+        <div class="mb-5">
+            <div class="d-flex justify-content-evenly">
+                <button class="btn btn-secondary fs-4 amountBtn" id="point1">1만</button>
+                <button class="btn btn-secondary fs-4 amountBtn" id="point2">3만</button>
+                <button class="btn btn-secondary fs-4 amountBtn" id="point3">5만</button>
+                <button class="btn btn-secondary fs-4 amountBtn" id="point4">10만</button>
             </div>
-            <div class="d-flex w-100 mt-5 mb-5 justify-content-center">
-                <span class="fs-4 me-3">포인트 : </span>
-                <input type="text" class="form-control form-control-lg me-3" id="pointInput" style="width: 200px">
-                <button class="btn btn-lg btn-danger" id="reset-btn">초기화</button>
-            </div>
-            <div>
-                <button class="btn btn-lg btn-primary" id="addPointBtn">충전</button>
-            </div>
+        </div>
+        <div class="d-flex w-100 mt-5 mb-5 justify-content-center">
+            <span class="fs-4 me-3">포인트 : </span>
+            <input type="text" class="form-control form-control-lg me-3" id="pointInput" style="width: 200px">
+            <button class="btn btn-lg btn-danger" id="reset-btn">초기화</button>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-lg btn-primary" id="addPointBtn">충전</button>
         </div>
     </div>
 </div>
@@ -104,10 +124,10 @@
         $.ajax({
           url: '/mypage/addPoint',
           type: 'POST',
-          data:{
+          data: {
             point: point
           },
-          success: function() {
+          success: function () {
             alert('포인트 충전 성공');
             location.reload();
           }

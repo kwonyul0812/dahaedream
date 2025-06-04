@@ -16,6 +16,29 @@
     ></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-color: #f3f5ff;
+            font-family: 'Apple SD Gothic Neo', sans-serif;
+        }
+
+        .messageWrite-wrapper {
+            flex-grow: 1;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 50px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .messageWrite-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
 
@@ -25,45 +48,39 @@
 <div class="d-flex">
     <c:import url="/WEB-INF/fragment/messagebar.jsp"/>
 
-    <div style="flex-grow: 1; height: 500px">
-        <div class="d-flex flex-column justify-content-center align-items-center">
-            <h4 class="text-center mt-5 mb-5">쪽지 쓰기</h4>
+    <div class="messageWrite-wrapper">
+        <div class="text-center messageWrite-title mb-5">쪽지 쓰기</div>
 
-            <div style="width: 50%">
+        <!-- 받는 이 -->
+        <div class="row mb-3">
+            <label class="col-2 col-form-label text-end">받는 사람</label>
+            <div class="col-10">
+                <input type="text" class="form-control" id="nickname" placeholder="닉네임 입력" readonly/>
+            </div>
+            <input type="number" id="memberId" hidden/>
+        </div>
 
-                <!-- 받는 이 -->
-                <div class="row mb-3">
-                    <label class="col-2 col-form-label text-end">받는 사람</label>
-                    <div class="col-10">
-                        <input type="text" class="form-control" id="nickname" placeholder="닉네임 입력" readonly/>
-                    </div>
-                    <input type="number" id="memberId" hidden/>
-                </div>
+        <!-- 제목 -->
+        <div class="row mb-3">
+            <label class="col-2 col-form-label text-end">제목</label>
+            <div class="col-10">
+                <input id="title" type="text" class="form-control" placeholder="제목 입력"/>
+            </div>
+        </div>
 
-                <!-- 제목 -->
-                <div class="row mb-3">
-                    <label class="col-2 col-form-label text-end">제목</label>
-                    <div class="col-10">
-                        <input id="title" type="text" class="form-control" placeholder="제목 입력"/>
-                    </div>
-                </div>
-
-                <!-- 내용 -->
-                <div class="row mb-3">
-                    <label class="col-2 col-form-label text-end">내용</label>
-                    <div class="col-10">
+        <!-- 내용 -->
+        <div class="row mb-3">
+            <label class="col-2 col-form-label text-end">내용</label>
+            <div class="col-10">
                         <textarea id="content" class="form-control" rows="10" style="resize: none"
                                   placeholder="내용 입력"></textarea>
-                    </div>
-                </div>
+            </div>
+        </div>
 
-                <!-- 버튼 -->
-                <div class="row mt-5">
-                    <div class="offset-3 col-9 text-end">
-                        <button id="sendMessageBtn" class="btn btn-primary">보내기</button>
-                    </div>
-                </div>
-
+        <!-- 버튼 -->
+        <div class="mt-5">
+            <div class="text-center">
+                <button id="sendMessageBtn" class="btn btn-primary" style="width: 100px">보내기</button>
             </div>
         </div>
     </div>
@@ -102,16 +119,16 @@
     const urlParams = new URLSearchParams(window.location.search);
     const receiverId = urlParams.get("receiverId");
 
-    if(receiverId !== null) {
+    if (receiverId !== null) {
       $.ajax({
         url: '/message/getMember',
         type: 'GET',
         data: {
           memberId: receiverId
         },
-        success: function(res) {
-            $('#nickname').val(res.nickname);
-            $('#memberId').val(res.memberId);
+        success: function (res) {
+          $('#nickname').val(res.nickname);
+          $('#memberId').val(res.memberId);
         },
       })
     }
