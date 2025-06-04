@@ -35,7 +35,7 @@
                 </li>
             </ul>
 
-            <a class="navbar-brand mx-auto" href="/"><img src="/uploads/logo2.png" alt="로고" height="100" width="200"></a>
+            <a class="navbar-brand mx-auto" href="/">다해드림</a>
 
             <ul class="navbar-nav d-flex flex-row">
                 <li class="nav-item">
