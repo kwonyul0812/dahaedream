@@ -23,7 +23,7 @@
 
         .swiper {
             width: 90%;
-            height: 300px;
+            height: 450px;
             margin: 40px auto;
             border-radius: 20px;
             overflow: hidden;

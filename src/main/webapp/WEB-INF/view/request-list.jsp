@@ -112,10 +112,12 @@
         })
             .then(res => res.json())
             .then(data => {
+
                 const listContainer = document.getElementById("request-list");
                 listContainer.innerHTML = "";
 
                 data.list.forEach(item => {
+
                     const col = document.createElement("div");
                     col.className = "col";
 
