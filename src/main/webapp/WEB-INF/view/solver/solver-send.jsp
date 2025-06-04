@@ -41,7 +41,6 @@
 
 <script>
     let memberId = 0;
-    getMember();
     function getMember() {
         fetch("/getMember.dox", {
             method : "POST",
@@ -52,15 +51,13 @@
             .then(data => {
                 console.log(data);
                 memberId = data.memberId;
+                getRequestList();
             })
     }
 
-
-    document.addEventListener("DOMContentLoaded", getRequestList);
+    document.addEventListener("DOMContentLoaded", getMember);
 
     function getRequestList() {
-
-
         fetch("/solver/getRequest.dox", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
@@ -71,6 +68,7 @@
                 const items = data.list
                     ? (Array.isArray(data.list) ? data.list : [data.list])
                     : [];
+                console.log(data);
 
                 const container = document.getElementById("request-list");
                 container.innerHTML = "";

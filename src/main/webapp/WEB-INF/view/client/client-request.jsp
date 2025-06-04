@@ -61,9 +61,22 @@
 
     let requestId = null;
     let solverId = null;
+    let memberId = 0;
+    getMember();
+    function getMember() {
+        fetch("/getMember.dox", {
+            method : "POST",
+            headers : { "Content-Type": "application/json" },
+            body : JSON.stringify({})
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                memberId = data.memberId;
+                fnGetRequest();
+            })
+    }
 
-
-    fnGetRequest();
     // 모달 열기 전에 거래 대상 및 포인트 설정
     function prepareModal(name, point, request_id, solver_id) {
         document.getElementById('modalTarget').textContent = name;
@@ -95,12 +108,12 @@
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                fnGetRequest();
             })
 
         modal.hide();
 
-        fnGetRequest();
+
     }
 
     function fnCancel(request_id, solver_id) {
@@ -121,14 +134,10 @@
     }
 
     function fnGetRequest() {
-
-        const token = localStorage.getItem('jwtToken');
-        const decoded = token ? jwtDecode(token) : null;
-
         fetch("/client/getRequestAccept.dox", {
             method:"POST",
             headers : {'Content-Type': 'application/json'},
-            body : JSON.stringify({clientId : decoded?.memberId})
+            body : JSON.stringify({clientId : memberId})
         })
             .then(res => res.json())
             .then(data => {

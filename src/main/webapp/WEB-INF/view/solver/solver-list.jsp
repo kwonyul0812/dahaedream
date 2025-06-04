@@ -63,15 +63,16 @@
         fetch("/getMember.dox", {
             method : "POST",
             headers : { "Content-Type": "application/json" },
-            body : JSON.stringify()
+            body : JSON.stringify({})
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
                 memberId = data.memberId;
+                fnGetAcceptRequest();
             })
     }
-    fnGetAcceptRequest();
+
 
     function fnGetAcceptRequest() {
         fetch("/solver/getAcceptRequest.dox", {

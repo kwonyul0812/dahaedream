@@ -67,16 +67,16 @@
 <div class="swiper">
     <div class="swiper-wrapper">
         <div class="swiper-slide">
-            <img src="/uploads/Logo.png" alt="" width="100" height="100">
-            누구나 해결사가 될 수 있습니다
+            <img src="/uploads/banner3.png" alt="" style="height: 100%; width: 100%">
+
         </div>
         <div class="swiper-slide">
-            <img src="/uploads/Logo.png" alt="">
-            다해드림에서 고민을 해결하세요
+            <img src="/uploads/banner.png" alt="" style="height: 100%; width: 100%">
+
         </div>
         <div class="swiper-slide">
-            <img src="/uploads/Logo.png" alt="">
-            다해드림
+            <img src="/uploads/vari.png" alt="" style="height: 100%; width: 100%" >
+
         </div>
     </div>
     <div class="swiper-pagination"></div>
