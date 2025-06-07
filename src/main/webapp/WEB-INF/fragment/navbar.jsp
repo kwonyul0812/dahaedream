@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -36,7 +35,8 @@
                     </ul>
                 </li>
             </ul>
-            <a class="navbar-brand mx-auto" href="/">다해드림</a>
+            <a class="navbar-brand mx-auto" href="/"
+               style="font-weight: 700; font-size: 2rem;">다해드림</a>
 
             <ul class="navbar-nav d-flex flex-row">
                 <li class="nav-item me-2">
