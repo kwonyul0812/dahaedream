@@ -12,4 +12,12 @@
     <select id="selectPointByMemberId" resultType="int">
         SELECT point FROM point WHERE member_id = #{memberId}
     </select>
+
+    <select id="selectPointHistoryByMemberId" resultType="com.dahaedream.mypage.model.PointHistoryDto">
+        SELECT ph.point_history_id, m.nickname, ph.point_type, ph.change_amount, ph.balance_after, ph.updatetime
+        FROM point_history ph
+                 JOIN member m ON ph.target_id = m.member_id
+        WHERE ph.member_id = #{memberId}
+        ORDER BY ph.point_history_id DESC
+    </select>
 </mapper>
