@@ -22,4 +22,21 @@ public class CommonService {
         return resultMap;
 
     }
+
+    public HashMap<String, Object> insertImg(HashMap<String, Object> map) {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        commonMapper.insertFile(map);
+        resultMap.put("result", "success");
+        return resultMap;
+    }
+
+    public HashMap<String, Object> selectImg(HashMap<String, Object> map) {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        List<Common> imgList = commonMapper.selectFile(map);
+        resultMap.put("imgList", imgList);
+        resultMap.put("result", "success");
+        return resultMap;
+
+    }
+
 }

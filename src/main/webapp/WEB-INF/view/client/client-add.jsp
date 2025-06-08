@@ -117,7 +117,8 @@
 
     <div class="form-section">
         <label class="form-label">이미지</label>
-        <input type="file" class="form-control">
+        <input type="file" class="form-control" id="inputFile" multiple accept="image/*">
+        <div id="preview" class="d-flex flex-wrap gap-2 mt-2"></div>
     </div>
 
     <div class="form-section">
@@ -151,7 +152,7 @@
         fetch("/getMember.dox", {
             method : "POST",
             headers : { "Content-Type": "application/json" },
-            body : JSON.stringify()
+            body : JSON.stringify({})
         })
             .then(res => res.json())
             .then(data => {
@@ -166,8 +167,10 @@
         const onOff = document.querySelector("#onOff").value;
         const price = document.querySelector("#price").value;
         const content = document.querySelector("#content").value;
+        const fileInput = document.querySelector("#inputFile");
+        const files = fileInput.files;
 
-        const data = { categoryId, title, onOff, price, content, memberId };
+        data = {categoryId, title, onOff, price, content, memberId};
 
         if(data.memberId === 0) {
             alert("로그인해주세요.");
@@ -175,13 +178,39 @@
         }
 
         if (confirm('의뢰 하시겠습니까?')) {
+
             fetch("/client/insert.dox", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers : {"Content-Type": "application/json"},
                 body: JSON.stringify(data)
             })
                 .then(res => res.json())
-                .then(result => {
+                .then(data => {
+                    const requestId = data.requestId;
+                    if (files.length > 0) {
+                        const formData = new FormData();
+                        for (let i = 0; i < files.length; i++) {
+                            formData.append("files", files[i]); // 여러 파일
+                        }
+                        formData.append("requestId", requestId);
+
+                        fetch("/common/upload.dox", {
+                            method: "POST",
+                            body: formData
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+
+                                location.href = "/request/list";
+                            })
+                            .catch(err => {
+                                console.error(err);
+                                alert("파일 업로드 중 오류 발생");
+                            });
+                    } else {
+                        alert("의뢰 등록 완료");
+                        location.href = "/request/list";
+                    }
                     alert('등록되었습니다.');
                     location.href = '/request/list';
                 })
@@ -209,6 +238,28 @@
     }
 
     fnGetCategory();
+
+    document.querySelector("#inputFile").addEventListener("change", function(e) {
+        const preview = document.getElementById("preview");
+        preview.innerHTML = ""; // 기존 미리보기 초기화
+        const files = e.target.files;
+
+        Array.from(files).forEach(file => {
+            if (!file.type.startsWith("image/")) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.createElement("img");
+                img.src = e.target.result;
+                img.style.height = "100px";
+                img.style.borderRadius = "8px";
+                img.style.objectFit = "cover";
+                img.style.boxShadow = "0 2px 6px rgba(0,0,0,0.2)";
+                preview.appendChild(img);
+            }
+            reader.readAsDataURL(file);
+        });
+    });
 </script>
 
 </body>

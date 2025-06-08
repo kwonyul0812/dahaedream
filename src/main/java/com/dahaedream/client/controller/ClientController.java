@@ -3,6 +3,8 @@ package com.dahaedream.client.controller;
 import com.dahaedream.auth.model.CustomUserDetails;
 import com.dahaedream.client.mapper.ClientMapper;
 import com.dahaedream.client.service.ClientService;
+import com.dahaedream.common.mapper.CommonMapper;
+import com.dahaedream.common.service.CommonService;
 import com.dahaedream.login.model.MemberDto;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,8 @@ public class ClientController {
 
     private final ClientService clientService;
     private final ClientMapper clientMapper;
+    private final CommonService commonService;
+    private final CommonMapper commonMapper;
 
     @GetMapping("/client/add")
     public String clientAdd() {
@@ -57,6 +61,7 @@ public class ClientController {
             @RequestParam HashMap<String, Object> map) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<>();
         resultMap = clientService.selectRequestList(map);
+
         resultMap.put("nickname", user.getNickname());
         resultMap.put("memberId", user.getMemberId());
         return new Gson().toJson(resultMap);
