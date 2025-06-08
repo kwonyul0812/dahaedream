@@ -18,8 +18,14 @@ public class PointService {
     @Transactional
     public HashMap<String, Object> increasePoint(HashMap<String, Object> map) {
         HashMap<String, Object> resultMap = new HashMap<>();
+
+        int currentPoint = mypageMapper.selectPointByMemberId((Integer) map.get("memberId"));
+        int amount = Integer.parseInt(map.get("changeAmount").toString());
+        map.put("balanceAfter", currentPoint + amount);
+
         pointMapper.increasePoint(map);
         pointMapper.insertPointHistory(map);
+
         resultMap.put("result", "success");
         return resultMap;
     }
@@ -28,13 +34,14 @@ public class PointService {
         HashMap<String, Object> resultMap = new HashMap<>();
 
         int currentPoint = mypageMapper.selectPointByMemberId((Integer) map.get("memberId"));
-        int amount = Integer.parseInt(map.get("point").toString());
+        int amount = Integer.parseInt(map.get("changeAmount").toString());
 
         if(currentPoint < amount) {
             resultMap.put("result", "fail");
             return resultMap;
         }
 
+        map.put("balanceAfter", currentPoint - amount);
         pointMapper.decreasePoint(map);
         pointMapper.insertPointHistory(map);
         resultMap.put("result", "success");

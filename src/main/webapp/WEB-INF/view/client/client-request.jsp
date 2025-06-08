@@ -95,6 +95,35 @@
 
         // 실제 서버 처리로직이 들어갈 수 있음
 
+        fetch("/point/withdrawal", {
+            method:"POST",
+            headers : {'Content-Type': 'application/json'},
+            body : JSON.stringify({
+                memberId : memberId,
+                changeAmount : point,
+                targetId : solverId,
+                pointType : "출금"
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                return fetch("/point/deposit", {
+                    method:"POST",
+                    headers : {'Content-Type': 'application/json'},
+                    body : JSON.stringify({
+                        memberId : solverId,
+                        changeAmount : point,
+                        targetId : memberId,
+                        pointType : "입금"
+                })
+            })
+                    .then(res => res.json())
+                    .then(data => {
+                    console.log(data);
+                    })
+            })
+
         // 모달 닫기
         const modal = bootstrap.Modal.getInstance(document.getElementById('acceptModal'));
 
