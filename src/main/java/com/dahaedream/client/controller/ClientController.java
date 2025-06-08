@@ -24,9 +24,6 @@ public class ClientController {
 
 
     private final ClientService clientService;
-    private final ClientMapper clientMapper;
-    private final CommonService commonService;
-    private final CommonMapper commonMapper;
 
     @GetMapping("/client/add")
     public String clientAdd() {

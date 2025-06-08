@@ -16,7 +16,6 @@ import java.util.List;
 public class ClientService {
 
     private final ClientMapper clientMapper;
-    private final CommonMapper commonMapper;
 
     public HashMap<String, Object> insertRequest(HashMap<String, Object> map) {
         HashMap<String, Object> resultMap = new HashMap<>();
