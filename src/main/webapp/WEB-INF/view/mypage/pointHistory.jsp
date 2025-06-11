@@ -50,35 +50,80 @@
     <div class="point-history-wrapper">
         <h4 class="text-center point-history-title mb-5">포인트 내역</h4>
 
+        <!-- 탭 메뉴 -->
+<%--        <ul class="nav nav-tabs mb-5">--%>
+<%--            <li class="nav-item">--%>
+<%--                <button class="nav-link tabSelector" id="depositTab" data-bs-toggle="tab"--%>
+<%--                        data-type="deposit"--%>
+<%--                        type="button">입금--%>
+<%--                </button>--%>
+<%--            </li>--%>
+<%--            <li class="nav-item">--%>
+<%--                <button class="nav-link tabSelector" id="withdrawTab" data-bs-toggle="tab"--%>
+<%--                        data-type="withdraw"--%>
+<%--                        type="button">출금--%>
+<%--                </button>--%>
+<%--            </li>--%>
+<%--            <li class="nav-item">--%>
+<%--                <button class="nav-link tabSelector" id="rechargeTab" data-bs-toggle="tab"--%>
+<%--                        data-type="recharge"--%>
+<%--                        type="button">충전--%>
+<%--                </button>--%>
+<%--            </li>--%>
+<%--        </ul>--%>
+
         <table class="table text-center">
             <thead>
             <tr>
-                <th class="w-20">대상</th>
+                <th class="w-20">거래 대상</th>
+                <th class="w-20">유형</th>
                 <th class="w-20">거래 포인트</th>
                 <th class="w-20">날짜</th>
-                <th class="w-20">유형</th>
                 <th class="w-20">잔액</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>홍길동</td>
-                <td>30000</td>
-                <td>25-03-31</td>
-                <td>출금</td>
-                <td>60000</td>
-            </tr>
-            <tr>
-                <td>길동무</td>
-                <td>20000</td>
-                <td>25-03-30</td>
-                <td>입금</td>
-                <td>90000</td>
-            </tr>
+            <c:forEach items="${pointHistoryList}" var="pointHistory">
+                <tr>
+                    <td>${pointHistory.nickname}</td>
+                    <c:choose>
+                        <c:when test="${pointHistory.pointType eq '출금'}">
+                            <td style="color: red">${pointHistory.pointType}</td>
+                        </c:when>
+                        <c:when test="${pointHistory.pointType eq '입금'}">
+                            <td style="color: blue">${pointHistory.pointType}</td>
+                        </c:when>
+                    </c:choose>
+                    <td>${pointHistory.changeAmount}</td>
+                    <td>${pointHistory.formattedUpdateTime}</td>
+                    <td>${pointHistory.balanceAfter}</td>
+                </tr>
+            </c:forEach>
             </tbody>
         </table>
     </div>
 </div>
+
+
+<%--<tr class="tbodyTemplate">--%>
+<%--    <td></td>--%>
+<%--    <td></td>--%>
+<%--    <td></td>--%>
+<%--    <td></td>--%>
+<%--    <td></td>--%>
+<%--</tr>--%>
+
+
+<script>
+  // $(function () {
+  //   $('.tabSelector').on('click', function () {
+  //     const tabType = $(this).data('type'); // deposit, withdraw, recharge
+  //
+  //     // $.ajax({
+  //     // });
+  //   });
+  // });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
