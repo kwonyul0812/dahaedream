@@ -16,8 +16,13 @@
     <select id="selectPointHistoryByMemberId" resultType="com.dahaedream.mypage.model.PointHistoryDto">
         SELECT ph.point_history_id, m.nickname, ph.point_type, ph.change_amount, ph.balance_after, ph.updatetime
         FROM point_history ph
-                 JOIN member m ON ph.target_id = m.member_id
+                 LEFT JOIN member m ON ph.target_id = m.member_id
         WHERE ph.member_id = #{memberId}
         ORDER BY ph.point_history_id DESC
     </select>
+
+    <insert id="insertPointHistory">
+        INSERT INTO point_history (member_id, point_type, change_amount, balance_after)
+        VALUES (#{memberId}, #{pointType}, #{point}, #{changedPoint})
+    </insert>
 </mapper>
