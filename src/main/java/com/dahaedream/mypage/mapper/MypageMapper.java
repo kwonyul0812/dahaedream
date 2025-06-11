@@ -13,4 +13,6 @@ public interface MypageMapper {
     int selectPointByMemberId(@Param("memberId") int memberId);
 
     List<PointHistoryDto> selectPointHistoryByMemberId(@Param("memberId") int memberId);
+
+    int insertPointHistory(@Param("memberId") int memberId,@Param("point") int point,@Param("pointType") String pointType,@Param("changedPoint") int changedPoint);
 }

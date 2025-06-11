@@ -93,6 +93,9 @@
                         <c:when test="${pointHistory.pointType eq '입금'}">
                             <td style="color: blue">${pointHistory.pointType}</td>
                         </c:when>
+                        <c:when test="${pointHistory.pointType eq '충전'}">
+                            <td style="color: green">${pointHistory.pointType}</td>
+                        </c:when>
                     </c:choose>
                     <td>${pointHistory.changeAmount}</td>
                     <td>${pointHistory.formattedUpdateTime}</td>

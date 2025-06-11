@@ -16,7 +16,15 @@ public class MypageService {
     private final MypageMapper mapper;
 
     public int addPoint(int point, int memberId) {
-        return mapper.updatePointByMemberId(point, memberId);
+        int result = mapper.updatePointByMemberId(point, memberId);
+
+        if (result > 0) {
+            int changedPoint = mapper.selectPointByMemberId(memberId);
+            mapper.insertPointHistory(memberId, point, "충전", changedPoint);
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     public int getPoint(int memberId) {
