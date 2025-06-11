@@ -51,26 +51,26 @@
         <h4 class="text-center point-history-title mb-5">포인트 내역</h4>
 
         <!-- 탭 메뉴 -->
-        <ul class="nav nav-tabs mb-5">
-            <li class="nav-item">
-                <button class="nav-link tabSelector" id="depositTab" data-bs-toggle="tab"
-                        data-type="deposit"
-                        type="button">입금
-                </button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link tabSelector" id="withdrawTab" data-bs-toggle="tab"
-                        data-type="withdraw"
-                        type="button">출금
-                </button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link tabSelector" id="rechargeTab" data-bs-toggle="tab"
-                        data-type="recharge"
-                        type="button">충전
-                </button>
-            </li>
-        </ul>
+<%--        <ul class="nav nav-tabs mb-5">--%>
+<%--            <li class="nav-item">--%>
+<%--                <button class="nav-link tabSelector" id="depositTab" data-bs-toggle="tab"--%>
+<%--                        data-type="deposit"--%>
+<%--                        type="button">입금--%>
+<%--                </button>--%>
+<%--            </li>--%>
+<%--            <li class="nav-item">--%>
+<%--                <button class="nav-link tabSelector" id="withdrawTab" data-bs-toggle="tab"--%>
+<%--                        data-type="withdraw"--%>
+<%--                        type="button">출금--%>
+<%--                </button>--%>
+<%--            </li>--%>
+<%--            <li class="nav-item">--%>
+<%--                <button class="nav-link tabSelector" id="rechargeTab" data-bs-toggle="tab"--%>
+<%--                        data-type="recharge"--%>
+<%--                        type="button">충전--%>
+<%--                </button>--%>
+<%--            </li>--%>
+<%--        </ul>--%>
 
         <table class="table text-center">
             <thead>
@@ -105,24 +105,24 @@
 </div>
 
 
-<tr class="tbodyTemplate">
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-</tr>
+<%--<tr class="tbodyTemplate">--%>
+<%--    <td></td>--%>
+<%--    <td></td>--%>
+<%--    <td></td>--%>
+<%--    <td></td>--%>
+<%--    <td></td>--%>
+<%--</tr>--%>
 
 
 <script>
-  $(function () {
-    $('.tabSelector').on('click', function () {
-      const tabType = $(this).data('type'); // deposit, withdraw, recharge
-
-      // $.ajax({
-      // });
-    });
-  });
+  // $(function () {
+  //   $('.tabSelector').on('click', function () {
+  //     const tabType = $(this).data('type'); // deposit, withdraw, recharge
+  //
+  //     // $.ajax({
+  //     // });
+  //   });
+  // });
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
