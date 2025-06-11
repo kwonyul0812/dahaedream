@@ -91,10 +91,6 @@
         const target = document.getElementById('modalTarget').textContent;
         const point = document.getElementById('modalPoint').textContent;
 
-        alert(target+'님에게'+ point+'P 결제 처리되었습니다!');
-
-        // 실제 서버 처리로직이 들어갈 수 있음
-
         fetch("/point/withdrawal", {
             method:"POST",
             headers : {'Content-Type': 'application/json'},
@@ -107,7 +103,18 @@
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+
+                console.log("출금 data : ",data);
+
+                if(data.result == "fail") {
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('acceptModal'));
+                    modal.hide();
+                    alert("잔액이 부족합니다.");
+                    return;
+                }
+
+                alert(target+'님에게'+ point+'P 결제 처리되었습니다!');
+
                 return fetch("/point/deposit", {
                     method:"POST",
                     headers : {'Content-Type': 'application/json'},
@@ -120,29 +127,24 @@
             })
                     .then(res => res.json())
                     .then(data => {
-                    console.log(data);
+                    console.log("입금 data : ",data);
+                    return         fetch("/client/editRequestAccept.dox", {
+                        method:"POST",
+                        headers : {'Content-Type': 'application/json'},
+                        body : JSON.stringify({
+                            requestId : requestId,
+                            solverId : solverId
+                        })
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            fnGetRequest();
+                            // 모달 닫기
+                            const modal = bootstrap.Modal.getInstance(document.getElementById('acceptModal'));
+                            modal.hide();
+                        })
                     })
             })
-
-        // 모달 닫기
-        const modal = bootstrap.Modal.getInstance(document.getElementById('acceptModal'));
-
-        fetch("/client/editRequestAccept.dox", {
-            method:"POST",
-            headers : {'Content-Type': 'application/json'},
-            body : JSON.stringify({
-                requestId : requestId,
-                solverId : solverId
-            })
-        })
-            .then(res => res.json())
-            .then(data => {
-                fnGetRequest();
-            })
-
-        modal.hide();
-
-
     }
 
     function fnCancel(request_id, solver_id) {

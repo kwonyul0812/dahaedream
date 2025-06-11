@@ -22,7 +22,7 @@ public class PointController {
     @ResponseBody
     public String increasePoint(@RequestBody HashMap<String, Object> map) {
         HashMap<String, Object> resultMap = new HashMap<>();
-        pointService.increasePoint(map);
+        resultMap = pointService.increasePoint(map);
         return new Gson().toJson(resultMap);
     }
 
@@ -30,7 +30,7 @@ public class PointController {
     @ResponseBody
     public String decreasePoint(@RequestBody HashMap<String, Object> map) {
         HashMap<String, Object> resultMap = new HashMap<>();
-        pointService.decreasePoint(map);
+        resultMap = pointService.decreasePoint(map);
         return new Gson().toJson(resultMap);
     }
 
