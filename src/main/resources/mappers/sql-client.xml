@@ -4,12 +4,13 @@
 
 <mapper namespace="com.dahaedream.client.mapper.ClientMapper">
 
-    <insert id="insertRequest" parameterType="hashmap">
+    <insert id="insertRequest" parameterType="hashmap" useGeneratedKeys="true" keyProperty="requestId" keyColumn="request_id">
         INSERT INTO request VALUES (null, #{memberId}, #{categoryId}, #{title}, #{onOff}, #{price}, null, #{content}, NOW(), '대기중')
     </insert>
 
     <select id="selectRequestList" parameterType="hashmap" resultType="com.dahaedream.client.model.Client">
-        SELECT * FROM request
+        select * from request r
+        left join img i on r.request_id = i.request_id and i.thumbnail = 1;
     </select>
 
     <select id="selectInfo" parameterType="hashmap" resultType="com.dahaedream.client.model.Client">

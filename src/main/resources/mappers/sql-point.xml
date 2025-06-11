@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dahaedream.point.mapper.PointMapper">
+
+    <update id="increasePoint" parameterType="hashmap">
+        update point set point = point + #{changeAmount} where member_id = #{memberId}
+    </update>
+
+    <update id="decreasePoint" parameterType="hashmap">
+        update point set point = point - #{changeAmount} where member_id = #{memberId}
+    </update>
+
+    <insert id="insertPointHistory" parameterType="hashmap">
+        insert into point_history values(
+          null, #{memberId}, #{targetId}, #{pointType}, #{changeAmount}, #{balanceAfter}, NOW())
+    </insert>
+
+</mapper>

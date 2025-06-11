@@ -2,6 +2,8 @@ package com.dahaedream.client.service;
 
 import com.dahaedream.client.mapper.ClientMapper;
 import com.dahaedream.client.model.Client;
+import com.dahaedream.common.mapper.CommonMapper;
+import com.dahaedream.common.model.Common;
 import com.dahaedream.solver.model.Solver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ public class ClientService {
         HashMap<String, Object> resultMap = new HashMap<>();
         clientMapper.insertRequest(map);
         resultMap.put("result", "success");
+        resultMap.put("requestId", map.get("requestId"));
         return resultMap;
     }
 

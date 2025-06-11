@@ -24,6 +24,9 @@ public class Client {
     //Category Table
     private String categoryName;
 
-
-
+    // img Table
+    private String imgId;
+    private String filePath;
+    private String fileName;
+    private int thumbnail;
 }

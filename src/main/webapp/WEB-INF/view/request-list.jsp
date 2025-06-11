@@ -115,9 +115,9 @@
 
                 const listContainer = document.getElementById("request-list");
                 listContainer.innerHTML = "";
-
+                console.log("data", data);
                 data.list.forEach(item => {
-
+                    console.log("item", item);
                     const col = document.createElement("div");
                     col.className = "col";
 
@@ -127,7 +127,8 @@
                     const img = document.createElement("img");
                     img.className = "card-img-top";
                     img.alt = "썸네일 이미지";
-                    img.src = item.thumbnailUrl || "https://via.placeholder.com/400x200?text=No+Image";
+
+                    img.src = item.filePath || "/uploads/default.png";
 
                     const body = document.createElement("div");
                     body.className = "card-body";

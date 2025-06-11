@@ -9,4 +9,9 @@ import java.util.List;
 @Mapper
 public interface CommonMapper {
     List<Common> selectCategory(HashMap<String, Object> map);
+
+    void insertFile(HashMap<String, Object> map);
+
+    List<Common> selectFile(HashMap<String, Object> map);
+
 }

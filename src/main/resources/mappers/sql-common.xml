@@ -8,4 +8,12 @@
         SELECT * FROM category
     </select>
 
+    <insert id="insertFile" parameterType="hashmap">
+        insert into img values(null, #{requestId}, #{filePath}, #{fileName}, #{thumbnail})
+    </insert>
+
+    <select id="selectFile" parameterType="hashmap" resultType="com.dahaedream.common.model.Common">
+        select file_path, file_name from img where request_id = #{requestId}
+    </select>
+
 </mapper>
