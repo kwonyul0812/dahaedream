@@ -90,6 +90,8 @@ public class ClientService {
 
     public HashMap<String, Object> completeRequest(HashMap<String, Object> map) {
         HashMap<String, Object> resultMap = new HashMap<>();
+        clientMapper.deleteRequestAccept(map);
+        clientMapper.deleteImg(map);
         clientMapper.completeRequest(map);
         resultMap.put("message", "완료처리 되었습니다.");
         return resultMap;

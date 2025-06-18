@@ -26,11 +26,12 @@
     </select>
 
     <select id="selectRequestAccept" parameterType="hashmap" resultType="com.dahaedream.solver.model.Solver">
-        SELECT RA.REQUEST_ID, RA.SOLVER_ID, M1.NICKNAME as solverName , M2.NICKNAME as clientName, RA.STATUS, R.*, C.CATEGORY_NAME FROM request_accept RA
+        SELECT RA.REQUEST_ID, RA.SOLVER_ID, M1.NICKNAME as solverName , M2.NICKNAME as clientName, RA.STATUS, R.*, C.CATEGORY_NAME, i.* FROM request_accept RA
         INNER JOIN request R ON RA.REQUEST_ID = R.REQUEST_ID
         INNER JOIN member M1 ON M1.MEMBER_ID = RA.SOLVER_ID
         INNER JOIN member M2 ON M2.MEMBER_ID = R.MEMBER_ID
         INNER JOIN category C ON C.CATEGORY_ID = R.CATEGORY_ID
+        inner join img i on i.request_id = R.request_id
         WHERE RA.STATUS IS NULL AND R.MEMBER_ID = #{clientId}
 
     </select>
@@ -46,7 +47,9 @@
 
 
     <select id="selectMyRequestList" parameterType="hashmap" resultType="com.dahaedream.client.model.Client">
-        SELECT * FROM request WHERE MEMBER_ID = #{memberId}
+        SELECT * FROM request r
+        inner join img i on r.request_id = i.request_id
+        WHERE MEMBER_ID = #{memberId}
     </select>
 
     <delete id="deleteRequest" parameterType="hashmap">
@@ -63,6 +66,14 @@
 
     <delete id="completeRequest" parameterType="hashmap">
         DELETE FROM request WHERE REQUEST_ID = #{requestId}
+    </delete>
+
+    <delete id="deleteImg" parameterType="hashmap">
+        DELETE FROM img WHERE REQUEST_ID = #{requestId}
+    </delete>
+
+    <delete id="deleteRequestAccept" parameterType="hashmap">
+        DELETE FROM request_accept WHERE REQUEST_ID = #{requestId}
     </delete>
 
 

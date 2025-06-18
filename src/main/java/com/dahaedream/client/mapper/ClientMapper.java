@@ -33,4 +33,8 @@ public interface ClientMapper {
     void cancelRequest(HashMap<String, Object> map);
 
     void completeRequest(HashMap<String, Object> map);
+
+    void deleteImg(HashMap<String, Object> map);
+
+    void deleteRequestAccept(HashMap<String, Object> map);
 }

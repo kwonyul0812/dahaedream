@@ -32,4 +32,7 @@ public class Solver {
     private String solverName;
     private String clientName;
 
+    //img
+    private String filePath;
+
 }

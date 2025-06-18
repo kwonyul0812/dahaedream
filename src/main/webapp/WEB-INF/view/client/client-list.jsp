@@ -40,7 +40,22 @@
 </div>
 
 <script>
-    fnGet();
+    let memberId = 0;
+    getMember();
+    function getMember() {
+        fetch("/getMember.dox", {
+            method : "POST",
+            headers : { "Content-Type": "application/json" },
+            body : JSON.stringify({})
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                memberId = data.memberId;
+                fnGet();
+            })
+    }
+
 
     function fnDelete(requestId) {
         if (confirm('정말 삭제하시겠습니까?')) {
@@ -58,41 +73,38 @@
     }
 
     function fnGet() {
-        const token = localStorage.getItem('jwtToken');
-        const decoded = token ? jwtDecode(token) : null;
-
         fetch("/client/getRequest.dox", {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({memberId: decoded?.memberId})
+            body: JSON.stringify({memberId: memberId})
         })
             .then(res => res.json())
             .then(data => {
                 const container = document.getElementById('requestList');
                 container.innerHTML = '';
-
+                console.log(data);
                 const items = Array.isArray(data.list) ? data.list : [data.list];
 
                 items.forEach(item => {
                     let buttonHTML = '';
-
+                    console.log(item);
                     if (item.status === '대기중') {
                         buttonHTML = `
-                            <button class="btn btn-outline-primary w-50" onclick="location.href='/client/info?requestId=${item.requestId}'">수정</button>
-                            <button class="btn btn-outline-danger w-50" onclick="fnDelete(${item.requestId})">삭제</button>
+                            <button class="btn btn-outline-primary w-50" onclick="location.href='/client/info?requestId=\${item.requestId}'">수정</button>
+                            <button class="btn btn-outline-danger w-50" onclick="fnDelete(\${item.requestId})">삭제</button>
                         `;
                     } else if (item.status === '진행중') {
                         buttonHTML = `<button class="btn btn-outline-secondary w-100" disabled>진행중</button>`;
                     } else if (item.status === '완료') {
-                        buttonHTML = `<button class="btn btn-success w-100" onclick="fnComplete(${item.requestId})">완료 처리</button>`;
+                        buttonHTML = `<button class="btn btn-success w-100" onclick="fnComplete(\${item.requestId})">완료 처리</button>`;
                     }
 
-                    const imageUrl = item.thumbnailUrl || 'https://via.placeholder.com/400x180?text=No+Image';
+                    const imageUrl = item.filePath || 'https://via.placeholder.com/400x180?text=No+Image';
 
                     const cardHTML = `
                         <div class="col">
                             <div class="card h-100 shadow-sm">
-                                <img src="\${imageUrl}" class="card-img-top" alt="썸네일">
+                                <img src="\${item.filePath}" class="card-img-top" alt="썸네일">
                                 <div class="card-body">
                                     <h5 class="card-title">\${item.title}</h5>
                                     <p class="card-text"><strong>상태:</strong> \${item.status}</p>
@@ -114,7 +126,7 @@
         fetch("/client/completeRequest.dox", {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({requestId})
+            body: JSON.stringify({requestId : requestId})
         })
             .then(res => res.json())
             .then(data => {

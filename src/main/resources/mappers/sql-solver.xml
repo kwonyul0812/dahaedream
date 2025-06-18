@@ -17,21 +17,23 @@
     </select>
 
     <select id="selectAcceptRequest" parameterType="hashmap" resultType="com.dahaedream.solver.model.Solver">
-        select ra.request_id, ra.solver_id, m1.nickname, m2.nickname, ra.status as acceptStatus, r.*, category_name from request_accept ra
+        select ra.request_id, ra.solver_id, m1.nickname, m2.nickname, ra.status as acceptStatus, r.*, category_name, i.* from request_accept ra
         inner join request r on ra.request_id = r.request_id
         inner join member m1 on m1.member_id = ra.solver_id
         inner join member m2 on m2.member_id = r.member_id
         inner join category c on c.category_id = r.category_id
+        inner join img i on r.request_id = i.request_id
         where solver_id = #{solverId} and r.status = '진행중'
 
     </select>
 
     <select id="selectCompleteRequest" parameterType="hashmap" resultType="com.dahaedream.solver.model.Solver">
-        select ra.request_id, ra.solver_id, m1.nickname, m2.nickname, ra.status as acceptStatus, r.*, category_name from request_accept ra
+        select ra.request_id, ra.solver_id, m1.nickname, m2.nickname, ra.status as acceptStatus, r.*, category_name, i.* from request_accept ra
         inner join request r on ra.request_id = r.request_id
         inner join member m1 on m1.member_id = ra.solver_id
         inner join member m2 on m2.member_id = r.member_id
         inner join category c on c.category_id = r.category_id
+        inner join img i on r.request_id = i.request_id
         where solver_id = #{solverId} and r.status = '완료'
     </select>
 

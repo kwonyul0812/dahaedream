@@ -131,14 +131,6 @@
         <textarea id="content" class="form-control" rows="5" placeholder="상세 내용을 입력하세요"></textarea>
     </div>
 
-    <div class="form-section">
-        <label class="form-label">의뢰 장소</label>
-        <div class="address-group">
-            <button type="button" class="btn btn-primary">On/Off</button>
-            <input type="text" class="form-control" placeholder="장소 주소를 입력하세요">
-        </div>
-    </div>
-
     <div class="text-center mt-4">
         <button class="btn btn-submit" onclick="fnSubmit()">의뢰 하기</button>
     </div>
